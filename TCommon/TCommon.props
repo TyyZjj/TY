@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ImportGroup Label="PropertySheets" />
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <ExecutablePath>$(ExecutablePath)</ExecutablePath>
+  </PropertyGroup>
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <AdditionalIncludeDirectories>$(SolutionDir)TCommon\;$(SolutionDir)TCommon\Study\;$(SolutionDir)TCommon\Study\Qt\;$(SolutionDir)TCommon\Study\WinApi\;$(SolutionDir)TCommon\TCommon\;$(SolutionDir)TCommon\TCommon\Algorithm\;$(SolutionDir)TCommon\TCommon\DeviceApi\;$(SolutionDir)TCommon\TCommon\Gui\;$(SolutionDir)TCommon\Extend\;$(SolutionDir)TCommon\Extend\DesignPattern\;$(SolutionDir)TCommon\Extend\Excel\;$(SolutionDir)TCommon\Extend\Login\;$(SolutionDir)TCommon\Extend\MultiProc\;$(SolutionDir)TCommon\Extend\PointArrangement\;$(SolutionDir)TCommon\Extend\VirtualDisk\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <AdditionalLibraryDirectories>$(OutDir);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>TCommon.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup />
+</Project>

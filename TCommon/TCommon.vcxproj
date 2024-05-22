@@ -1,0 +1,138 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{7D74E857-89CD-4DB4-B4D8-951202060E0B}</ProjectGuid>
+    <Keyword>QtVS_v304</Keyword>
+    <WindowsTargetPlatformVersion Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">10.0.17763.0</WindowsTargetPlatformVersion>
+    <QtMsBuild Condition="'$(QtMsBuild)'=='' OR !Exists('$(QtMsBuild)\qt.targets')">$(MSBuildProjectDirectory)\QtMsBuild</QtMsBuild>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <PlatformToolset>v141</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Condition="Exists('$(QtMsBuild)\qt_defaults.props')">
+    <Import Project="$(QtMsBuild)\qt_defaults.props" />
+  </ImportGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'" Label="QtSettings">
+    <QtInstall>msvc2017_64</QtInstall>
+    <QtModules>core;widgets</QtModules>
+    <QtBuildConfig>release</QtBuildConfig>
+  </PropertyGroup>
+  <Target Name="QtMsBuildNotFound" BeforeTargets="CustomBuild;ClCompile" Condition="!Exists('$(QtMsBuild)\qt.targets') or !Exists('$(QtMsBuild)\qt.props')">
+    <Message Importance="High" Text="QtMsBuild: could not locate qt.targets, qt.props; project may not build correctly." />
+  </Target>
+  <ImportGroup Label="ExtensionSettings" />
+  <ImportGroup Label="Shared" />
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(QtMsBuild)\Qt.props" />
+    <Import Project="..\3rdParty\7-Zip\7-Zip\7z.props" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>$(ProjectDir)Study\;$(ProjectDir)Study\Qt\;$(ProjectDir)Study\WinApi\;$(ProjectDir)TCommon\;$(ProjectDir)TCommon\Algorithm\;$(ProjectDir)TCommon\DeviceApi\;$(ProjectDir)TCommon\Gui\;$(ProjectDir)Extend\;$(ProjectDir)Extend\DesignPattern\;$(ProjectDir)Extend\Excel\;$(ProjectDir)Extend\Login\;$(ProjectDir)Extend\MultiProc\;$(ProjectDir)Extend\PointArrangement\;$(ProjectDir)Extend\VirtualDisk\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'" Label="Configuration">
+    <ClCompile>
+      <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <Optimization>Disabled</Optimization>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <PreprocessorDefinitions>TCOMMON_LIB;BUILD_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <QtMoc Include="Extend\MultiProc\CMultiProcManager.h" />
+    <QtMoc Include="Extend\VirtualDisk\CRamDisk.h" />
+    <ClInclude Include="Extend\DesignPattern\TConsumeQueue.h" />
+    <ClInclude Include="Extend\DesignPattern\TFactory.h" />
+    <ClInclude Include="Extend\Excel\cexcelbase.h" />
+    <ClInclude Include="Extend\Login\CLogin.h" />
+    <QtMoc Include="Extend\Login\CLoginManager.h" />
+    <QtMoc Include="Extend\Login\CLoginUI.h" />
+    <ClInclude Include="Extend\MultiProc\CWindowPasteWidget.h" />
+    <QtMoc Include="Extend\PointArrangement\TPointArrangementUi.h" />
+    <ClInclude Include="Study\Qt\SDir.h" />
+    <ClInclude Include="Study\Qt\SFile.h" />
+    <ClInclude Include="Study\Qt\SFileDialog.h" />
+    <ClInclude Include="Study\Qt\SFileInfo.h" />
+    <ClInclude Include="Study\Qt\STextCodec.h" />
+    <ClInclude Include="Study\WinApi\Sfileapi.h" />
+    <ClInclude Include="Study\WinApi\Sprocessthreadsapi.h" />
+    <ClInclude Include="Study\WinApi\SPsapi.h" />
+    <ClInclude Include="Study\WinApi\Sshellapi.h" />
+    <ClInclude Include="Study\WinApi\Sshlwapi.h" />
+    <ClInclude Include="Study\WinApi\Ssysinfoapi.h" />
+    <ClInclude Include="Study\WinApi\STlHelp32.h" />
+    <ClInclude Include="Study\WinApi\Swinapifamily.h" />
+    <ClInclude Include="Study\WinApi\TProcessThreads.h" />
+    <ClInclude Include="TCommon\Algorithm\TFind.h" />
+    <ClInclude Include="TCommon\Algorithm\TLeastSquareFit.h" />
+    <ClInclude Include="TCommon\Algorithm\TAlgorithm.h" />
+    <ClInclude Include="TCommon\Algorithm\TNumericCalc.h" />
+    <ClInclude Include="TCommon\DeviceApi\TDir.h" />
+    <ClInclude Include="TCommon\DeviceApi\TDrive.h" />
+    <ClInclude Include="TCommon\DeviceApi\TFile.h" />
+    <ClInclude Include="TCommon\DeviceApi\TGeometry.h" />
+    <ClInclude Include="TCommon\DeviceApi\TSystem.h" />
+    <ClInclude Include="TCommon\DeviceApi\TTextCodec.h" />
+    <ClInclude Include="TCommon\DeviceApi\TTextFile.h" />
+    <ClInclude Include="TCommon\Gui\TQtGui.h" />
+    <ClInclude Include="TCommon\TCommon.h" />
+    <ClInclude Include="TCommon\TCommonDefine.h" />
+    <ClInclude Include="TCommon\tcommon_global.h" />
+    <ClInclude Include="TCommon\TDefine.h" />
+    <ClInclude Include="TCommon\TSignDefine.h" />
+    <ClInclude Include="TCommon\TTimeDefine.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Memo.txt" />
+    <Text Include="TCommon\Algorithm\Algorithm.txt" />
+    <Text Include="TCommon\DeviceApi\DeviceApi.txt" />
+    <Text Include="TCommon\Gui\Gui.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Extend\Excel\cexcelbase.cpp" />
+    <ClCompile Include="Extend\Login\CLogin.cpp" />
+    <ClCompile Include="Extend\Login\CLoginManager.cpp" />
+    <ClCompile Include="Extend\Login\CLoginUI.cpp" />
+    <ClCompile Include="Extend\MultiProc\CMultiProcManager.cpp" />
+    <ClCompile Include="Extend\MultiProc\CWindowPasteWidget.cpp" />
+    <ClCompile Include="Extend\PointArrangement\TPointArrangementUi.cpp" />
+    <ClCompile Include="Extend\VirtualDisk\CRamDisk.cpp" />
+    <ClCompile Include="TCommon\DeviceApi\TDir.cpp" />
+    <ClCompile Include="TCommon\DeviceApi\TDrive.cpp" />
+    <ClCompile Include="TCommon\DeviceApi\TFile.cpp" />
+    <ClCompile Include="TCommon\DeviceApi\TSystem.cpp" />
+    <ClCompile Include="TCommon\DeviceApi\TTextCodec.cpp" />
+    <ClCompile Include="TCommon\DeviceApi\TTextFile.cpp" />
+    <ClCompile Include="TCommon\TCommon.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <QtUic Include="Extend\Login\CLoginUI.ui" />
+    <QtUic Include="Extend\PointArrangement\TPointArrangementUi.ui" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">
+    <Import Project="$(QtMsBuild)\qt.targets" />
+  </ImportGroup>
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

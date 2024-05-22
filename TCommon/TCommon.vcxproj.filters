@@ -1,0 +1,275 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>qrc;rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Translation Files">
+      <UniqueIdentifier>{639EADAA-A684-42e4-A9AD-28FC9BCB8F7C}</UniqueIdentifier>
+      <Extensions>ts</Extensions>
+    </Filter>
+    <Filter Include="Header Files\Study">
+      <UniqueIdentifier>{4b18d947-ff88-415a-9741-73543aee4b07}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Study\WinApi">
+      <UniqueIdentifier>{8f2962be-2e8e-4b4a-ac53-85a09438c8ab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Study\Qt">
+      <UniqueIdentifier>{dad883cc-2826-4c64-8e8b-e04fcecb461b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\TCommon">
+      <UniqueIdentifier>{823c76d0-0eb1-4688-aa51-6c9fa003ed16}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\TCommon">
+      <UniqueIdentifier>{9c186434-545d-4d33-b802-c3daa3cdb8ff}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\TCommon\Algorithm">
+      <UniqueIdentifier>{47a7a6f7-4c7e-4e20-b386-72383b9e5ea4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\TCommon\DeviceApi">
+      <UniqueIdentifier>{c9cee593-6836-419e-966d-a7e30e797e95}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\TCommon\Gui">
+      <UniqueIdentifier>{59c07f1a-b1c5-43b3-8bbc-0c59619f58d9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\TCommon\Algorithm">
+      <UniqueIdentifier>{9c2b6060-6299-4e72-a52f-216bf647001b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\TCommon\DeviceApi">
+      <UniqueIdentifier>{8f0266b8-aa61-4bd2-b278-10a6f9db123b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\TCommon\Gui">
+      <UniqueIdentifier>{277cd986-cb14-401a-8c9c-166cc779cb4a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Extend">
+      <UniqueIdentifier>{98374852-4ad1-4ee3-ba11-0fb9546799b3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Extend\多进程画面">
+      <UniqueIdentifier>{45ad25cd-3e16-479e-80cf-cb199a45ed7c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Extend\登录界面">
+      <UniqueIdentifier>{19108afe-a4c2-4124-b70e-9dae50f7f2b2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Extend\登录界面\小程序简易登录界面">
+      <UniqueIdentifier>{1e22fd05-7523-42da-8787-5230406a3cb5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Extend\点位排布">
+      <UniqueIdentifier>{1f75ec71-6be0-40bf-afe3-df9ba5a91e13}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Extend\内存硬盘">
+      <UniqueIdentifier>{e80b426f-8799-41ae-9025-24b53e4425c2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Extend\Excel">
+      <UniqueIdentifier>{805378a7-8c57-45fc-8e67-6b5d28c2ebc8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Extend\设计模式">
+      <UniqueIdentifier>{4ceaf162-1c7f-4430-9f05-672837da30da}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Study\Qt\SDir.h">
+      <Filter>Header Files\Study\Qt</Filter>
+    </ClInclude>
+    <ClInclude Include="Study\Qt\SFile.h">
+      <Filter>Header Files\Study\Qt</Filter>
+    </ClInclude>
+    <ClInclude Include="Study\Qt\SFileDialog.h">
+      <Filter>Header Files\Study\Qt</Filter>
+    </ClInclude>
+    <ClInclude Include="Study\Qt\SFileInfo.h">
+      <Filter>Header Files\Study\Qt</Filter>
+    </ClInclude>
+    <ClInclude Include="Study\Qt\STextCodec.h">
+      <Filter>Header Files\Study\Qt</Filter>
+    </ClInclude>
+    <ClInclude Include="Study\WinApi\Sshellapi.h">
+      <Filter>Header Files\Study\WinApi</Filter>
+    </ClInclude>
+    <ClInclude Include="Study\WinApi\Sshlwapi.h">
+      <Filter>Header Files\Study\WinApi</Filter>
+    </ClInclude>
+    <ClInclude Include="Study\WinApi\Swinapifamily.h">
+      <Filter>Header Files\Study\WinApi</Filter>
+    </ClInclude>
+    <ClInclude Include="Study\WinApi\Sfileapi.h">
+      <Filter>Header Files\Study\WinApi</Filter>
+    </ClInclude>
+    <ClInclude Include="TCommon\TCommon.h">
+      <Filter>Header Files\TCommon</Filter>
+    </ClInclude>
+    <ClInclude Include="TCommon\tcommon_global.h">
+      <Filter>Header Files\TCommon</Filter>
+    </ClInclude>
+    <ClInclude Include="TCommon\TDefine.h">
+      <Filter>Header Files\TCommon</Filter>
+    </ClInclude>
+    <ClInclude Include="TCommon\TSignDefine.h">
+      <Filter>Header Files\TCommon</Filter>
+    </ClInclude>
+    <ClInclude Include="TCommon\TTimeDefine.h">
+      <Filter>Header Files\TCommon</Filter>
+    </ClInclude>
+    <ClInclude Include="TCommon\Algorithm\TAlgorithm.h">
+      <Filter>Header Files\TCommon\Algorithm</Filter>
+    </ClInclude>
+    <ClInclude Include="TCommon\Algorithm\TNumericCalc.h">
+      <Filter>Header Files\TCommon\Algorithm</Filter>
+    </ClInclude>
+    <ClInclude Include="TCommon\DeviceApi\TDir.h">
+      <Filter>Header Files\TCommon\DeviceApi</Filter>
+    </ClInclude>
+    <ClInclude Include="TCommon\DeviceApi\TDrive.h">
+      <Filter>Header Files\TCommon\DeviceApi</Filter>
+    </ClInclude>
+    <ClInclude Include="TCommon\DeviceApi\TFile.h">
+      <Filter>Header Files\TCommon\DeviceApi</Filter>
+    </ClInclude>
+    <ClInclude Include="TCommon\DeviceApi\TSystem.h">
+      <Filter>Header Files\TCommon\DeviceApi</Filter>
+    </ClInclude>
+    <ClInclude Include="TCommon\DeviceApi\TTextCodec.h">
+      <Filter>Header Files\TCommon\DeviceApi</Filter>
+    </ClInclude>
+    <ClInclude Include="TCommon\DeviceApi\TTextFile.h">
+      <Filter>Header Files\TCommon\DeviceApi</Filter>
+    </ClInclude>
+    <ClInclude Include="TCommon\Gui\TQtGui.h">
+      <Filter>Header Files\TCommon\Gui</Filter>
+    </ClInclude>
+    <ClInclude Include="Study\WinApi\Sprocessthreadsapi.h">
+      <Filter>Header Files\Study\WinApi</Filter>
+    </ClInclude>
+    <ClInclude Include="Study\WinApi\TProcessThreads.h">
+      <Filter>Header Files\TCommon\DeviceApi</Filter>
+    </ClInclude>
+    <ClInclude Include="TCommon\Algorithm\TLeastSquareFit.h">
+      <Filter>Header Files\TCommon\Algorithm</Filter>
+    </ClInclude>
+    <ClInclude Include="TCommon\Algorithm\TFind.h">
+      <Filter>Header Files\TCommon\Algorithm</Filter>
+    </ClInclude>
+    <ClInclude Include="TCommon\DeviceApi\TGeometry.h">
+      <Filter>Header Files\TCommon</Filter>
+    </ClInclude>
+    <ClInclude Include="Study\WinApi\SPsapi.h">
+      <Filter>Header Files\Study\WinApi</Filter>
+    </ClInclude>
+    <ClInclude Include="Study\WinApi\STlHelp32.h">
+      <Filter>Header Files\Study\WinApi</Filter>
+    </ClInclude>
+    <ClInclude Include="Extend\MultiProc\CWindowPasteWidget.h">
+      <Filter>Header Files\Extend\多进程画面</Filter>
+    </ClInclude>
+    <ClInclude Include="Extend\Login\CLogin.h">
+      <Filter>Header Files\Extend\登录界面\小程序简易登录界面</Filter>
+    </ClInclude>
+    <ClInclude Include="Extend\Excel\cexcelbase.h">
+      <Filter>Header Files\Extend\Excel</Filter>
+    </ClInclude>
+    <ClInclude Include="Extend\DesignPattern\TConsumeQueue.h">
+      <Filter>Header Files\Extend\设计模式</Filter>
+    </ClInclude>
+    <ClInclude Include="TCommon\TCommonDefine.h">
+      <Filter>Header Files\TCommon</Filter>
+    </ClInclude>
+    <ClInclude Include="Extend\DesignPattern\TFactory.h">
+      <Filter>Header Files\Extend\设计模式</Filter>
+    </ClInclude>
+    <ClInclude Include="Study\WinApi\Ssysinfoapi.h">
+      <Filter>Header Files\Study\WinApi</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Memo.txt" />
+    <Text Include="TCommon\Algorithm\Algorithm.txt">
+      <Filter>Header Files\TCommon\Algorithm</Filter>
+    </Text>
+    <Text Include="TCommon\DeviceApi\DeviceApi.txt">
+      <Filter>Header Files\TCommon\DeviceApi</Filter>
+    </Text>
+    <Text Include="TCommon\Gui\Gui.txt">
+      <Filter>Header Files\TCommon\Gui</Filter>
+    </Text>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="TCommon\TCommon.cpp">
+      <Filter>Source Files\TCommon</Filter>
+    </ClCompile>
+    <ClCompile Include="TCommon\DeviceApi\TDir.cpp">
+      <Filter>Source Files\TCommon\DeviceApi</Filter>
+    </ClCompile>
+    <ClCompile Include="TCommon\DeviceApi\TDrive.cpp">
+      <Filter>Source Files\TCommon\DeviceApi</Filter>
+    </ClCompile>
+    <ClCompile Include="TCommon\DeviceApi\TFile.cpp">
+      <Filter>Source Files\TCommon\DeviceApi</Filter>
+    </ClCompile>
+    <ClCompile Include="TCommon\DeviceApi\TTextCodec.cpp">
+      <Filter>Source Files\TCommon\DeviceApi</Filter>
+    </ClCompile>
+    <ClCompile Include="TCommon\DeviceApi\TTextFile.cpp">
+      <Filter>Source Files\TCommon\DeviceApi</Filter>
+    </ClCompile>
+    <ClCompile Include="TCommon\DeviceApi\TSystem.cpp">
+      <Filter>Source Files\TCommon\DeviceApi</Filter>
+    </ClCompile>
+    <ClCompile Include="Extend\MultiProc\CMultiProcManager.cpp">
+      <Filter>Header Files\Extend\多进程画面</Filter>
+    </ClCompile>
+    <ClCompile Include="Extend\VirtualDisk\CRamDisk.cpp">
+      <Filter>Header Files\Extend\内存硬盘</Filter>
+    </ClCompile>
+    <ClCompile Include="Extend\MultiProc\CWindowPasteWidget.cpp">
+      <Filter>Header Files\Extend\多进程画面</Filter>
+    </ClCompile>
+    <ClCompile Include="Extend\Login\CLogin.cpp">
+      <Filter>Header Files\Extend\登录界面\小程序简易登录界面</Filter>
+    </ClCompile>
+    <ClCompile Include="Extend\Login\CLoginManager.cpp">
+      <Filter>Header Files\Extend\登录界面\小程序简易登录界面</Filter>
+    </ClCompile>
+    <ClCompile Include="Extend\Login\CLoginUI.cpp">
+      <Filter>Header Files\Extend\登录界面\小程序简易登录界面</Filter>
+    </ClCompile>
+    <ClCompile Include="Extend\Excel\cexcelbase.cpp">
+      <Filter>Header Files\Extend\Excel</Filter>
+    </ClCompile>
+    <ClCompile Include="Extend\PointArrangement\TPointArrangementUi.cpp">
+      <Filter>Header Files\Extend\点位排布</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <QtMoc Include="Extend\MultiProc\CMultiProcManager.h">
+      <Filter>Header Files\Extend\多进程画面</Filter>
+    </QtMoc>
+    <QtMoc Include="Extend\VirtualDisk\CRamDisk.h">
+      <Filter>Header Files\Extend\内存硬盘</Filter>
+    </QtMoc>
+    <QtMoc Include="Extend\Login\CLoginManager.h">
+      <Filter>Header Files\Extend\登录界面\小程序简易登录界面</Filter>
+    </QtMoc>
+    <QtMoc Include="Extend\Login\CLoginUI.h">
+      <Filter>Header Files\Extend\登录界面\小程序简易登录界面</Filter>
+    </QtMoc>
+    <QtMoc Include="Extend\PointArrangement\TPointArrangementUi.h">
+      <Filter>Header Files\Extend\点位排布</Filter>
+    </QtMoc>
+  </ItemGroup>
+  <ItemGroup>
+    <QtUic Include="Extend\Login\CLoginUI.ui">
+      <Filter>Header Files\Extend\登录界面\小程序简易登录界面</Filter>
+    </QtUic>
+    <QtUic Include="Extend\PointArrangement\TPointArrangementUi.ui">
+      <Filter>Header Files\Extend\点位排布</Filter>
+    </QtUic>
+  </ItemGroup>
+</Project>
