@@ -52,7 +52,7 @@ namespace TListFind {
 
 	//************************************
 	// 参数: 	QList<T1> & lst : 查找集
-	// 参数: 	const QList<T2> & lstFilter : 过滤急
+	// 参数: 	const QList<T2> & lstFilter : 过滤集
 	// 参数: 	FindFun findFun
 	// 参数: 	bool bFilterFind: true->过滤找到的; false->过滤未找到的
 	// 返回:	void

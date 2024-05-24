@@ -74,6 +74,18 @@
     <Filter Include="Header Files\Extend\设计模式">
       <UniqueIdentifier>{4ceaf162-1c7f-4430-9f05-672837da30da}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Extend\热键">
+      <UniqueIdentifier>{2f689c9e-8dde-4e5b-8e07-b30f4f98190a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Extend\日志">
+      <UniqueIdentifier>{bd1898a5-9ec2-46d5-9654-faf96de33930}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\TCommon\Graph">
+      <UniqueIdentifier>{3a4a58ff-c64c-47cb-a76e-a9821ed8732f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\TCommon\Graph">
+      <UniqueIdentifier>{22990939-2ba1-44c8-a9d9-42dda7d0e80a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Study\Qt\SDir.h">
@@ -187,6 +199,15 @@
     <ClInclude Include="Study\WinApi\Ssysinfoapi.h">
       <Filter>Header Files\Study\WinApi</Filter>
     </ClInclude>
+    <ClInclude Include="Extend\LOG\TLog4Qt.h">
+      <Filter>Header Files\Extend\日志</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TCommon\Graph\TGraph.h">
+      <Filter>Header Files\TCommon\Graph</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="Memo.txt" />
@@ -198,6 +219,9 @@
     </Text>
     <Text Include="TCommon\Gui\Gui.txt">
       <Filter>Header Files\TCommon\Gui</Filter>
+    </Text>
+    <Text Include="TCommon\TCommon.txt">
+      <Filter>Header Files\TCommon</Filter>
     </Text>
   </ItemGroup>
   <ItemGroup>
@@ -246,6 +270,15 @@
     <ClCompile Include="Extend\PointArrangement\TPointArrangementUi.cpp">
       <Filter>Header Files\Extend\点位排布</Filter>
     </ClCompile>
+    <ClCompile Include="Extend\LOG\TLog.cpp">
+      <Filter>Header Files\Extend\日志</Filter>
+    </ClCompile>
+    <ClCompile Include="Extend\HotKey\TGlobalHotKey.cpp">
+      <Filter>Header Files\Extend\热键</Filter>
+    </ClCompile>
+    <ClCompile Include="TCommon\Graph\TGraph.cpp">
+      <Filter>Source Files\TCommon\Graph</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="Extend\MultiProc\CMultiProcManager.h">
@@ -263,6 +296,12 @@
     <QtMoc Include="Extend\PointArrangement\TPointArrangementUi.h">
       <Filter>Header Files\Extend\点位排布</Filter>
     </QtMoc>
+    <QtMoc Include="Extend\LOG\TLog.h">
+      <Filter>Header Files\Extend\日志</Filter>
+    </QtMoc>
+    <QtMoc Include="Extend\HotKey\TGlobalHotKey.h">
+      <Filter>Header Files\Extend\热键</Filter>
+    </QtMoc>
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="Extend\Login\CLoginUI.ui">
@@ -271,5 +310,10 @@
     <QtUic Include="Extend\PointArrangement\TPointArrangementUi.ui">
       <Filter>Header Files\Extend\点位排布</Filter>
     </QtUic>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="TCommon.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
   </ItemGroup>
 </Project>

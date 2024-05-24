@@ -21,7 +21,7 @@ public:
 	//是否是32位进程运行于64位操作系统中
 	static bool IsWow64();
 
-	//开机自启
+	//程序开机自启
 	static void PowerBoot(bool isStart = true);
 
 	//************************************

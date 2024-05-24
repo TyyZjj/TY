@@ -7,9 +7,9 @@
 #include <QSharedPointer>
 #include "TCommonDefine.h"
 
-
+#pragma region 单例类厂
 /*
-*单例模式实现类工厂
+*单例模式实现类工厂, 非线程安全
 *FactoryClass: 类工厂的类名
 *BaseClass: 基类的类名
 */
@@ -60,5 +60,6 @@ class A :public Base{};
 KernelFactory(FactoryName, Base)
 REGISTER(FactoryName, A, "A")
 */
+#pragma endregion
 
 #endif //_TFACTORY_H_

@@ -7,7 +7,7 @@
   </PropertyGroup>
   <ItemDefinitionGroup>
     <ClCompile>
-      <AdditionalIncludeDirectories>$(SolutionDir)TCommon\;$(SolutionDir)TCommon\Study\;$(SolutionDir)TCommon\Study\Qt\;$(SolutionDir)TCommon\Study\WinApi\;$(SolutionDir)TCommon\TCommon\;$(SolutionDir)TCommon\TCommon\Algorithm\;$(SolutionDir)TCommon\TCommon\DeviceApi\;$(SolutionDir)TCommon\TCommon\Gui\;$(SolutionDir)TCommon\Extend\;$(SolutionDir)TCommon\Extend\DesignPattern\;$(SolutionDir)TCommon\Extend\Excel\;$(SolutionDir)TCommon\Extend\Login\;$(SolutionDir)TCommon\Extend\MultiProc\;$(SolutionDir)TCommon\Extend\PointArrangement\;$(SolutionDir)TCommon\Extend\VirtualDisk\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)TCommon\;$(SolutionDir)TCommon\Study\;$(SolutionDir)TCommon\Study\Qt\;$(SolutionDir)TCommon\Study\WinApi\;$(SolutionDir)TCommon\TCommon\;$(SolutionDir)TCommon\TCommon\Algorithm\;$(SolutionDir)TCommon\TCommon\DeviceApi\;$(SolutionDir)TCommon\TCommon\Gui\;$(SolutionDir)TCommon\TCommon\Graph\;$(SolutionDir)TCommon\Extend\;$(SolutionDir)TCommon\Extend\DesignPattern\;$(SolutionDir)TCommon\Extend\Excel\;$(SolutionDir)TCommon\Extend\Login\;$(SolutionDir)TCommon\Extend\MultiProc\;$(SolutionDir)TCommon\Extend\PointArrangement\;$(SolutionDir)TCommon\Extend\VirtualDisk\;$(SolutionDir)TCommon\Extend\LOG\;$(SolutionDir)TCommon\Extend\HotKey\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <AdditionalLibraryDirectories>$(OutDir);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>

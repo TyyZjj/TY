@@ -111,9 +111,9 @@ private:
 private:
 	static CRamDisk*	m_pInstance;
 
-	QString				strLetterName;		//卷标号
-	int					iSizeInMB;			//大小MB //内存中不宜创建以GB为单位的空间
-	QString				strImDiskExePath;	//可执行文件路径
+	//QString			strLetterName;		//卷标号
+	//int					iSizeInMB;			//大小MB //内存中不宜创建以GB为单位的空间
+	QString				m_strImDiskExePath;	//可执行文件路径
 	
 	
 };

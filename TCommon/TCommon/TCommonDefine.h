@@ -67,6 +67,12 @@ private:
 
 
 #pragma region 读写INI
+#include <QMap>
+#include <QString>
+#include <QVariant>
+#include <QSettings>
+#include <QSharedPointer>
+
 //读写INI
 //////////////////////////////////////////////////////////////////////////
 //使用示例
@@ -114,6 +120,41 @@ private:\
 };
 
 #define INI(IniName) Inier##IniName::GetKernel()
+#pragma endregion
+
+
+#pragma region 序列化数据
+#include <QIODevice>
+#include <QByteArray>
+#include <QDataStream>
+//************************************
+// 函数:  	LibPublic::byteToTemp
+// 参数:    const QByteArray & data
+// 参数:    T & t
+// 返回:    bool
+// 功能:		序列化数据
+//************************************
+template<typename  T >
+static bool byteToTemp(const QByteArray& data, T& t)
+{
+	QDataStream ds(data);
+	ds >> t;
+	return true;
+}
+//************************************
+// 函数:  	LibPublic::tempTobyte
+// 参数:    const T & t
+// 参数:    QByteArray & byte
+// 返回:    bool
+// 功能:		反序列化
+//************************************
+template<typename  T >
+static bool tempTobyte(const T& t, QByteArray& byte)
+{
+	QDataStream ds(&byte, QIODevice::WriteOnly);
+	ds << t;
+	return true;
+};
 #pragma endregion
 
 #endif //_TCOMMONDEFINE_H_

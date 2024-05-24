@@ -220,8 +220,11 @@
 #include <iostream>
 #include <processthreadsapi.h>
 #include <QMap>
+#include <QWidget>
 #include "TSystem.h"
-
+#include "TGlobalHotKey.h"
+#include "TQtGui.h"
+#include <QApplication>
 
 void SetThreadContextFun() {
 	long long index(0);
@@ -232,8 +235,15 @@ void SetThreadContextFun() {
 }
 typedef void(*SetThreadContextFunPoint)();
 
-int main()
+
+
+int main(int argc, char* argv[])
 {
+	QFont font("Arial");
+	QRect rect(0, 0, 30, 200);
+	QString str2;
+	GetElidedText(font, "Hello World", 50, Qt::TextElideMode::ElideLeft, str2);
+	//bool ret = GetHeightAdaptiveFont(30, font, "Arial");
 
 	QString str = TSystem::GetProcName(6924);
 	QList<QString> lstModuleName = TSystem::GetProcModuleNames(6924);

@@ -27,7 +27,7 @@ void CRamDisk::DestroyKernel()
 
 void CRamDisk::setImDiskExePath(QString strImDiskExePath)
 {
-	this->strImDiskExePath = strImDiskExePath;
+	this->m_strImDiskExePath = strImDiskExePath;
 }
 
 #ifdef RAMDISK_LIB
@@ -404,14 +404,14 @@ bool CRamDisk::create(int iSizeInMB, QString &strLetterName)
 
 #pragma endregion
 #else
-	if (!QFile::exists(strImDiskExePath) &&
-		!QFileInfo(strImDiskExePath).isExecutable())
+	if (!QFile::exists(m_strImDiskExePath) &&
+		!QFileInfo(m_strImDiskExePath).isExecutable())
 		return false;
 
 	const char* mountPoint = "/DIRECTORY"; // Replace with the desired directory
 
 	//Build the command to create the virtual disk
-	std::string command = strImDiskExePath.toStdString();
+	std::string command = m_strImDiskExePath.toStdString();
 	command += " -a -t vm -m ";
 	command += strLetterName.toStdString();
 	command += " -s ";
@@ -422,7 +422,7 @@ bool CRamDisk::create(int iSizeInMB, QString &strLetterName)
 	int result = std::system(command.c_str());
 	if (result == 0) {
 		// Optionally, you can mount the disk to a directory
-		std::string mountCommand = strImDiskExePath.toStdString();
+		std::string mountCommand = m_strImDiskExePath.toStdString();
 		mountCommand += " -a ";
 		mountCommand += strLetterName.toStdString();
 		mountCommand += " -m ";

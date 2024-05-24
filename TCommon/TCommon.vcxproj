@@ -35,13 +35,14 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
     <Import Project="$(QtMsBuild)\Qt.props" />
     <Import Project="..\3rdParty\7-Zip\7-Zip\7z.props" />
+    <Import Project="..\3rdParty\Log4Qt\Log4Qt.props" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>$(ProjectDir)Study\;$(ProjectDir)Study\Qt\;$(ProjectDir)Study\WinApi\;$(ProjectDir)TCommon\;$(ProjectDir)TCommon\Algorithm\;$(ProjectDir)TCommon\DeviceApi\;$(ProjectDir)TCommon\Gui\;$(ProjectDir)Extend\;$(ProjectDir)Extend\DesignPattern\;$(ProjectDir)Extend\Excel\;$(ProjectDir)Extend\Login\;$(ProjectDir)Extend\MultiProc\;$(ProjectDir)Extend\PointArrangement\;$(ProjectDir)Extend\VirtualDisk\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)Study\;$(ProjectDir)Study\Qt\;$(ProjectDir)Study\WinApi\;$(ProjectDir)TCommon\;$(ProjectDir)TCommon\Algorithm\;$(ProjectDir)TCommon\DeviceApi\;$(ProjectDir)TCommon\Gui\;$(ProjectDir)TCommon\Graph\;$(ProjectDir)Extend\;$(ProjectDir)Extend\DesignPattern\;$(ProjectDir)Extend\Excel\;$(ProjectDir)Extend\Login\;$(ProjectDir)Extend\MultiProc\;$(ProjectDir)Extend\PointArrangement\;$(ProjectDir)Extend\VirtualDisk\;$(ProjectDir)Extend\LOG\;$(ProjectDir)Extend\HotKey\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'" Label="Configuration">
@@ -64,11 +65,15 @@
     <ClInclude Include="Extend\DesignPattern\TConsumeQueue.h" />
     <ClInclude Include="Extend\DesignPattern\TFactory.h" />
     <ClInclude Include="Extend\Excel\cexcelbase.h" />
+    <QtMoc Include="Extend\HotKey\TGlobalHotKey.h" />
     <ClInclude Include="Extend\Login\CLogin.h" />
     <QtMoc Include="Extend\Login\CLoginManager.h" />
     <QtMoc Include="Extend\Login\CLoginUI.h" />
+    <QtMoc Include="Extend\LOG\TLog.h" />
+    <ClInclude Include="Extend\LOG\TLog4Qt.h" />
     <ClInclude Include="Extend\MultiProc\CWindowPasteWidget.h" />
     <QtMoc Include="Extend\PointArrangement\TPointArrangementUi.h" />
+    <ClInclude Include="resource.h" />
     <ClInclude Include="Study\Qt\SDir.h" />
     <ClInclude Include="Study\Qt\SFile.h" />
     <ClInclude Include="Study\Qt\SFileDialog.h" />
@@ -94,6 +99,7 @@
     <ClInclude Include="TCommon\DeviceApi\TSystem.h" />
     <ClInclude Include="TCommon\DeviceApi\TTextCodec.h" />
     <ClInclude Include="TCommon\DeviceApi\TTextFile.h" />
+    <ClInclude Include="TCommon\Graph\TGraph.h" />
     <ClInclude Include="TCommon\Gui\TQtGui.h" />
     <ClInclude Include="TCommon\TCommon.h" />
     <ClInclude Include="TCommon\TCommonDefine.h" />
@@ -107,12 +113,15 @@
     <Text Include="TCommon\Algorithm\Algorithm.txt" />
     <Text Include="TCommon\DeviceApi\DeviceApi.txt" />
     <Text Include="TCommon\Gui\Gui.txt" />
+    <Text Include="TCommon\TCommon.txt" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Extend\Excel\cexcelbase.cpp" />
+    <ClCompile Include="Extend\HotKey\TGlobalHotKey.cpp" />
     <ClCompile Include="Extend\Login\CLogin.cpp" />
     <ClCompile Include="Extend\Login\CLoginManager.cpp" />
     <ClCompile Include="Extend\Login\CLoginUI.cpp" />
+    <ClCompile Include="Extend\LOG\TLog.cpp" />
     <ClCompile Include="Extend\MultiProc\CMultiProcManager.cpp" />
     <ClCompile Include="Extend\MultiProc\CWindowPasteWidget.cpp" />
     <ClCompile Include="Extend\PointArrangement\TPointArrangementUi.cpp" />
@@ -123,11 +132,15 @@
     <ClCompile Include="TCommon\DeviceApi\TSystem.cpp" />
     <ClCompile Include="TCommon\DeviceApi\TTextCodec.cpp" />
     <ClCompile Include="TCommon\DeviceApi\TTextFile.cpp" />
+    <ClCompile Include="TCommon\Graph\TGraph.cpp" />
     <ClCompile Include="TCommon\TCommon.cpp" />
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="Extend\Login\CLoginUI.ui" />
     <QtUic Include="Extend\PointArrangement\TPointArrangementUi.ui" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="TCommon.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">

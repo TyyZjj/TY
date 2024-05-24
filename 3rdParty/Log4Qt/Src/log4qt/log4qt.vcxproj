@@ -1,0 +1,434 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{E98DB9C4-581F-329A-832E-4D203AD328BB}</ProjectGuid>
+    <RootNamespace>log4qt</RootNamespace>
+    <Keyword>QtVS_v304</Keyword>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformMinVersion>10.0.18362.0</WindowsTargetPlatformMinVersion>
+    <QtMsBuild Condition="'$(QtMsBuild)'=='' or !Exists('$(QtMsBuild)\qt.targets')">$(MSBuildProjectDirectory)\QtMsBuild</QtMsBuild>
+    <ProjectName>Log4Qt</ProjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <PlatformToolset>v142</PlatformToolset>
+    <OutputDirectory>..\..\bin\</OutputDirectory>
+    <ATLMinimizesCRunTimeLibraryUsage>false</ATLMinimizesCRunTimeLibraryUsage>
+    <CharacterSet>Unicode</CharacterSet>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <IntermediateDirectory>release\</IntermediateDirectory>
+    <PrimaryOutput>log4qt</PrimaryOutput>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <PlatformToolset>v142</PlatformToolset>
+    <OutputDirectory>..\..\bin\</OutputDirectory>
+    <ATLMinimizesCRunTimeLibraryUsage>false</ATLMinimizesCRunTimeLibraryUsage>
+    <CharacterSet>NotSet</CharacterSet>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <IntermediateDirectory>debug\</IntermediateDirectory>
+    <PrimaryOutput>log4qt</PrimaryOutput>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <Target Name="QtMsBuildNotFound" BeforeTargets="CustomBuild;ClCompile" Condition="!Exists('$(QtMsBuild)\qt.targets') or !Exists('$(QtMsBuild)\qt.props')">
+    <Message Importance="High" Text="QtMsBuild: could not locate qt.targets, qt.props; project may not build correctly." />
+  </Target>
+  <ImportGroup Label="ExtensionSettings" />
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <ImportGroup Condition="Exists('$(QtMsBuild)\qt_defaults.props')">
+    <Import Project="$(QtMsBuild)\qt_defaults.props" />
+  </ImportGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <IgnoreImportLibrary>true</IgnoreImportLibrary>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <TargetName>$(ProjectName)</TargetName>
+    <IgnoreImportLibrary>true</IgnoreImportLibrary>
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Label="QtSettings" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <QtInstall>5.12.11_msvc2017_64</QtInstall>
+    <QtModules>core;xml;network;concurrent</QtModules>
+  </PropertyGroup>
+  <PropertyGroup Label="QtSettings" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <QtInstall>5.12.11_msvc2017_64</QtInstall>
+    <QtModules>core;xml;network;concurrent</QtModules>
+  </PropertyGroup>
+  <ImportGroup Condition="Exists('$(QtMsBuild)\qt.props')">
+    <Import Project="$(QtMsBuild)\qt.props" />
+  </ImportGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>.;..;$(IntDir)moc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>-Zc:rvalueCast -Zc:inline -Zc:strictStrings -Zc:throwingNew -Zc:referenceBinding -Zc:__cplusplus -w34189 -w44996 -w44456 -w44457 -w44458 %(AdditionalOptions)</AdditionalOptions>
+      <BrowseInformation>false</BrowseInformation>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <DisableSpecificWarnings>4127;4512;4267;4913;4100;4577;4467;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <Optimization>MaxSpeed</Optimization>
+      <PreprocessorDefinitions>_WINDOWS;UNICODE;_UNICODE;WIN32;_ENABLE_EXTENDED_ALIGNED_STORAGE;WIN64;LOG4QT_VERSION_MAJOR=1;LOG4QT_VERSION_MINOR=6;LOG4QT_VERSION_PATCH=0;LOG4QT_VERSION_STR="1.6.0";QT_DISABLE_DEPRECATED_BEFORE=0x050F00;QT_DEPRECATED_WARNINGS;NOMINMAX;QT_NO_CAST_FROM_BYTEARRAY;QT_USE_QSTRINGBUILDER;LOG4QT_LIBRARY;QT_NO_DEBUG;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessToFile>false</PreprocessToFile>
+      <ProgramDataBaseFileName>
+      </ProgramDataBaseFileName>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TreatSpecificWarningsAsErrors>4265;%(TreatSpecificWarningsAsErrors)</TreatSpecificWarningsAsErrors>
+      <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
+      <WarningLevel>Level4</WarningLevel>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <DataExecutionPrevention>true</DataExecutionPrevention>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <IgnoreImportLibrary>true</IgnoreImportLibrary>
+      <LinkDLL>true</LinkDLL>
+      <LinkIncremental>false</LinkIncremental>
+      <OutputFile>$(OutDir)\log4qt.dll</OutputFile>
+      <RandomizedBaseAddress>true</RandomizedBaseAddress>
+      <SubSystem>Windows</SubSystem>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+    </Link>
+    <Midl>
+      <DefaultCharType>Unsigned</DefaultCharType>
+      <EnableErrorChecks>None</EnableErrorChecks>
+      <WarningLevel>0</WarningLevel>
+    </Midl>
+    <ResourceCompile>
+      <PreprocessorDefinitions>_WINDOWS;UNICODE;_UNICODE;WIN32;_ENABLE_EXTENDED_ALIGNED_STORAGE;WIN64;LOG4QT_VERSION_MAJOR=1;LOG4QT_VERSION_MINOR=6;LOG4QT_VERSION_PATCH=0;LOG4QT_VERSION_STR=\"1.6.0\";QT_DISABLE_DEPRECATED_BEFORE=0x050F00;QT_DEPRECATED_WARNINGS;NOMINMAX;QT_DEPRECATED_WARNINGS;QT_NO_CAST_FROM_BYTEARRAY;QT_USE_QSTRINGBUILDER;LOG4QT_LIBRARY;QT_NO_DEBUG;QT_XML_LIB;QT_NETWORK_LIB;QT_CONCURRENT_LIB;QT_CORE_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ResourceCompile>
+    <QtMoc>
+      <CompilerFlavor>msvc</CompilerFlavor>
+      <Include>
+      </Include>
+      <ExecutionDescription>Moc'ing %(Identity)...</ExecutionDescription>
+      <DynamicSource>output</DynamicSource>
+      <QtMocFileName>moc_%(Filename).cpp</QtMocFileName>
+    </QtMoc>
+    <PostBuildEvent>
+      <Command>
+      </Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>.;..;$(IntDir)moc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>-Zc:rvalueCast -Zc:inline -Zc:strictStrings -Zc:throwingNew -Zc:referenceBinding -Zc:__cplusplus -w34189 -w44996 -w44456 -w44457 -w44458 %(AdditionalOptions)</AdditionalOptions>
+      <BrowseInformation>false</BrowseInformation>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <DisableSpecificWarnings>4127;4512;4267;4913;4100;4577;4467;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>_WINDOWS;UNICODE;_UNICODE;WIN32;_ENABLE_EXTENDED_ALIGNED_STORAGE;WIN64;LOG4QT_VERSION_MAJOR=1;LOG4QT_VERSION_MINOR=6;LOG4QT_VERSION_PATCH=0;LOG4QT_VERSION_STR="1.6.0";QT_DISABLE_DEPRECATED_BEFORE=0x050F00;QT_DEPRECATED_WARNINGS;NOMINMAX;QT_DEPRECATED_WARNINGS;QT_NO_CAST_FROM_BYTEARRAY;QT_USE_QSTRINGBUILDER;LOG4QT_LIBRARY;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessToFile>false</PreprocessToFile>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TreatSpecificWarningsAsErrors>4265;%(TreatSpecificWarningsAsErrors)</TreatSpecificWarningsAsErrors>
+      <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
+      <WarningLevel>Level4</WarningLevel>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <DataExecutionPrevention>true</DataExecutionPrevention>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <IgnoreImportLibrary>true</IgnoreImportLibrary>
+      <LinkDLL>true</LinkDLL>
+      <OutputFile>$(OutDir)\log4qt.dll</OutputFile>
+      <RandomizedBaseAddress>true</RandomizedBaseAddress>
+      <SubSystem>Windows</SubSystem>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+    </Link>
+    <Midl>
+      <DefaultCharType>Unsigned</DefaultCharType>
+      <EnableErrorChecks>None</EnableErrorChecks>
+      <WarningLevel>0</WarningLevel>
+    </Midl>
+    <ResourceCompile>
+      <PreprocessorDefinitions>_WINDOWS;UNICODE;_UNICODE;WIN32;_ENABLE_EXTENDED_ALIGNED_STORAGE;WIN64;LOG4QT_VERSION_MAJOR=1;LOG4QT_VERSION_MINOR=6;LOG4QT_VERSION_PATCH=0;LOG4QT_VERSION_STR=\"1.6.0\";QT_DISABLE_DEPRECATED_BEFORE=0x050F00;QT_DEPRECATED_WARNINGS;NOMINMAX;QT_DEPRECATED_WARNINGS;QT_NO_CAST_FROM_BYTEARRAY;QT_USE_QSTRINGBUILDER;LOG4QT_LIBRARY;QT_XML_LIB;QT_NETWORK_LIB;QT_CONCURRENT_LIB;QT_CORE_LIB;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ResourceCompile>
+    <QtMoc>
+      <CompilerFlavor>msvc</CompilerFlavor>
+      <Include>
+      </Include>
+      <ExecutionDescription>Moc'ing %(Identity)...</ExecutionDescription>
+      <DynamicSource>output</DynamicSource>
+      <QtMocFileName>moc_%(Filename).cpp</QtMocFileName>
+    </QtMoc>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="appender.cpp" />
+    <ClCompile Include="helpers\appenderattachable.cpp" />
+    <ClCompile Include="appenderskeleton.cpp" />
+    <ClCompile Include="asyncappender.cpp" />
+    <ClCompile Include="basicconfigurator.cpp" />
+    <ClCompile Include="helpers\binaryclasslogger.cpp" />
+    <ClCompile Include="varia\binaryeventfilter.cpp" />
+    <ClCompile Include="binaryfileappender.cpp" />
+    <ClCompile Include="binarylayout.cpp" />
+    <ClCompile Include="binarylogger.cpp" />
+    <ClCompile Include="binaryloggingevent.cpp" />
+    <ClCompile Include="binarylogstream.cpp" />
+    <ClCompile Include="binarytotextlayout.cpp" />
+    <ClCompile Include="binarywriterappender.cpp" />
+    <ClCompile Include="helpers\classlogger.cpp" />
+    <ClCompile Include="colorconsoleappender.cpp" />
+    <ClCompile Include="helpers\configuratorhelper.cpp" />
+    <ClCompile Include="consoleappender.cpp" />
+    <ClCompile Include="dailyfileappender.cpp" />
+    <ClCompile Include="dailyrollingfileappender.cpp" />
+    <ClCompile Include="helpers\datetime.cpp" />
+    <ClCompile Include="varia\debugappender.cpp" />
+    <ClCompile Include="varia\denyallfilter.cpp" />
+    <ClCompile Include="helpers\dispatcher.cpp" />
+    <ClCompile Include="helpers\factory.cpp" />
+    <ClCompile Include="fileappender.cpp" />
+    <ClCompile Include="spi\filter.cpp" />
+    <ClCompile Include="hierarchy.cpp" />
+    <ClCompile Include="helpers\initialisationhelper.cpp" />
+    <ClCompile Include="layout.cpp" />
+    <ClCompile Include="level.cpp" />
+    <ClCompile Include="varia\levelmatchfilter.cpp" />
+    <ClCompile Include="varia\levelrangefilter.cpp" />
+    <ClCompile Include="varia\listappender.cpp" />
+    <ClCompile Include="helpers\logerror.cpp" />
+    <ClCompile Include="logger.cpp" />
+    <ClCompile Include="loggerrepository.cpp" />
+    <ClCompile Include="loggingevent.cpp" />
+    <ClCompile Include="logmanager.cpp" />
+    <ClCompile Include="logstream.cpp" />
+    <ClCompile Include="mainthreadappender.cpp" />
+    <ClCompile Include="mdc.cpp" />
+    <ClCompile Include="ndc.cpp" />
+    <ClCompile Include="varia\nullappender.cpp" />
+    <ClCompile Include="helpers\optionconverter.cpp" />
+    <ClCompile Include="helpers\patternformatter.cpp" />
+    <ClCompile Include="patternlayout.cpp" />
+    <ClCompile Include="helpers\properties.cpp" />
+    <ClCompile Include="propertyconfigurator.cpp" />
+    <ClCompile Include="qmllogger.cpp" />
+    <ClCompile Include="rollingbinaryfileappender.cpp" />
+    <ClCompile Include="rollingfileappender.cpp" />
+    <ClCompile Include="signalappender.cpp" />
+    <ClCompile Include="simplelayout.cpp" />
+    <ClCompile Include="simpletimelayout.cpp" />
+    <ClCompile Include="varia\stringmatchfilter.cpp" />
+    <ClCompile Include="systemlogappender.cpp" />
+    <ClCompile Include="telnetappender.cpp" />
+    <ClCompile Include="ttcclayout.cpp" />
+    <ClCompile Include="wdcappender.cpp" />
+    <ClCompile Include="writerappender.cpp" />
+    <ClCompile Include="xmllayout.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <QtMoc Include="appender.h">
+      <DynamicSource Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</DynamicSource>
+      <DynamicSource Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</DynamicSource>
+    </QtMoc>
+    <ClInclude Include="helpers\appenderattachable.h" />
+    <QtMoc Include="appenderskeleton.h">
+      <DynamicSource Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</DynamicSource>
+      <DynamicSource Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</DynamicSource>
+    </QtMoc>
+    <QtMoc Include="asyncappender.h">
+      <DynamicSource Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</DynamicSource>
+      <DynamicSource Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</DynamicSource>
+    </QtMoc>
+    <ClInclude Include="basicconfigurator.h" />
+    <ClInclude Include="helpers\binaryclasslogger.h" />
+    <QtMoc Include="varia\binaryeventfilter.h">
+      <DynamicSource Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</DynamicSource>
+      <DynamicSource Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</DynamicSource>
+    </QtMoc>
+    <QtMoc Include="binaryfileappender.h">
+      <DynamicSource Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</DynamicSource>
+      <DynamicSource Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</DynamicSource>
+    </QtMoc>
+    <QtMoc Include="binarylayout.h">
+      <DynamicSource Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</DynamicSource>
+      <DynamicSource Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</DynamicSource>
+    </QtMoc>
+    <QtMoc Include="binarylogger.h">
+      <DynamicSource Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</DynamicSource>
+      <DynamicSource Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</DynamicSource>
+    </QtMoc>
+    <ClInclude Include="binaryloggingevent.h" />
+    <ClInclude Include="binarylogstream.h" />
+    <QtMoc Include="binarytotextlayout.h">
+      <DynamicSource Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</DynamicSource>
+      <DynamicSource Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</DynamicSource>
+    </QtMoc>
+    <QtMoc Include="binarywriterappender.h">
+      <DynamicSource Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</DynamicSource>
+      <DynamicSource Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</DynamicSource>
+    </QtMoc>
+    <ClInclude Include="helpers\classlogger.h" />
+    <QtMoc Include="colorconsoleappender.h">
+      <DynamicSource Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</DynamicSource>
+      <DynamicSource Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</DynamicSource>
+    </QtMoc>
+    <QtMoc Include="helpers\configuratorhelper.h">
+      <DynamicSource Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</DynamicSource>
+      <DynamicSource Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</DynamicSource>
+    </QtMoc>
+    <QtMoc Include="consoleappender.h">
+      <DynamicSource Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</DynamicSource>
+      <DynamicSource Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</DynamicSource>
+    </QtMoc>
+    <QtMoc Include="dailyfileappender.h">
+      <DynamicSource Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</DynamicSource>
+      <DynamicSource Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</DynamicSource>
+    </QtMoc>
+    <QtMoc Include="dailyrollingfileappender.h">
+      <DynamicSource Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</DynamicSource>
+      <DynamicSource Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</DynamicSource>
+    </QtMoc>
+    <ClInclude Include="helpers\datetime.h" />
+    <QtMoc Include="varia\debugappender.h">
+      <DynamicSource Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</DynamicSource>
+      <DynamicSource Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</DynamicSource>
+    </QtMoc>
+    <QtMoc Include="varia\denyallfilter.h">
+      <DynamicSource Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</DynamicSource>
+      <DynamicSource Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</DynamicSource>
+    </QtMoc>
+    <QtMoc Include="helpers\dispatcher.h">
+      <DynamicSource Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</DynamicSource>
+      <DynamicSource Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</DynamicSource>
+    </QtMoc>
+    <ClInclude Include="helpers\factory.h" />
+    <QtMoc Include="fileappender.h">
+      <DynamicSource Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</DynamicSource>
+      <DynamicSource Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</DynamicSource>
+    </QtMoc>
+    <QtMoc Include="spi\filter.h">
+      <DynamicSource Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</DynamicSource>
+      <DynamicSource Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</DynamicSource>
+    </QtMoc>
+    <ClInclude Include="hierarchy.h" />
+    <ClInclude Include="helpers\initialisationhelper.h" />
+    <QtMoc Include="layout.h">
+      <DynamicSource Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</DynamicSource>
+      <DynamicSource Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</DynamicSource>
+    </QtMoc>
+    <ClInclude Include="level.h" />
+    <QtMoc Include="varia\levelmatchfilter.h">
+      <DynamicSource Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</DynamicSource>
+      <DynamicSource Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</DynamicSource>
+    </QtMoc>
+    <QtMoc Include="varia\levelrangefilter.h">
+      <DynamicSource Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</DynamicSource>
+      <DynamicSource Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</DynamicSource>
+    </QtMoc>
+    <QtMoc Include="varia\listappender.h">
+      <DynamicSource Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</DynamicSource>
+      <DynamicSource Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</DynamicSource>
+    </QtMoc>
+    <ClInclude Include="log4qt.h" />
+    <ClInclude Include="log4qtshared.h" />
+    <ClInclude Include="log4qtsharedptr.h" />
+    <ClInclude Include="helpers\logerror.h" />
+    <QtMoc Include="logger.h">
+      <DynamicSource Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</DynamicSource>
+      <DynamicSource Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</DynamicSource>
+    </QtMoc>
+    <ClInclude Include="loggerrepository.h" />
+    <ClInclude Include="loggingevent.h" />
+    <ClInclude Include="logmanager.h" />
+    <ClInclude Include="logstream.h" />
+    <QtMoc Include="mainthreadappender.h">
+      <DynamicSource Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</DynamicSource>
+      <DynamicSource Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</DynamicSource>
+    </QtMoc>
+    <ClInclude Include="mdc.h" />
+    <ClInclude Include="ndc.h" />
+    <QtMoc Include="varia\nullappender.h">
+      <DynamicSource Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</DynamicSource>
+      <DynamicSource Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</DynamicSource>
+    </QtMoc>
+    <ClInclude Include="helpers\optionconverter.h" />
+    <ClInclude Include="helpers\patternformatter.h" />
+    <QtMoc Include="patternlayout.h">
+      <DynamicSource Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</DynamicSource>
+      <DynamicSource Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</DynamicSource>
+    </QtMoc>
+    <ClInclude Include="helpers\properties.h" />
+    <ClInclude Include="propertyconfigurator.h" />
+    <QtMoc Include="qmllogger.h">
+      <DynamicSource Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</DynamicSource>
+      <DynamicSource Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</DynamicSource>
+    </QtMoc>
+    <QtMoc Include="rollingbinaryfileappender.h">
+      <DynamicSource Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</DynamicSource>
+      <DynamicSource Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</DynamicSource>
+    </QtMoc>
+    <QtMoc Include="rollingfileappender.h">
+      <DynamicSource Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</DynamicSource>
+      <DynamicSource Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</DynamicSource>
+    </QtMoc>
+    <QtMoc Include="signalappender.h">
+      <DynamicSource Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</DynamicSource>
+      <DynamicSource Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</DynamicSource>
+    </QtMoc>
+    <QtMoc Include="simplelayout.h">
+      <DynamicSource Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</DynamicSource>
+      <DynamicSource Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</DynamicSource>
+    </QtMoc>
+    <QtMoc Include="simpletimelayout.h">
+      <DynamicSource Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</DynamicSource>
+      <DynamicSource Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</DynamicSource>
+    </QtMoc>
+    <QtMoc Include="varia\stringmatchfilter.h">
+      <DynamicSource Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</DynamicSource>
+      <DynamicSource Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</DynamicSource>
+    </QtMoc>
+    <QtMoc Include="systemlogappender.h">
+      <DynamicSource Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</DynamicSource>
+      <DynamicSource Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</DynamicSource>
+    </QtMoc>
+    <QtMoc Include="telnetappender.h">
+      <DynamicSource Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</DynamicSource>
+      <DynamicSource Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</DynamicSource>
+    </QtMoc>
+    <QtMoc Include="ttcclayout.h">
+      <DynamicSource Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</DynamicSource>
+      <DynamicSource Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</DynamicSource>
+    </QtMoc>
+    <QtMoc Include="wdcappender.h">
+      <DynamicSource Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</DynamicSource>
+      <DynamicSource Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</DynamicSource>
+    </QtMoc>
+    <QtMoc Include="writerappender.h">
+      <DynamicSource Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</DynamicSource>
+      <DynamicSource Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</DynamicSource>
+    </QtMoc>
+    <QtMoc Include="xmllayout.h">
+      <DynamicSource Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</DynamicSource>
+      <DynamicSource Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</DynamicSource>
+    </QtMoc>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">
+    <Import Project="$(QtMsBuild)\qt.targets" />
+  </ImportGroup>
+  <ImportGroup Label="ExtensionTargets" />
+</Project>

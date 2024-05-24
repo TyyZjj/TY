@@ -1,0 +1,410 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Generated Files">
+      <UniqueIdentifier>{71ED8ED8-ACB9-4CE9-BBE1-E00B30144E11}</UniqueIdentifier>
+      <Extensions>cpp;c;cxx;moc;h;def;odl;idl;res;</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="appender.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="helpers\appenderattachable.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="appenderskeleton.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="asyncappender.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="basicconfigurator.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="helpers\binaryclasslogger.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="varia\binaryeventfilter.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="binaryfileappender.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="binarylayout.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="binarylogger.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="binaryloggingevent.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="binarylogstream.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="binarytotextlayout.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="binarywriterappender.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="helpers\classlogger.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="colorconsoleappender.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="helpers\configuratorhelper.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="consoleappender.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="dailyfileappender.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="dailyrollingfileappender.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="helpers\datetime.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="varia\debugappender.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="varia\denyallfilter.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="helpers\dispatcher.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="helpers\factory.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="fileappender.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="spi\filter.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="hierarchy.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="helpers\initialisationhelper.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="layout.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="level.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="varia\levelmatchfilter.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="varia\levelrangefilter.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="varia\listappender.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="helpers\logerror.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="logger.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="loggerrepository.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="loggingevent.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="logmanager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="logstream.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="mainthreadappender.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="mdc.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ndc.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="varia\nullappender.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="helpers\optionconverter.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="helpers\patternformatter.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="patternlayout.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="helpers\properties.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="propertyconfigurator.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="qmllogger.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="rollingbinaryfileappender.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="rollingfileappender.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="signalappender.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="simplelayout.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="simpletimelayout.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="varia\stringmatchfilter.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="systemlogappender.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="telnetappender.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ttcclayout.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="wdcappender.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="writerappender.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="xmllayout.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <QtMoc Include="appender.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <ClInclude Include="helpers\appenderattachable.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <QtMoc Include="appenderskeleton.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="asyncappender.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <ClInclude Include="basicconfigurator.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="helpers\binaryclasslogger.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <QtMoc Include="varia\binaryeventfilter.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="binaryfileappender.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="binarylayout.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="binarylogger.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <ClInclude Include="binaryloggingevent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="binarylogstream.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <QtMoc Include="binarytotextlayout.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="binarywriterappender.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <ClInclude Include="helpers\classlogger.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <QtMoc Include="colorconsoleappender.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="helpers\configuratorhelper.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="consoleappender.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="dailyfileappender.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="dailyrollingfileappender.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <ClInclude Include="helpers\datetime.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <QtMoc Include="varia\debugappender.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="varia\denyallfilter.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="helpers\dispatcher.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <ClInclude Include="helpers\factory.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <QtMoc Include="fileappender.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="spi\filter.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <ClInclude Include="hierarchy.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="helpers\initialisationhelper.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <QtMoc Include="layout.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <ClInclude Include="level.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <QtMoc Include="varia\levelmatchfilter.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="varia\levelrangefilter.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="varia\listappender.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <ClInclude Include="log4qt.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="log4qtshared.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="log4qtsharedptr.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="helpers\logerror.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <QtMoc Include="logger.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <ClInclude Include="loggerrepository.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="loggingevent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="logmanager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="logstream.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <QtMoc Include="mainthreadappender.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <ClInclude Include="mdc.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ndc.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <QtMoc Include="varia\nullappender.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <ClInclude Include="helpers\optionconverter.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="helpers\patternformatter.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <QtMoc Include="patternlayout.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <ClInclude Include="helpers\properties.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="propertyconfigurator.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <QtMoc Include="qmllogger.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="rollingbinaryfileappender.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="rollingfileappender.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="signalappender.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="simplelayout.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="simpletimelayout.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="varia\stringmatchfilter.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="systemlogappender.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="telnetappender.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="ttcclayout.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="wdcappender.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="writerappender.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="xmllayout.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+  </ItemGroup>
+</Project>

@@ -2,7 +2,7 @@
 #ifndef _SFILEDIALOG_H_
 #define _SFILEDIALOG_H_
 
-//SFileDialog的学习注释.
+//QFileDialog的学习注释.
 
 
 //一、Option、Options
@@ -32,14 +32,14 @@
 	};
 */
 
-//二、
-//1、getOpenFileName		选择一个文件	
-//2、getOpenFileNames		选择一堆文件
-//3、getOpenFileUrl			选择一个文件. 和getOpenFileName的区别在于, 此函数可以选择远程文件
-//4、getOpenFileUrls		选择一堆文件
-//5、getSaveFileName		选择保存的文件名
-//6、getSaveFileUrl			选择保存的文件名, 和getSaveFileName的区别在于, 此函数可以选择远程文件
-//7、getExistingDirectory	选择一个文件夹
-//8、getExistingDirectoryUrl选择一个文件夹, 和getExistingDirectoryUrl的区别在于, 此函数可以选择远程路径
+//二、选择文件、选择文件夹、选择路径、选择文件名
+//1、getOpenFileName			选择一个文件	
+//2、getOpenFileNames			选择一堆文件
+//3、getOpenFileUrl				选择一个文件. 和getOpenFileName的区别在于, 此函数可以选择远程文件
+//4、getOpenFileUrls			选择一堆文件
+//5、getSaveFileName			选择保存的文件名
+//6、getSaveFileUrl				选择保存的文件名, 和getSaveFileName的区别在于, 此函数可以选择远程文件
+//7、getExistingDirectory		选择一个文件夹
+//8、getExistingDirectoryUrl	选择一个文件夹, 和getExistingDirectoryUrl的区别在于, 此函数可以选择远程路径
 
 #endif
