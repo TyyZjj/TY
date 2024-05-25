@@ -71,6 +71,7 @@ public:
 	//************************************
 	static bool MoveFile(const QString &strFrom, const QString &strTo, bool replace = false);
 
+#pragma region 压缩解压
 	//************************************
 	// 参数: 	const QString & strTargetPath: 目标文件(压缩后的)
 	// 参数: 	const QStringList & lstSourcePath: 源文件/文件夹列表
@@ -94,6 +95,8 @@ public:
 	static bool Decompress(const QString& strSourcePath, 
 		const QString& strTargetPath, 
 		bool replace = false);
+#pragma endregion
+
 };
 
 

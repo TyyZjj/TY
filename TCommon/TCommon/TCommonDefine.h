@@ -1,14 +1,11 @@
 #ifndef _TCOMMONDEFINE_H_
 #define _TCOMMONDEFINE_H_
 
-
+#pragma region QMetaEnum
 #include <QString>
 #include <QMetaEnum>
-#include <QSettings>
 #include <QStringList>
 
-
-#pragma region QMetaEnum
 template<typename T>
 static QStringList typeNameList()
 {
@@ -157,4 +154,114 @@ static bool tempTobyte(const T& t, QByteArray& byte)
 };
 #pragma endregion
 
+
+#pragma region ¼ÓÔØ²å¼þ
+#include <QList>
+#include <QLibrary>
+#include <QStringList>
+#include <QPluginLoader>
+
+template<typename  T >
+static void getPluginObject(QList<T*>& lst, const QString& path, QStringList filter = QStringList() /*<< "RS-*.dll" << "RS-*.DLL"*/)
+{
+	QStringList list = GetPathFileNames(path, filter, QDir::Files | QDir::NoDotAndDotDot, QDir::Name);
+	for (QString var : list)
+	{
+		QString pluginPath = path + "//" + var;
+		if (!QLibrary::isLibrary(pluginPath))
+			continue;
+		QPluginLoader loader(pluginPath);
+		if (!loader.load())
+		{
+			qWarning() << loader.errorString();
+			continue;
+		}
+		QObject *instance = loader.instance();
+		if (loader.isLoaded())
+		{
+
+			T * plugin = qobject_cast<T*>(instance);
+			if (plugin)
+			{
+				lst.append(plugin);
+			}
+			else
+			{
+				//instance->deleteLater();
+				//delete instance;
+			}
+		}
+		else
+		{
+
+		}
+	}
+}
+
+template<typename  T >
+static void destroyPluginObject(QList<T*>& lst)
+{
+	qDeleteAll(lst);
+	lst.clear();
+}
+
+#pragma endregion
+
+
+#pragma region MD5
+#include <QFile>
+#include <QDebug>
+#include <QByteArray>
+#include <QCryptographicHash>
+QByteArray getFileMd5(QString filePath)
+{
+	QFile localFile(filePath);
+	if (!localFile.open(QFile::ReadOnly))
+	{
+		qWarning() << "file open error.";
+		return 0;
+	}
+
+	QCryptographicHash ch(QCryptographicHash::Md5);
+	quint64 totalBytes = 0;
+	quint64 bytesWritten = 0;
+	quint64 bytesToWrite = 0;
+	quint64 loadSize = 1024 * 4;
+	QByteArray buf;
+	totalBytes = localFile.size();
+	bytesToWrite = totalBytes;
+
+	while (1)
+	{
+		if (bytesToWrite > 0)
+		{
+			buf = localFile.read(qMin(bytesToWrite, loadSize));
+			ch.addData(buf);
+			bytesWritten += buf.length();
+			bytesToWrite -= buf.length();
+			buf.resize(0);
+		}
+		else
+		{
+			break;
+		}
+
+		if (bytesWritten == totalBytes)
+		{
+			break;
+		}
+	}
+
+	localFile.close();
+	QByteArray md5 = ch.result();
+	return md5.toHex().constData();
+}
+QByteArray getStrMd5(QString str)
+{
+	QByteArray ba;
+	ba.append(str);
+	QByteArray hba = QCryptographicHash::hash(ba, QCryptographicHash::Md5);
+	return hba.toHex().constData();
+}
+#pragma endregion
 #endif //_TCOMMONDEFINE_H_
