@@ -202,9 +202,6 @@
     <ClInclude Include="Extend\LOG\TLog4Qt.h">
       <Filter>Header Files\Extend\日志</Filter>
     </ClInclude>
-    <ClInclude Include="resource.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="TCommon\Graph\TGraph.h">
       <Filter>Header Files\TCommon\Graph</Filter>
     </ClInclude>
@@ -310,10 +307,5 @@
     <QtUic Include="Extend\PointArrangement\TPointArrangementUi.ui">
       <Filter>Header Files\Extend\点位排布</Filter>
     </QtUic>
-  </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="TCommon.rc">
-      <Filter>Resource Files</Filter>
-    </ResourceCompile>
   </ItemGroup>
 </Project>
