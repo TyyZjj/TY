@@ -202,11 +202,17 @@ TDirNode* TDir::GetFolderDirTree(const QString &strFolderPath)
 	return topNode;
 }
 
-bool TDir::CopyDir(const QString &source, 
+bool TDir::CopyDir(const QString& source, const QString& destination, bool replace)
+{
+	QFileInfoList lstSucc, lstFail;
+	return CopyDir(source, destination, lstSucc, lstFail, replace);
+}
+
+bool TDir::CopyDir(const QString &source,
 	const QString &destination, 
-	bool replace /*= false*/, 
-	QFileInfoList &lstSucc /*= QFileInfoList()*/, 
-	QFileInfoList &lstFail /*= QFileInfoList()*/)
+	QFileInfoList& lstSucc /*= QFileInfoList()*/,
+	QFileInfoList& lstFail /*= QFileInfoList()*/,
+	bool replace /*= false*/)
 {
 	QDir dir;
 	if (!dir.exists(source))
@@ -254,7 +260,7 @@ bool TDir::CopyDir(const QString &source,
 		else if (fileInfo.isDir())
 		{
 			QFileInfoList lstSucc2, lstFail2;
-			CopyDir(strSrcFilePath, strDstFilePath, replace, lstSucc2, lstFail2);
+			CopyDir(strSrcFilePath, strDstFilePath, lstSucc2, lstFail2, replace);
 			lstSucc.append(lstSucc2);
 			lstFail.append(lstFail2);
 		}
@@ -266,13 +272,32 @@ bool TDir::CopyDir(const QString &source,
 	return !lstSucc.isEmpty();
 }
 
-bool TDir::CopyDirWithWidget(const QString &source, 
+bool TDir::CopyDirWithWidget(const QString& source, 
+	const QString& destination, 
+	TDirMsgBox pQuestion, 
+	TDirMsgBox pInformation, 
+	QWidget* parent, 
+	int level)
+{
+	QFileInfoList lstSucc, lstFail;
+	return CopyDirWithWidget(source, 
+		destination,
+		lstSucc,
+		lstFail,
+		pQuestion,
+		pInformation,
+		parent,
+		level);
+}
+
+bool TDir::CopyDirWithWidget(const QString &source,
 	const QString &destination, 
+	QFileInfoList& lstSucc /*= QFileInfoList()*/,
+	QFileInfoList& lstFail /*= QFileInfoList()*/,
 	TDirMsgBox pQuestion /*= QMessageBox::question*/, 
 	TDirMsgBox pInformation /*= QMessageBox::information*/,
 	QWidget* parent /*= nullptr*/, 
-	QFileInfoList &lstSucc /*= QFileInfoList()*/, 
-	QFileInfoList &lstFail /*= QFileInfoList()*/, int level /*= 0*/)
+	int level /*= 0*/)
 {
 	//1.全是/全否
 	static QMessageBox::StandardButton folderBtn, fileBtn;
@@ -288,8 +313,8 @@ bool TDir::CopyDirWithWidget(const QString &source,
 	{
 		if (pInformation != nullptr)
 		{
-			pInformation(parent, QString::fromLocal8Bit("错误:"),
-				QString::fromLocal8Bit("源文件夹不存在."),
+			pInformation(parent, QString::fromUtf8("错误:"),
+				QString::fromUtf8("源文件夹不存在."),
 				QMessageBox::StandardButton::Ok,
 				QMessageBox::StandardButton::Ok);
 		}
@@ -301,8 +326,8 @@ bool TDir::CopyDirWithWidget(const QString &source,
 	{
 		if (pInformation != nullptr)
 		{
-			pInformation(parent, QString::fromLocal8Bit("错误:"),
-				QString::fromLocal8Bit("源文件夹不是文件夹."),
+			pInformation(parent, QString::fromUtf8("错误:"),
+				QString::fromUtf8("源文件夹不是文件夹."),
 				QMessageBox::StandardButton::Ok,
 				QMessageBox::StandardButton::Ok);
 		}
@@ -317,8 +342,8 @@ bool TDir::CopyDirWithWidget(const QString &source,
 		{
 			if (pQuestion != nullptr)
 			{
-				folderBtnTemp = pQuestion(parent, QString::fromLocal8Bit("提示:"),
-					QString::fromLocal8Bit("文件夹已存在, 是否合并?"),
+				folderBtnTemp = pQuestion(parent, QString::fromUtf8("提示:"),
+					QString::fromUtf8("文件夹已存在, 是否合并?"),
 					QMessageBox::StandardButtons(QMessageBox::StandardButton::Yes |
 						QMessageBox::StandardButton::YesToAll |
 						QMessageBox::StandardButton::No |
@@ -356,8 +381,8 @@ bool TDir::CopyDirWithWidget(const QString &source,
 			lstFail.append(lstFileInfo);
 			if (pInformation != nullptr)
 			{
-				pInformation(parent, QString::fromLocal8Bit("错误:"),
-					QString::fromLocal8Bit("创建目录失败. 目录:%1 .").arg(destination),
+				pInformation(parent, QString::fromUtf8("错误:"),
+					QString::fromUtf8("创建目录失败. 目录:%1 .").arg(destination),
 					QMessageBox::StandardButton::Ok,
 					QMessageBox::StandardButton::Ok);
 			}
@@ -384,8 +409,8 @@ bool TDir::CopyDirWithWidget(const QString &source,
 		{
 			if (pInformation != nullptr)
 			{
-				pInformation(parent, QString::fromLocal8Bit("错误:"),
-					QString::fromLocal8Bit("%1不存在. 路径:%2 .").arg(fileInfo.fileName()).arg(strSrcFilePath),
+				pInformation(parent, QString::fromUtf8("错误:"),
+					QString::fromUtf8("%1不存在. 路径:%2 .").arg(fileInfo.fileName()).arg(strSrcFilePath),
 					QMessageBox::StandardButtons(QMessageBox::StandardButton::Ok),
 					QMessageBox::StandardButton::Ok);
 			}
@@ -403,8 +428,8 @@ bool TDir::CopyDirWithWidget(const QString &source,
 				{
 					if (pQuestion != nullptr)
 					{
-						fileBtnTemp = pQuestion(parent, QString::fromLocal8Bit("提示:"),
-							QString::fromLocal8Bit("文件已存在, 是否替换?"),
+						fileBtnTemp = pQuestion(parent, QString::fromUtf8("提示:"),
+							QString::fromUtf8("文件已存在, 是否替换?"),
 							QMessageBox::StandardButtons(QMessageBox::StandardButton::Yes |
 								QMessageBox::StandardButton::YesToAll |
 								QMessageBox::StandardButton::No |
@@ -443,11 +468,11 @@ bool TDir::CopyDirWithWidget(const QString &source,
 			QFileInfoList lstSucc2, lstFail2;
 			CopyDirWithWidget(strSrcFilePath,
 				strDstFilePath,
+				lstSucc2,
+				lstFail2,
 				pQuestion,
 				pInformation,
 				parent,
-				lstSucc2,
-				lstFail2,
 				level + 1);
 			lstSucc.append(lstSucc2);
 			lstFail.append(lstFail2);
@@ -460,11 +485,18 @@ bool TDir::CopyDirWithWidget(const QString &source,
 	return !lstSucc.isEmpty();
 }
 
-bool TDir::Copy(const QString &source, 
+bool TDir::Copy(const QString& source, 
+	const QString& destination, bool replace)
+{
+	QFileInfoList lstSucc, lstFail;
+	return Copy(source, destination, lstSucc, lstFail, replace);
+}
+
+bool TDir::Copy(const QString &source,
 	const QString &destination, 
-	bool replace /*= false*/, 
-	QFileInfoList &lstSucc /*= QFileInfoList()*/, 
-	QFileInfoList &lstFail /*= QFileInfoList()*/)
+	QFileInfoList& lstSucc /*= QFileInfoList()*/,
+	QFileInfoList& lstFail /*= QFileInfoList()*/,
+	bool replace /*= false*/)
 {
 	if (!QFile::exists(source))
 		return false;
@@ -481,26 +513,42 @@ bool TDir::Copy(const QString &source,
 	}
 	else if (sourceFileInfo.isDir())
 	{
-		ret = CopyDir(source, destination, replace, lstSucc, lstFail);
+		ret = CopyDir(source, destination, lstSucc, lstFail, replace);
 	}
 
 	return ret;
 }
 
+bool TDir::CopyWithWidget(const QString& source,
+	const QString& destination,
+	TDirMsgBox pQuestion,
+	TDirMsgBox pInformation,
+	QWidget* parent)
+{
+	QFileInfoList lstSucc, lstFail;
+	return CopyWithWidget(source, 
+		destination, 
+		lstSucc,
+		lstFail,
+		pQuestion, 
+		pInformation,
+		parent);
+}
+
 bool TDir::CopyWithWidget(const QString &source, 
 	const QString &destination, 
+	QFileInfoList& lstSucc /*= QFileInfoList()*/,
+	QFileInfoList& lstFail /*= QFileInfoList()*/,
 	TDirMsgBox pQuestion /*= QMessageBox::question*/, 
 	TDirMsgBox pInformation /*= QMessageBox::information*/, 
-	QWidget* parent /*= nullptr*/, 
-	QFileInfoList &lstSucc /*= QFileInfoList()*/, 
-	QFileInfoList &lstFail /*= QFileInfoList()*/)
+	QWidget* parent /*= nullptr*/)
 {
 	if (!QFile::exists(source))
 	{
 		if (pInformation != nullptr)
 		{
-			pInformation(parent, QString::fromLocal8Bit("错误:"),
-				QString::fromLocal8Bit("原文件不存在."),
+			pInformation(parent, QString::fromUtf8("错误:"),
+				QString::fromUtf8("原文件不存在."),
 				QMessageBox::StandardButton::Ok,
 				QMessageBox::StandardButton::Ok);
 		}
@@ -525,11 +573,11 @@ bool TDir::CopyWithWidget(const QString &source,
 	{
 		ret = CopyDirWithWidget(source,
 			destination,
+			lstSucc,
+			lstFail,
 			pQuestion,
 			pInformation,
 			parent,
-			lstSucc,
-			lstFail,
 			0);
 	}
 

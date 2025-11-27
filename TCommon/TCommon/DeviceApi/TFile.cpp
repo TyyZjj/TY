@@ -69,8 +69,8 @@ bool TFile::CopyFileWithWidget(const QString &fileName,
 	{
 		if (pInformation != nullptr)
 		{
-			pInformation(parent, QString::fromLocal8Bit("错误:"),
-				QString::fromLocal8Bit("源文件不存在."),
+			pInformation(parent, QString::fromUtf8("错误:"),
+				QString::fromUtf8("源文件不存在."),
 				QMessageBox::StandardButton::Ok,
 				QMessageBox::StandardButton::Ok);
 		}
@@ -81,8 +81,8 @@ bool TFile::CopyFileWithWidget(const QString &fileName,
 	{
 		if (pInformation != nullptr)
 		{
-			pInformation(parent, QString::fromLocal8Bit("错误:"),
-				QString::fromLocal8Bit("源文件不是文件."),
+			pInformation(parent, QString::fromUtf8("错误:"),
+				QString::fromUtf8("源文件不是文件."),
 				QMessageBox::StandardButton::Ok,
 				QMessageBox::StandardButton::Ok);
 		}
@@ -97,8 +97,8 @@ bool TFile::CopyFileWithWidget(const QString &fileName,
 		{
 			if (pQuestion != nullptr)
 			{
-				QMessageBox::StandardButton btn = pQuestion(parent, QString::fromLocal8Bit("提示:"),
-					QString::fromLocal8Bit("文件已存在, 是否替换?"),
+				QMessageBox::StandardButton btn = pQuestion(parent, QString::fromUtf8("提示:"),
+					QString::fromUtf8("文件已存在, 是否替换?"),
 					QMessageBox::StandardButtons(QMessageBox::StandardButton::Yes |
 						QMessageBox::StandardButton::No),
 					QMessageBox::StandardButton::Yes);
@@ -126,8 +126,8 @@ bool TFile::CopyFileWithWidget(const QString &fileName,
 			if (!fileInfo.suffix().isEmpty() &&
 				pQuestion != nullptr)
 			{
-				QMessageBox::StandardButton btn = pQuestion(parent, QString::fromLocal8Bit("提示:"),
-					QString::fromLocal8Bit("目标路径不明确,目标路径名称是否即目标文件名称?"),
+				QMessageBox::StandardButton btn = pQuestion(parent, QString::fromUtf8("提示:"),
+					QString::fromUtf8("目标路径不明确,目标路径名称是否即目标文件名称?"),
 					QMessageBox::StandardButtons(QMessageBox::StandardButton::Yes |
 						QMessageBox::StandardButton::No),
 					QMessageBox::StandardButton::Yes);
@@ -143,8 +143,8 @@ bool TFile::CopyFileWithWidget(const QString &fileName,
 		{
 			if (pInformation != nullptr)
 			{
-				pInformation(parent, QString::fromLocal8Bit("错误:"),
-					QString::fromLocal8Bit("创建目标文件夹失败."),
+				pInformation(parent, QString::fromUtf8("错误:"),
+					QString::fromUtf8("创建目标文件夹失败."),
 					QMessageBox::StandardButton::Ok,
 					QMessageBox::StandardButton::Ok);
 			}
@@ -420,7 +420,7 @@ bool TFile::Decompress(const QString& strSourcePath,
 		args.append("-aoa");
 	else
 		args.append("-aos");
-	args.append(QString::fromLocal8Bit("-o%1").arg(strTargetPath));
+	args.append(QString::fromUtf8("-o%1").arg(strTargetPath));
 	ret = p.execute(command, args);
 
 	return ret == 0;

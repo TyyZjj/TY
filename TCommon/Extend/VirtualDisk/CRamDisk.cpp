@@ -284,6 +284,12 @@ ImDiskCliCreateDevice(
 }
 #endif // RAMDISK_LIB
 
+bool CRamDisk::create(int iSizeInMB)
+{
+	QString strLetterName;
+	return create(iSizeInMB, strLetterName);
+}
+
 bool CRamDisk::create(int iSizeInMB, QString &strLetterName)
 {
 	if (strLetterName.isEmpty())

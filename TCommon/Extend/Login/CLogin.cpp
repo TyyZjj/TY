@@ -17,42 +17,42 @@ bool sUserId::operator<(const sUserId &userId)const
 QString sUserId::getUserIdTypeName()const
 {
 	if (iUserIdType == nUserIdType_UserMainName)
-		return QString::fromLocal8Bit("用户名");
+		return QString::fromUtf8("用户名");
 	else if (iUserIdType == nUserIdType_UserAutoId)
-		return QString::fromLocal8Bit("自动用户名");
+		return QString::fromUtf8("自动用户名");
 	else if (iUserIdType == nUserIdType_Card)
-		return QString::fromLocal8Bit("卡号");
+		return QString::fromUtf8("卡号");
 	else if (iUserIdType == nUserIdType_WorkId)
-		return QString::fromLocal8Bit("工号");
+		return QString::fromUtf8("工号");
 	else if (iUserIdType == nUserIdType_PhoneNumber)
-		return QString::fromLocal8Bit("手机");
+		return QString::fromUtf8("手机");
 	else if (iUserIdType == nUserIdType_Email)
-		return QString::fromLocal8Bit("邮箱");
-	else if (iUserIdType == nUserIdType_Email)
-		return QString::fromLocal8Bit("QQ");
-	else if (iUserIdType == nUserIdType_Email)
-		return QString::fromLocal8Bit("微信");
+		return QString::fromUtf8("邮箱");
+	else if (iUserIdType == nUserIdType_QQ)
+		return QString::fromUtf8("QQ");
+	else if (iUserIdType == nUserIdType_WeChat)
+		return QString::fromUtf8("微信");
 	else
 		return QString::fromLatin1("未知");
 }
 
 sUserId::nUserIdType sUserId::getUserIdType(const QString &strUserIdTypeName)
 {
-	if (strUserIdTypeName == QString::fromLocal8Bit("用户名"))
+	if (strUserIdTypeName == QString::fromUtf8("用户名"))
 		return nUserIdType_UserMainName;
-	else if (strUserIdTypeName == QString::fromLocal8Bit("自动用户名"))
+	else if (strUserIdTypeName == QString::fromUtf8("自动用户名"))
 		return nUserIdType_UserAutoId;
-	else if (strUserIdTypeName == QString::fromLocal8Bit("卡号"))
+	else if (strUserIdTypeName == QString::fromUtf8("卡号"))
 		return nUserIdType_Card;
-	else if (strUserIdTypeName == QString::fromLocal8Bit("工号"))
+	else if (strUserIdTypeName == QString::fromUtf8("工号"))
 		return nUserIdType_WorkId;
-	else if (strUserIdTypeName == QString::fromLocal8Bit("手机"))
+	else if (strUserIdTypeName == QString::fromUtf8("手机"))
 		return nUserIdType_PhoneNumber;
-	else if (strUserIdTypeName == QString::fromLocal8Bit("邮箱"))
+	else if (strUserIdTypeName == QString::fromUtf8("邮箱"))
 		return nUserIdType_Email;
-	else if (strUserIdTypeName == QString::fromLocal8Bit("QQ"))
+	else if (strUserIdTypeName == QString::fromUtf8("QQ"))
 		return nUserIdType_QQ;
-	else if (strUserIdTypeName == QString::fromLocal8Bit("微信"))
+	else if (strUserIdTypeName == QString::fromUtf8("微信"))
 		return nUserIdType_WeChat;
 	else
 		return nUserIdType_Invalid;
@@ -87,25 +87,25 @@ bool sLoginUser::isValid()
 	ret &= (!this->strUserMainName.isEmpty());
 	if (!ret)
 	{
-		this->strLastError = QString::fromLocal8Bit("主用户名为空.");
+		this->strLastError = QString::fromUtf8("主用户名为空.");
 		return false;
 	}
 	ret &= (!this->strShowUser.isEmpty());
 	if (!ret)
 	{
-		this->strLastError = QString::fromLocal8Bit("显示用户名称为空.");
+		this->strLastError = QString::fromUtf8("显示用户名称为空.");
 		return false;
 	}
 	ret &= (!this->strAutoUserId.isEmpty());
 	if (!ret)
 	{
-		this->strLastError = QString::fromLocal8Bit("自动用户id为空.");
+		this->strLastError = QString::fromUtf8("自动用户id为空.");
 		return false;
 	}
 	ret &= (!this->lstUserId.isEmpty());
 	if (!ret)
 	{
-		this->strLastError = QString::fromLocal8Bit("用户id列表不能为空.");
+		this->strLastError = QString::fromUtf8("用户id列表不能为空.");
 		return false;
 	}
 
@@ -115,7 +115,7 @@ bool sLoginUser::isValid()
 	{
 		if (lstUserId.contains(userId))
 		{
-			this->strLastError = QString::fromLocal8Bit("用户id列表中存在用户id重复. 名称:%1, 类型:%2.")
+			this->strLastError = QString::fromUtf8("用户id列表中存在用户id重复. 名称:%1, 类型:%2.")
 				.arg(userId.strUserId).arg(userId.getUserIdTypeName());
 			return false;
 		}
@@ -124,12 +124,12 @@ bool sLoginUser::isValid()
 		{
 			if (isUserMainNameExist)
 			{
-				this->strLastError = QString::fromLocal8Bit("用户id列表中存在多个主用户名称: %1.").arg(userId.strUserId);
+				this->strLastError = QString::fromUtf8("用户id列表中存在多个主用户名称: %1.").arg(userId.strUserId);
 				return false;
 			}
 			if (userId.strUserId != this->strUserMainName)
 			{	
-				this->strLastError = QString::fromLocal8Bit("主用户名称和用户id列表中主用户名称不一致: %1, %2.")
+				this->strLastError = QString::fromUtf8("主用户名称和用户id列表中主用户名称不一致: %1, %2.")
 					.arg(userId.strUserId).arg(this->strUserMainName);
 				return false;
 			}
@@ -139,12 +139,12 @@ bool sLoginUser::isValid()
 		{
 			if (isAutoUserIdExist)
 			{
-				this->strLastError = QString::fromLocal8Bit("用户id列表中存在多个自动用户id: %1.").arg(userId.strUserId);
+				this->strLastError = QString::fromUtf8("用户id列表中存在多个自动用户id: %1.").arg(userId.strUserId);
 				return false;
 			}
 			if (userId.strUserId != this->strAutoUserId)
 			{
-				this->strLastError = QString::fromLocal8Bit("自动用户id和用户id列表中自动用户id不一致: %1, %2.")
+				this->strLastError = QString::fromUtf8("自动用户id和用户id列表中自动用户id不一致: %1, %2.")
 					.arg(userId.strUserId).arg(this->strAutoUserId);
 				return false;
 			}
@@ -154,13 +154,13 @@ bool sLoginUser::isValid()
 	ret &= isUserMainNameExist;
 	if (!ret)
 	{
-		this->strLastError = QString::fromLocal8Bit("用户id列表中不存在主用户名称.");
+		this->strLastError = QString::fromUtf8("用户id列表中不存在主用户名称.");
 		return false;
 	}
 	ret &= isAutoUserIdExist;
 	if (!ret)
 	{
-		this->strLastError = QString::fromLocal8Bit("用户id列表中不存在自动用户id.");
+		this->strLastError = QString::fromUtf8("用户id列表中不存在自动用户id.");
 		return false;
 	}
 	return ret;
@@ -186,7 +186,7 @@ bool sLoginUser::addUserId(const QString &strUserId,
 {
 	if (iUserIdType == sUserId::nUserIdType::nUserIdType_UserAutoId)
 	{
-		strLastError = QString::fromLocal8Bit("用户自动Id不允许手动设置");
+		strLastError = QString::fromUtf8("用户自动Id不允许手动设置");
 		return false;
 	}
 	if (iUserIdType == sUserId::nUserIdType::nUserIdType_UserMainName)
@@ -202,19 +202,19 @@ bool sLoginUser::addUserId(const QString &strUserId,
 			}
 			else
 			{
-				strLastError = QString::fromLocal8Bit("主用户名不允许重复添加");
+				strLastError = QString::fromUtf8("主用户名不允许重复添加");
 				return false;//UserMainName不允许重置
 			}
 		}
 		else
 		{
-			strLastError = QString::fromLocal8Bit("尚不支持的用户注册方式");
+			strLastError = QString::fromUtf8("尚不支持的用户注册方式");
 			return false;
 		}
 	}
 	if (this->strUserMainName.isEmpty())
 	{
-		strLastError = QString::fromLocal8Bit("先要添加主用户名");
+		strLastError = QString::fromUtf8("先要添加主用户名");
 		return false;
 	}
 	this->lstUserId.append(sUserId(strUserId, iUserIdType));
@@ -224,12 +224,12 @@ bool sLoginUser::removeUserId(const QString &strUserId)
 {
 	if (strUserId == this->strUserMainName)
 	{
-		this->strLastError = QString::fromLocal8Bit("不能移除主用户名: %1").arg(strUserId);
+		this->strLastError = QString::fromUtf8("不能移除主用户名: %1").arg(strUserId);
 		return false;
 	}
 	else if (strUserId == this->strAutoUserId)
 	{
-		this->strLastError = QString::fromLocal8Bit("不能移除自动用户id: %1").arg(strUserId);
+		this->strLastError = QString::fromUtf8("不能移除自动用户id: %1").arg(strUserId);
 		return false;
 	}
 	else
@@ -247,7 +247,7 @@ bool sLoginUser::removeUserId(const QString &strUserId)
 		}
 		else
 		{
-			this->strLastError = QString::fromLocal8Bit("不存在当前用户: %1").arg(strUserId);
+			this->strLastError = QString::fromUtf8("不存在当前用户: %1").arg(strUserId);
 			return false;
 		}
 	}
@@ -256,12 +256,12 @@ bool sLoginUser::removeUserId(const QString &strUserId, sUserId::nUserIdType iUs
 {
 	if (iUserIdType == sUserId::nUserIdType::nUserIdType_UserMainName)
 	{
-		this->strLastError = QString::fromLocal8Bit("不能移除主用户名: %1").arg(strUserId);
+		this->strLastError = QString::fromUtf8("不能移除主用户名: %1").arg(strUserId);
 		return false;
 	}
 	else if (iUserIdType == sUserId::nUserIdType::nUserIdType_UserAutoId)
 	{
-		this->strLastError = QString::fromLocal8Bit("不能移除自动用户id: %1").arg(strUserId);
+		this->strLastError = QString::fromUtf8("不能移除自动用户id: %1").arg(strUserId);
 		return false;
 	}
 	else
@@ -274,7 +274,7 @@ bool sLoginUser::removeUserId(const QString &strUserId, sUserId::nUserIdType iUs
 		}
 		else
 		{
-			this->strLastError = QString::fromLocal8Bit("不存在当前用户: %1, %2")
+			this->strLastError = QString::fromUtf8("不存在当前用户: %1, %2")
 				.arg(strUserId);
 			return false;
 		}
@@ -304,14 +304,14 @@ bool sLoginUser::setUserId(const QString &strUserId,
 				}
 				this->strUserMainName = strUserId;
 				this->strShowUser = strUserId;
-				//strLastError = QString::fromLocal8Bit("主用户名不允许重置");
+				//strLastError = QString::fromUtf8("主用户名不允许重置");
 				return true;
 			}
 		}
 	}
 	else if (iUserIdType == sUserId::nUserIdType::nUserIdType_UserAutoId)
 	{
-		strLastError = QString::fromLocal8Bit("用户自动Id不允许重置");
+		strLastError = QString::fromUtf8("用户自动Id不允许重置");
 		return false;//UserAutoId不允许重置
 	}
 	else
@@ -437,7 +437,7 @@ QJsonObject sLoginUser::toJson(sLoginUser loginUser)
 {
 	if (!loginUser.isValid())
 	{
-		qDebug() << QString::fromLocal8Bit("无效的登录用户: %1, %2")
+		qDebug() << QString::fromUtf8("无效的登录用户: %1, %2")
 			.arg(loginUser.getUserMainName())
 			.arg(loginUser.getLastError());
 		return QJsonObject();
@@ -470,53 +470,53 @@ QString sLoginUser::getAuthorityName(int iAuthority)
 {
 	if (iAuthority <= sLoginUser::nUserAuthority::nUserLevel_Invalid)
 	{
-		return QString::fromLocal8Bit("无权限");
+		return QString::fromUtf8("无权限");
 	}
 	else if (iAuthority < sLoginUser::nUserAuthority::nUserLevel_Operator)
 	{
-		return QString::fromLocal8Bit("小黑屋");
+		return QString::fromUtf8("小黑屋");
 	}
 	else if (iAuthority < sLoginUser::nUserAuthority::nUserLevel_Technician)
 	{
 		QString strLevel;
 		int iLevel = iAuthority - sLoginUser::nUserAuthority::nUserLevel_Operator;
 		if (iLevel > 0)
-			strLevel = QString::fromLocal8Bit("(%1级)").arg(iLevel);
-		return QString::fromLocal8Bit("操作员%1").arg(strLevel);
+			strLevel = QString::fromUtf8("(%1级)").arg(iLevel);
+		return QString::fromUtf8("操作员%1").arg(strLevel);
 	}
 	else if (iAuthority < sLoginUser::nUserAuthority::nUserLevel_Engineer)
 	{
-		return QString::fromLocal8Bit("技术员");
+		return QString::fromUtf8("技术员");
 	}
 	else if (iAuthority < sLoginUser::nUserAuthority::nUserLevel_Admin)
 	{
-		return QString::fromLocal8Bit("工程师");
+		return QString::fromUtf8("工程师");
 	}
 	else if (iAuthority < sLoginUser::nUserAuthority::nUserLevel_Develop)
 	{
-		return QString::fromLocal8Bit("管理员");
+		return QString::fromUtf8("管理员");
 	}
 	else if (iAuthority == sLoginUser::nUserAuthority::nUserLevel_Develop)
 	{
-		return QString::fromLocal8Bit("开发者");
+		return QString::fromUtf8("开发者");
 	}
 	else
 	{
-		return QString::fromLocal8Bit("无效权限");
+		return QString::fromUtf8("无效权限");
 	}
 }
 
 int sLoginUser::getAuthority(const QString &strAuthorityName)
 {
-	if (strAuthorityName == QString::fromLocal8Bit("开发者"))
+	if (strAuthorityName == QString::fromUtf8("开发者"))
 		return sLoginUser::nUserAuthority::nUserLevel_Develop;
-	else if (strAuthorityName == QString::fromLocal8Bit("管理员"))
+	else if (strAuthorityName == QString::fromUtf8("管理员"))
 		return sLoginUser::nUserAuthority::nUserLevel_Admin;
-	else if (strAuthorityName == QString::fromLocal8Bit("工程师"))
+	else if (strAuthorityName == QString::fromUtf8("工程师"))
 		return sLoginUser::nUserAuthority::nUserLevel_Engineer;
-	else if (strAuthorityName == QString::fromLocal8Bit("技术员"))
+	else if (strAuthorityName == QString::fromUtf8("技术员"))
 		return sLoginUser::nUserAuthority::nUserLevel_Technician;
-	else if (strAuthorityName.contains(QString::fromLocal8Bit("操作员")))
+	else if (strAuthorityName.contains(QString::fromUtf8("操作员")))
 	{
 		QString strLevel;
 		if (strAuthorityName.contains("(") && strAuthorityName.contains(")"))
@@ -526,9 +526,9 @@ int sLoginUser::getAuthority(const QString &strAuthorityName)
 		}
 		return sLoginUser::nUserAuthority::nUserLevel_Operator + strLevel.toInt();
 	}
-	else if (strAuthorityName == QString::fromLocal8Bit("小黑屋"))
+	else if (strAuthorityName == QString::fromUtf8("小黑屋"))
 		return sLoginUser::nUserAuthority::nUserLevel_Invalid + 1;
-	else if (strAuthorityName == QString::fromLocal8Bit("无权限"))
+	else if (strAuthorityName == QString::fromUtf8("无权限"))
 		return sLoginUser::nUserAuthority::nUserLevel_Invalid;
 	else
 		return sLoginUser::nUserAuthority::nUserLevel_Invalid;

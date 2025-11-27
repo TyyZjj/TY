@@ -30,7 +30,7 @@ int GenerateMiniDump(HANDLE hFile, PEXCEPTION_POINTERS pExceptionPointers, PWCHA
 		);
 
 	MiniDumpWriteDumpT pfnMiniDumpWriteDump = nullptr;
-	HMODULE hDbgHelp = LoadLibrary(L"DbgHelp.dll");
+	HMODULE hDbgHelp = LoadLibrary("DbgHelp.dll");
 	if (hDbgHelp)
 		pfnMiniDumpWriteDump = (MiniDumpWriteDumpT)GetProcAddress(hDbgHelp, "MiniDumpWriteDump");
 
@@ -51,7 +51,7 @@ int GenerateMiniDump(HANDLE hFile, PEXCEPTION_POINTERS pExceptionPointers, PWCHA
 			//wsprintf(szFileName, L"%s%s", szPath, szAppName);
 			CreateDirectory(szFileName, nullptr);
 
-			wsprintf(szFileName, L"%s-%04d%02d%02d-%02d%02d%02d-%ld-%ld.dmp",
+			wsprintf(szFileName, "%s-%04d%02d%02d-%02d%02d%02d-%ld-%ld.dmp",
 				//szPath, szAppName, szVersion,
 				szVersion,
 				stLocalTime.wYear, stLocalTime.wMonth, stLocalTime.wDay,
@@ -165,19 +165,19 @@ namespace
 		switch (msgtype)
 		{
 		case QtDebugMsg:
-			logformat = logformat.arg(QString::fromLocal8Bit("Debug"));
+			logformat = logformat.arg(QString::fromUtf8("Debug"));
 			break;
 		case QtWarningMsg:
-			logformat = logformat.arg(QString::fromLocal8Bit("Warning"));
+			logformat = logformat.arg(QString::fromUtf8("Warning"));
 			break;
 		case QtCriticalMsg:
-			logformat = logformat.arg(QString::fromLocal8Bit("Critical"));
+			logformat = logformat.arg(QString::fromUtf8("Critical"));
 			break;
 		case QtFatalMsg:
-			logformat = logformat.arg(QString::fromLocal8Bit("Fatal"));
+			logformat = logformat.arg(QString::fromUtf8("Fatal"));
 			break;
 		case QtInfoMsg:
-			logformat = logformat.arg(QString::fromLocal8Bit("Info"));
+			logformat = logformat.arg(QString::fromUtf8("Info"));
 			break;
 		}
 
@@ -242,7 +242,7 @@ void TLog::initLog(const QString& logpath)
 
 	qDebug() << endl;
 	qDebug() << endl;
-	qDebug() << QString::fromLocal8Bit("程序开始运行!... 程序名称: %1").arg(QCoreApplication::applicationName()).toUtf8().data();
+	qDebug() << QString::fromUtf8("程序开始运行!... 程序名称: %1").arg(QCoreApplication::applicationName()).toUtf8().data();
 }
 
 void TLog::setLogFileMaxSpace(qint64 space /*= MAXLOGSPACE*/)
@@ -262,6 +262,6 @@ TLog::TLog()
 
 TLog::~TLog()
 {
-	writeLog(sLogMsg{ QtDebugMsg , QString::fromLocal8Bit("程序结束运行!... 程序名称: %1\r\n\r\n").arg(QCoreApplication::applicationName()).toUtf8().data() });
+	writeLog(sLogMsg{ QtDebugMsg , QString::fromUtf8("程序结束运行!... 程序名称: %1\r\n\r\n").arg(QCoreApplication::applicationName()).toUtf8().data() });
 }
 

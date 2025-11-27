@@ -86,6 +86,12 @@
     <Filter Include="Source Files\TCommon\Graph">
       <UniqueIdentifier>{22990939-2ba1-44c8-a9d9-42dda7d0e80a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\TCommon\Gui\Dock">
+      <UniqueIdentifier>{57f0104b-e0b4-45e1-a69a-05b33db578a4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Extend\协议">
+      <UniqueIdentifier>{01c15823-63f1-4cb4-a318-39bb7ef1493d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Study\Qt\SDir.h">
@@ -205,6 +211,12 @@
     <ClInclude Include="TCommon\Graph\TGraph.h">
       <Filter>Header Files\TCommon\Graph</Filter>
     </ClInclude>
+    <ClInclude Include="Extend\DesignPattern\TThreadSafeQueueCache.h">
+      <Filter>Header Files\Extend\设计模式</Filter>
+    </ClInclude>
+    <ClInclude Include="Extend\Protocol\CSecs.h">
+      <Filter>Header Files\Extend\协议</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="Memo.txt" />
@@ -276,6 +288,18 @@
     <ClCompile Include="TCommon\Graph\TGraph.cpp">
       <Filter>Source Files\TCommon\Graph</Filter>
     </ClCompile>
+    <ClCompile Include="TCommon\Gui\Dock\CDockTitle.cpp">
+      <Filter>Header Files\TCommon\Gui\Dock</Filter>
+    </ClCompile>
+    <ClCompile Include="TCommon\Gui\Dock\CDockWidget.cpp">
+      <Filter>Header Files\TCommon\Gui\Dock</Filter>
+    </ClCompile>
+    <ClCompile Include="TCommon\Gui\Dock\CDockWidgetFoldWidget.cpp">
+      <Filter>Header Files\TCommon\Gui\Dock</Filter>
+    </ClCompile>
+    <ClCompile Include="Extend\Protocol\CSecs.cpp">
+      <Filter>Header Files\Extend\协议</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="Extend\MultiProc\CMultiProcManager.h">
@@ -299,6 +323,15 @@
     <QtMoc Include="Extend\HotKey\TGlobalHotKey.h">
       <Filter>Header Files\Extend\热键</Filter>
     </QtMoc>
+    <QtMoc Include="TCommon\Gui\Dock\CDockTitle.h">
+      <Filter>Header Files\TCommon\Gui\Dock</Filter>
+    </QtMoc>
+    <QtMoc Include="TCommon\Gui\Dock\CDockWidget.h">
+      <Filter>Header Files\TCommon\Gui\Dock</Filter>
+    </QtMoc>
+    <QtMoc Include="TCommon\Gui\Dock\CDockWidgetFoldWidget.h">
+      <Filter>Header Files\TCommon\Gui\Dock</Filter>
+    </QtMoc>
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="Extend\Login\CLoginUI.ui">
@@ -306,6 +339,9 @@
     </QtUic>
     <QtUic Include="Extend\PointArrangement\TPointArrangementUi.ui">
       <Filter>Header Files\Extend\点位排布</Filter>
+    </QtUic>
+    <QtUic Include="TCommon\Gui\Dock\CDockTitle.ui">
+      <Filter>Header Files\TCommon\Gui\Dock</Filter>
     </QtUic>
   </ItemGroup>
 </Project>

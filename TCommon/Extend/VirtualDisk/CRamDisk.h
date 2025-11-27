@@ -102,7 +102,8 @@ public:
 	//		使用API创建内存硬盘时, 当为空时, 将默认创建一个新的盘符
 	//		当以命令行的形式创建内存硬盘时, 返回失败
 	//************************************
-	bool create(int iSizeInMB, QString &strLetterName = QString());
+	bool create(int iSizeInMB);
+	bool create(int iSizeInMB, QString &strLetterName /*= QString()*/);
 
 private:
 	CRamDisk(QObject *parent = nullptr);

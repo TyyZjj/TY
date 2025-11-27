@@ -254,7 +254,7 @@ void CMultiProcManager::OnTimer()
 								HWND wnd = GetHwndByPid(processId, strUiName.toLocal8Bit().data(), lstTitle);
 								if (!wnd)
 								{
-									emit signalProcessError(QString::fromLocal8Bit("进程 %1(%2)获取窗口 %3 失败. 窗口列表: %4.")
+									emit signalProcessError(QString::fromUtf8("进程 %1(%2)获取窗口 %3 失败. 窗口列表: %4.")
 										.arg(it->strProcPath)
 										.arg(it->iProcId)
 										.arg(strUiName)
@@ -274,7 +274,7 @@ void CMultiProcManager::OnTimer()
 								QWindow *childWindow = QWindow::fromWinId(WId(wnd));
 								if (!childWindow)
 								{
-									emit signalProcessError(QString::fromLocal8Bit("进程 %1(%2)获取窗口 %3 无效.")
+									emit signalProcessError(QString::fromUtf8("进程 %1(%2)获取窗口 %3 无效.")
 										.arg(it->strProcPath)
 										.arg(it->iProcId)
 										.arg(strUiName));

@@ -1,0 +1,1039 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>CLoginDialog</class>
+ <widget class="QDialog" name="CLoginDialog">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>400</width>
+    <height>476</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Dialog</string>
+  </property>
+  <layout class="QGridLayout" name="gridLayout">
+   <property name="leftMargin">
+    <number>0</number>
+   </property>
+   <property name="topMargin">
+    <number>0</number>
+   </property>
+   <property name="rightMargin">
+    <number>0</number>
+   </property>
+   <property name="bottomMargin">
+    <number>0</number>
+   </property>
+   <item row="0" column="0">
+    <widget class="QFrame" name="borderFrame">
+     <property name="styleSheet">
+      <string notr="true">
+QFrame#topFrame{
+background-color:rgba(250, 250, 250);
+border-top:6px solid qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(0, 173, 239, 255), stop:1 rgba(0, 173, 239, 50));
+border-bottom:1px solid gray;
+}
+QFrame#bottomFrame{
+background-color:rgba(245, 245, 245);
+border:0px;
+}
+QFrame#worktypebtnFrame{
+background-color:rgba(245, 245, 245);
+border:0px;
+}
+QFrame#changebtnFrame{
+background:transparent;
+border:0px;
+}
+
+
+QLabel{
+color: rgba(34, 34, 34,255);
+font: 14px;
+font-family: &quot;Microsoft YaHei&quot;;
+background:transparent;
+}
+
+QLabel#statusLbl,
+QLabel#companyLbl{
+color: rgba(34, 34, 34,255);
+font: 12px;
+font-family: &quot;Microsoft YaHei&quot;;
+background:transparent;
+border:1px solid gray;
+}
+
+QWidget{
+background-color: rgba(255, 255, 255);
+}
+
+QPushButton{border:1px solid gray;border-radius:3px;background:white;color:rgba(34, 34, 34, 255);font: 14px;font-family:&quot;Microsoft YaHei&quot;;}
+QPushButton:hover{border:1px solid rgb(0, 173, 239);color:rgb(0, 173, 239);}
+QPushButton:pressed{border:1px solid rgb(0, 173, 239);color:rgb(0, 173, 239);}
+QPushButton:!enabled{border:1px solid gray;color:gray;}
+
+QPushButton#editUserBtn{border:none;border-radius:3px;background:white;color:rgba(34, 34, 34, 255);font: 14px;font-family:&quot;Microsoft YaHei&quot;;}
+QPushButton#editUserBtn:hover{border:none;color:rgb(0, 173, 239);}
+QPushButton#editUserBtn:pressed{border:none;color:rgb(0, 173, 239);}
+
+QPushButton#editDBBtn{border:none;border-radius:3px;background:white;color:rgba(34, 34, 34, 255);font: 14px;font-family:&quot;Microsoft YaHei&quot;;}
+QPushButton#editDBBtn:hover{border:none;color:rgb(0, 173, 239);}
+QPushButton#editDBBtn:pressed{border:none;color:rgb(0, 173, 239);}
+
+QPushButton#newUserBtn{border:none;border-radius:3px;background:white;color:rgba(34, 34, 34, 255);font: 14px;font-family:&quot;Microsoft YaHei&quot;;}
+QPushButton#newUserBtn:hover{border:none;color:rgb(0, 173, 239);}
+QPushButton#newUserBtn:pressed{border:none;color:rgb(0, 173, 239);}
+
+QPushButton#delUserBtn{border:none;border-radius:3px;background:white;color:rgba(34, 34, 34, 255);font: 14px;font-family:&quot;Microsoft YaHei&quot;;}
+QPushButton#delUserBtn:hover{border:none;color:rgb(0, 173, 239);}
+QPushButton#delUserBtn:pressed{border:none;color:rgb(0, 173, 239);}
+
+QPushButton#closeBtn{border:none;background:transparent;image: url(:/Dialog/close_reset);}
+QPushButton#closeBtn:hover{border:none;background-color: rgba(255, 0, 0, 200);}
+QPushButton#closeBtn:pressed{border:none;background-color: rgba(255, 0,0, 200);}
+
+QPushButton#maximizeBtn{border:none;background:transparent;image: url(:/Dialog/max);}
+QPushButton#maximizeBtn:hover{border:none;background-color: rgba(0, 173, 239, 100);}
+QPushButton#maximizeBtn:pressed{border:none;background-color: rgba(0, 173, 239, 200);}
+
+QPushButton#minimizeBtn{border:none;background:transparent;image: url(:/Dialog/min);}
+QPushButton#minimizeBtn:hover{border:none;background-color: rgba(0, 173, 239, 100);}
+QPushButton#minimizeBtn:pressed{border:none;background-color: rgba(0, 173, 239, 200);}
+
+QCheckBox{color: rgb(34, 34, 34);font: 12px; font-family: &quot;Microsoft YaHei&quot;;}
+QCheckBox::indicator{width:20px;height:20px;}
+QCheckBox::indicator:unchecked{image:url(:/Dialog/unchecked);}
+QCheckBox::indicator:unchecked:hover{image:url(:/Dialog/unchecked);}
+QCheckBox::indicator:unchecked:pressed{image:url(:/Dialog/checked);}
+QCheckBox::indicator:checked{image: url(:/Dialog/checked);}
+QCheckBox::indicator:checked:hover{image: url(:/Dialog/checked);}
+QCheckBox::indicator:checked:pressed{image: url(:/Dialog/unchecked);}
+QCheckBox::indicator:indeterminate:pressed{image: url(:/Dialog/checked);}
+
+QGroupBox{color: rgb(34, 34, 34);font: 12px; font-family: &quot;Microsoft YaHei&quot;;border: 1px solid gray; border-radius: 4px;}
+QGroupBox::indicator{width:20px;height:20px;}
+QGroupBox::indicator:unchecked{image:url(:/Dialog/unchecked);}
+QGroupBox::indicator:unchecked:hover{image:url(:/Dialog/unchecked);}
+QGroupBox::indicator:unchecked:pressed{image:url(:/Dialog/checked);}
+QGroupBox::indicator:checked{image: url(:/Dialog/checked);}
+QGroupBox::indicator:checked:hover{image: url(:/Dialog/checked);}
+QGroupBox::indicator:checked:pressed{image: url(:/Dialog/unchecked);}
+QGroupBox::indicator:indeterminate:pressed{image: url(:/Dialog/checked);}
+
+QRadioButton{color: rgb(34, 34, 34);font: 12px; font-family: &quot;Microsoft YaHei&quot;;}
+QRadioButton::indicator{width:20px;height:20px;}
+QRadioButton::indicator:unchecked{image:url(:/Dialog/unchecked);}
+QRadioButton::indicator:unchecked:hover{image:url(:/Dialog/unchecked);}
+QRadioButton::indicator:unchecked:pressed{image:url(:/Dialog/checked);}
+QRadioButton::indicator:checked{image: url(:/Dialog/checked);}
+QRadioButton::indicator:checked:hover{image: url(:/Dialog/checked);}
+QRadioButton::indicator:checked:pressed{image: url(:/Dialog/unchecked);}
+QRadioButton::indicator:indeterminate:pressed{image: url(:/Dialog/checked);}
+
+QLineEdit{border:1px solid gray;border-radius:3px;color: rgba(34, 34, 34,200);font: 12px;font-family: &quot;Microsoft YaHei&quot;;background:white;}
+QLineEdit:hover{border:1px solid rgb(0,173,239);}
+QLineEdit:read-only{border:1px solid gray;color:gray;background:rgba(230, 230, 230, 230)}
+QTextEdit{border:1px solid gray;color: rgba(34, 34, 34,200);font: 14px;font-family: &quot;Microsoft YaHei&quot;;background:white;}
+
+QComboBox{border:1px solid gray;border-radius:3px;padding:1px 18px 1px 3px;color: rgba(34, 34, 34,200);font: 12px;font-family: &quot;Microsoft YaHei&quot;;background:white;}
+QComboBox:hover{border:1px solid rgb(0,173,239);}
+QComboBox:editable{border:1px solid gray;border-radius:3px;padding:1px 18px 1px 3px;color: rgba(34, 34, 34,200);font: 12px;font-family: &quot;Microsoft YaHei&quot;;background:white;}
+QComboBox::drop-down{width:15px;border-left-width:1px;border-left-color:darkgray;border-left-style:solid;border-top-right-radius:3px;border-bottom-right-radius:3px;}
+QComboBox::down-arrow{ image:url(:/Dialog/arrowdown_reset);}
+QComboBox::down-arrow:on{top:1px;left:1px;}
+QComboBox QAbstractItemView{color: rgb(34, 34, 34);font: 14px;font-family:&quot;Microsoft YaHei&quot;;outline: 0px;}
+
+QSpinBox {border-radius: 4px;border:1px solid gray;color: rgba(34, 34, 34,200);font: 12px; font-family: &quot;Microsoft YaHei&quot;;}
+QSpinBox::up-button {;subcontrol-position:right;image: url(:/Dialog/up_right);width:12px;height:20px;}
+QSpinBox::up-button:hover{subcontrol-position:right;image: url(:/Dialog/pushed_right);width:12px;height:20px;}
+QSpinBox::up-button:pressed{subcontrol-position:right;image: url(:/Dialog/pushed_right);width:12px;height:20px;}
+QSpinBox::down-button {subcontrol-position:left;image: url(:/Dialog/up_left);width:12px;height:20px;}
+QSpinBox::down-button:hover {subcontrol-position:left;image: url(:/Dialog/pushed_left);width:12px;height:20px;}
+QSpinBox::down-button:pressed {subcontrol-position:left;image: url(:/Dialog/pushed_left);width:12px;height:20px;}
+QDoubleSpinBox {border-radius: 4px;border:1px solid gray;color: rgba(34, 34, 34,200);font: 12px; font-family: &quot;Microsoft YaHei&quot;;}
+
+QDoubleSpinBox::up-button {;subcontrol-position:right;image: url(:/Dialog/up_right);width:12px;height:20px;}
+QDoubleSpinBox::up-button:hover{subcontrol-position:right;image: url(:/Dialog/pushed_right);width:12px;height:20px;}
+QDoubleSpinBox::up-button:pressed{subcontrol-position:right;image: url(:/Dialog/pushed_right);width:12px;height:20px;}
+QDoubleSpinBox::down-button {subcontrol-position:left;image: url(:/Dialog/up_left);width:12px;height:20px;}
+QDoubleSpinBox::down-button:hover {subcontrol-position:left;image: url(:/Dialog/pushed_left);width:12px;height:20px;}
+QDoubleSpinBox::down-button:pressed {subcontrol-position:left;image: url(:/Dialog/pushed_left);width:12px;height:20px;}
+
+QDateTimeEdit {border-radius: 4px;border:1px solid gray;color: rgba(34, 34, 34,200);font: 14px; font-family: &quot;Microsoft YaHei&quot;;}
+QDateTimeEdit:hover{border:1px solid rgb(0,173,239);}
+QDateTimeEdit::drop-down{width:25px;border-left-width:1px;border-left-color:darkgray;border-left-style:solid;border-top-right-radius:3px;border-bottom-right-radius:3px;}
+QDateTimeEdit::down-arrow{ image:url(:/Dialog/cal);}
+QCalendarWidget QMenu{width:80px;left:10px;}
+QCalendarWidget QToolButton{height:18px;}
+QCalendarWidget QToolButton:hover{border-radius: 0px;color: rgba(34, 34, 34,255);}
+QCalendarWidget QWidget#qt_calendarview{background:rgba(255, 255, 255, 230);border:0px;}
+QCalendarWidget QAbstractItemView{selection-background-color:rgb(0, 173, 239);}
+
+
+QScrollArea{border:none;background-color: transparent;border: 1px solid gray;}
+QScrollBar::vertical{width:8px;background: transparent;margin:0px, 0px, 0px, 0px;padding-top:0px;padding-bottom:0px;}
+QScrollBar::handle:vertical{width:8px;background:rgba(200, 200, 200);}
+QScrollBar::handle:vertical:hover{width:16px;background:rgba(0, 173, 239);}
+QScrollBar::add-line:vertical{height:0px;width:0px;background:transparent;subcontrol-position:width;subcontrol-origin:margin;}
+QScrollBar::sub-line:vertical{height:0px; width:0px;background:transparent;subcontrol-position:top;subcontrol-origin:margin;}
+QScrollBar::add-line:vertical:hover{height:0px; width:0px;background: transparent;subcontrol-position:width;subcontrol-origin:margin;}
+QScrollBar::sub-line:vertical:hover{height:0px; width:0px;background: transparent;subcontrol-position:top;subcontrol-origin:margin;}
+QScrollBar::add-page:vertical,QScrollBar::sub-page:vertical{background:none;}
+
+QScrollBar::horizontal{height:8px;background: transparent;margin:0px, 0px, 0px, 0px;padding-top:0px;padding-bottom:0px;}
+QScrollBar::handle:horizontal{height:8px;background:rgb(200, 200, 200);}
+QScrollBar::handle:horizontal:hover{height:16px;background:rgb(0, 173, 239);}
+QScrollBar::add-line:horizontal{height:0px;width:0px;background:transparent;subcontrol-position:width;subcontrol-origin:margin;}
+QScrollBar::sub-line:horizontal{height:0px; width:0px;background: transparent;subcontrol-position:top;subcontrol-origin:margin;}
+QScrollBar::add-line:horizontal:hover{height:0px; width:0px;background: transparent;subcontrol-position:width;subcontrol-origin:margin;}
+QScrollBar::sub-line:horizontal:hover{height:0px; width:0px;background: transparent;subcontrol-position:top;subcontrol-origin:margin;}
+QScrollBar::add-page:horizontal,QScrollBar::sub-page:horizontal{background:none;}
+
+QHeaderView{background:rgb(245, 245, 245);font: 14px;font-family:&quot;Microsoft YaHei&quot;;}
+QHeaderView::section{background:transparent;}
+
+
+QTabWidget{
+border: none;background:rgba(255, 255,255,255);
+}
+QTabWidget::pane {
+border: none;background:rgba(255, 255,255,255);}
+QTabWidget::tab-bar{
+background:rgba(255, 255,255,255);
+}
+QTabBar::tab{
+width:80px;height:30px;
+background:rgba(255, 255,255,255);
+border-bottom:4px solid rgba(255, 255,255,255);
+color: rgba(34, 34, 34,255);
+font: 14px;font-family: &quot;Microsoft YaHei&quot;;
+}
+QTabBar::tab:selected{
+border-bottom:4px solid rgba(0, 173, 239,255);
+}
+QTabBar::tab:selected:hover{
+border-bottom:4px solid rgba(0, 173, 239,150);
+}
+QTabBar::tab:!selected{
+border: none;
+border-bottom:4px solid rgba(230, 230,230,255);
+}
+
+QToolBox{
+color: rgba(34, 34, 34,255);
+font: 14px;
+font-family: &quot;Microsoft YaHei&quot;;
+
+}
+QToolBox::tab {
+color: rgba(34, 34, 34,255);
+font: 14px;
+font-family: &quot;Microsoft YaHei&quot;;
+border-top:4px solid rgba(245, 245, 245);
+}
+
+QToolBox::tab:selected{
+color: rgba(34, 34, 34,255);
+font: 14px;
+font-family: &quot;Microsoft YaHei&quot;;
+background:rgba(250, 250, 250);
+border-top:4px solid qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(0, 173, 239, 255), stop:1 rgba(0, 173, 239, 50));
+}
+
+QProgressBar{
+border: 1px solid grey;
+background:transparent;
+}
+
+QProgressBar::chunk {
+background-color: rgba(0, 173, 239, 255);
+width: 20px;
+}
+
+QProgressBar {
+text-align: center;
+color: rgba(34, 34, 34,255);
+font: 14px;font-family: &quot;Microsoft YaHei&quot;;
+}
+
+
+</string>
+     </property>
+     <property name="frameShape">
+      <enum>QFrame::StyledPanel</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Raised</enum>
+     </property>
+     <layout class="QGridLayout" name="gridLayout_border">
+      <property name="leftMargin">
+       <number>0</number>
+      </property>
+      <property name="topMargin">
+       <number>10</number>
+      </property>
+      <property name="rightMargin">
+       <number>0</number>
+      </property>
+      <property name="bottomMargin">
+       <number>10</number>
+      </property>
+      <item row="0" column="0">
+       <layout class="QHBoxLayout" name="hLayout_userName">
+        <item>
+         <spacer name="hSpacer_userName1">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeType">
+           <enum>QSizePolicy::Fixed</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>30</width>
+            <height>27</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item>
+         <widget class="QLabel" name="userLbl">
+          <property name="minimumSize">
+           <size>
+            <width>90</width>
+            <height>30</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>90</width>
+            <height>30</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>用户名：</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <spacer name="hSpacer_userName2">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeType">
+           <enum>QSizePolicy::Expanding</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>164</width>
+            <height>27</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item>
+         <widget class="QComboBox" name="userBox">
+          <property name="minimumSize">
+           <size>
+            <width>120</width>
+            <height>30</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>120</width>
+            <height>30</height>
+           </size>
+          </property>
+          <property name="editable">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <spacer name="hSpacer_userName3">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeType">
+           <enum>QSizePolicy::Fixed</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>60</width>
+            <height>27</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+       </layout>
+      </item>
+      <item row="1" column="0">
+       <layout class="QHBoxLayout" name="hLayout_password">
+        <item>
+         <spacer name="hSpacer_password1">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeType">
+           <enum>QSizePolicy::Fixed</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>30</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item>
+         <widget class="QLabel" name="passwordLbl">
+          <property name="minimumSize">
+           <size>
+            <width>90</width>
+            <height>30</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>90</width>
+            <height>30</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>密码：</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <spacer name="hSpacer_password2">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeType">
+           <enum>QSizePolicy::Expanding</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item>
+         <widget class="QLineEdit" name="passwordEdit">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>120</width>
+            <height>30</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>120</width>
+            <height>30</height>
+           </size>
+          </property>
+          <property name="echoMode">
+           <enum>QLineEdit::Password</enum>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <spacer name="hSpacer_password3">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeType">
+           <enum>QSizePolicy::Fixed</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>60</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+       </layout>
+      </item>
+      <item row="2" column="0">
+       <layout class="QHBoxLayout" name="hLayout_passwordAgain">
+        <item>
+         <spacer name="hSpacer_passwordAgain1">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeType">
+           <enum>QSizePolicy::Fixed</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>30</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item>
+         <widget class="QLabel" name="passwordLbl2">
+          <property name="minimumSize">
+           <size>
+            <width>90</width>
+            <height>30</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>90</width>
+            <height>30</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>再次输入：</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <spacer name="hSpacer_passwordAgain2">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeType">
+           <enum>QSizePolicy::Expanding</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>68</width>
+            <height>27</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item>
+         <widget class="QLineEdit" name="passwordEdit2">
+          <property name="minimumSize">
+           <size>
+            <width>120</width>
+            <height>30</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>120</width>
+            <height>30</height>
+           </size>
+          </property>
+          <property name="echoMode">
+           <enum>QLineEdit::Password</enum>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <spacer name="hSpacer_passwordAgain3">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeType">
+           <enum>QSizePolicy::Fixed</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>60</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+       </layout>
+      </item>
+      <item row="3" column="0">
+       <layout class="QHBoxLayout" name="hLayout_authority">
+        <item>
+         <spacer name="hSpacer_authority1">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeType">
+           <enum>QSizePolicy::Fixed</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>30</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item>
+         <widget class="QLabel" name="authorityLbl">
+          <property name="minimumSize">
+           <size>
+            <width>90</width>
+            <height>30</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>90</width>
+            <height>30</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>用户权限：</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <spacer name="hSpacer_authority2">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeType">
+           <enum>QSizePolicy::Expanding</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>88</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item>
+         <widget class="QComboBox" name="authorityBox">
+          <property name="minimumSize">
+           <size>
+            <width>120</width>
+            <height>30</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>120</width>
+            <height>30</height>
+           </size>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <spacer name="hSpacer_authority3">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeType">
+           <enum>QSizePolicy::Fixed</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>60</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+       </layout>
+      </item>
+      <item row="4" column="0">
+       <layout class="QVBoxLayout" name="vLayout_otherName">
+        <property name="spacing">
+         <number>10</number>
+        </property>
+        <item>
+         <layout class="QHBoxLayout" name="hLayout_otherName">
+          <item>
+           <spacer name="hSpacer_otherName1">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeType">
+             <enum>QSizePolicy::Fixed</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>30</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
+           <widget class="QComboBox" name="newUserIdTypeBox">
+            <property name="minimumSize">
+             <size>
+              <width>90</width>
+              <height>30</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>90</width>
+              <height>30</height>
+             </size>
+            </property>
+            <item>
+             <property name="text">
+              <string>卡号</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>工号</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>手机</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>邮箱</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>QQ</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>微信</string>
+             </property>
+            </item>
+           </widget>
+          </item>
+          <item>
+           <spacer name="hSpacer_otherName2">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeType">
+             <enum>QSizePolicy::Expanding</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
+           <widget class="QLineEdit" name="newUserIdEdit">
+            <property name="minimumSize">
+             <size>
+              <width>120</width>
+              <height>30</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>120</width>
+              <height>30</height>
+             </size>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="addUserIdBtn">
+            <property name="minimumSize">
+             <size>
+              <width>30</width>
+              <height>30</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>30</width>
+              <height>30</height>
+             </size>
+            </property>
+            <property name="text">
+             <string>+</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <spacer name="hSpacer_otherName3">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeType">
+             <enum>QSizePolicy::Fixed</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>20</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </item>
+      <item row="5" column="0">
+       <layout class="QHBoxLayout" name="hLayout_tips">
+        <item>
+         <spacer name="hSpacer_tips1">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeType">
+           <enum>QSizePolicy::Fixed</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>10</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item>
+         <widget class="QLabel" name="passwordTipsLbl">
+          <property name="text">
+           <string>密码提示：</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QTextEdit" name="passwordTipsEdit"/>
+        </item>
+        <item>
+         <spacer name="hSpacer_tips2">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeType">
+           <enum>QSizePolicy::Fixed</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>10</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+       </layout>
+      </item>
+      <item row="6" column="0">
+       <layout class="QHBoxLayout" name="hLayout_show">
+        <item>
+         <spacer name="hSpacer_show1">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeType">
+           <enum>QSizePolicy::Fixed</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>10</width>
+            <height>58</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item>
+         <widget class="QLabel" name="showLbl">
+          <property name="text">
+           <string/>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <spacer name="hSpacer_show2">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeType">
+           <enum>QSizePolicy::Fixed</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>10</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+       </layout>
+      </item>
+      <item row="7" column="0">
+       <layout class="QHBoxLayout" name="hLayout_operate">
+        <item>
+         <spacer name="hSpacer_operate1">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item>
+         <widget class="QPushButton" name="newUserBtn">
+          <property name="text">
+           <string>新增用户</string>
+          </property>
+          <property name="flat">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="editUserBtn">
+          <property name="text">
+           <string>编辑用户</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="delUserBtn">
+          <property name="text">
+           <string>删除用户</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="editDBBtn">
+          <property name="text">
+           <string>配置数据库</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <spacer name="hSpacer_operate2">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeType">
+           <enum>QSizePolicy::Fixed</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+       </layout>
+      </item>
+      <item row="8" column="0">
+       <layout class="QHBoxLayout" name="hLayout_btn">
+        <item>
+         <spacer name="hSpacer_btn1">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item>
+         <widget class="QPushButton" name="okBtn">
+          <property name="minimumSize">
+           <size>
+            <width>80</width>
+            <height>30</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>80</width>
+            <height>30</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>确定</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <spacer name="hSpacer_btn2">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeType">
+           <enum>QSizePolicy::Fixed</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item>
+         <widget class="QPushButton" name="cancelBtn">
+          <property name="minimumSize">
+           <size>
+            <width>80</width>
+            <height>30</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>80</width>
+            <height>30</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>取消</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <spacer name="hSpacer_btn3">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <tabstops>
+  <tabstop>okBtn</tabstop>
+  <tabstop>cancelBtn</tabstop>
+  <tabstop>newUserBtn</tabstop>
+  <tabstop>delUserBtn</tabstop>
+ </tabstops>
+ <resources/>
+ <connections/>
+</ui>

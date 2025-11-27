@@ -1,6 +1,12 @@
 #include "TTextCodec.h"
 
-QString TTextCodec::GetCorrectUnicode(const QByteArray &ba, 
+QString TTextCodec::GetCorrectUnicode(const QByteArray& ba)
+{
+	QByteArray defaultCodec = "UTF-8";
+	return GetCorrectUnicode(ba, defaultCodec);
+}
+
+QString TTextCodec::GetCorrectUnicode(const QByteArray &ba,
 	QByteArray &defaultCodec)
 {
 	if (defaultCodec.isEmpty())

@@ -13,8 +13,9 @@ public:
 	// 功能:	返回文本正确的字符串
 	//			(基于NotePad的基础编码, 对中/日/俄/阿拉伯语进行了测试, 多语种适配时, 还需要测试与改进)
 	//************************************
+	static QString GetCorrectUnicode(const QByteArray& ba);
 	static QString GetCorrectUnicode(const QByteArray &ba, 
-		QByteArray &defaultCodec = QByteArray());
+		QByteArray &defaultCodec);
 
 private:
 }; 

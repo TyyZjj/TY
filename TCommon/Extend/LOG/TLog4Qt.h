@@ -198,17 +198,17 @@ public:
 		else
 			Log4Qt::PropertyConfigurator::configure(logconfig);
 
-		qDebug() << QString::fromLocal8Bit("=============================================").toUtf8().data();
-		qDebug() << QString::fromLocal8Bit("程序开始运行!... 程序名称: %1").arg(QCoreApplication::applicationName()).toUtf8().data();
-		qDebug() << QString::fromLocal8Bit("=============================================").toUtf8().data();
+		qDebug() << QString::fromUtf8("=============================================").toUtf8().data();
+		qDebug() << QString::fromUtf8("程序开始运行!... 程序名称: %1").arg(QCoreApplication::applicationName()).toUtf8().data();
+		qDebug() << QString::fromUtf8("=============================================").toUtf8().data();
 	};
 
 	//进程退出前调用
 	static void shutDownLog()
 	{
-		qDebug() << QString::fromLocal8Bit("=============================================").toUtf8().data();
-		qDebug() << QString::fromLocal8Bit("程序结束运行!... 程序名称: %1").arg(QCoreApplication::applicationName()).toUtf8().data();
-		qDebug() << QString::fromLocal8Bit("=============================================").toUtf8().data();
+		qDebug() << QString::fromUtf8("=============================================").toUtf8().data();
+		qDebug() << QString::fromUtf8("程序结束运行!... 程序名称: %1").arg(QCoreApplication::applicationName()).toUtf8().data();
+		qDebug() << QString::fromUtf8("=============================================").toUtf8().data();
 
 	}
 
@@ -224,7 +224,7 @@ public:
 				int memorypercent, memoryuse, memoryfree, memoryall;
 				TSystem::GetMemory(memorypercent, memoryuse, memoryfree, memoryall);
 
-				qDebug() << QString::fromLocal8Bit("=======CPU: %1%  内存: %2% (已用 %3 MB / 共 %4 MB)=======")
+				qDebug() << QString::fromUtf8("=======CPU: %1%  内存: %2% (已用 %3 MB / 共 %4 MB)=======")
 					.arg(cpupercent)
 					.arg(memorypercent)
 					.arg(memoryuse)
@@ -239,18 +239,18 @@ public:
 
 	static void version(const QStringList& filelst)
 	{
-		qDebug() << QString::fromLocal8Bit("=============================================").toUtf8().data();
+		qDebug() << QString::fromUtf8("=============================================").toUtf8().data();
 		for (auto file : filelst)
 		{
-			QString version = QString::fromLocal8Bit(GetSoftVersion(file.toLocal8Bit().data()).c_str());
+			QString version = QString::fromUtf8(GetSoftVersion(file.toLocal8Bit().data()).c_str());
 
-			qDebug() << QString::fromLocal8Bit("=======文件名称: %1 版本信息: %2=======")
+			qDebug() << QString::fromUtf8("=======文件名称: %1 版本信息: %2=======")
 				.arg(file)
 				.arg(version)
 				.toUtf8().data();
 
 		}
-		qDebug() << QString::fromLocal8Bit("=============================================").toUtf8().data();
+		qDebug() << QString::fromUtf8("=============================================").toUtf8().data();
 	};
 };
 #endif

@@ -53,7 +53,7 @@ public:
 
 #ifdef WIN32
 	//获取进程下所有的模块信息
-	static QList<MODULEENTRY32W> GetProcModules(unsigned long iProcessId);
+	static QList<MODULEENTRY32> GetProcModules(unsigned long iProcessId);
 #endif // WIN32
 
 	static HWND GetWidByProcId(DWORD dwProcessId, const CHAR *szTitle, QStringList &lstTitle);

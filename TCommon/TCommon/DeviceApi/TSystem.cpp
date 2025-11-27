@@ -234,17 +234,17 @@ QList<QString> TSystem::GetProcModuleNames(unsigned long iProcessId)
 }
 
 #ifdef WIN32
-QList<MODULEENTRY32W> TSystem::GetProcModules(unsigned long iProcessId)
+QList<MODULEENTRY32> TSystem::GetProcModules(unsigned long iProcessId)
 {
-	QList<MODULEENTRY32W> lstModules;
+	QList<MODULEENTRY32> lstModules;
 	HANDLE hSnapshot = CreateToolhelp32Snapshot(TH32CS_SNAPMODULE | TH32CS_SNAPMODULE32, iProcessId);//ÅÄÉã½ø³Ì¿ìÕÕ
 	if (hSnapshot == INVALID_HANDLE_VALUE)
 		return lstModules;
 
-	MODULEENTRY32W md;
+	MODULEENTRY32 md;
 	ZeroMemory(&md, sizeof(MODULEENTRY32W));
 	md.dwSize = sizeof(MODULEENTRY32W);
-	if (!Module32FirstW(hSnapshot, &md))
+	if (!Module32First(hSnapshot, &md))
 	{
 		CloseHandle(hSnapshot);
 		return lstModules;
@@ -253,7 +253,7 @@ QList<MODULEENTRY32W> TSystem::GetProcModules(unsigned long iProcessId)
 	{
 		if (md.th32ProcessID == iProcessId)
 			lstModules.append(md);
-	} while (Module32NextW(hSnapshot, &md));
+	} while (Module32Next(hSnapshot, &md));
 	CloseHandle(hSnapshot);
 
 	return lstModules;

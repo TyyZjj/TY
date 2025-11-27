@@ -141,8 +141,8 @@ bool TPointArrangementUi::check(const TPointArrangement& modelArrangement)
 		modelArrangement.iPointCount > modelArrangement.iPointRowCount * modelArrangement.iPointColumnCount)
 	{
 		QMessageBox::warning(nullptr,
-			QString::fromLocal8Bit("Warning"),
-			QString::fromLocal8Bit("Row/Colomn/Point Count value error!\n行/列/点位总数错误!"));
+			QString::fromUtf8("Warning"),
+			QString::fromUtf8("Row/Colomn/Point Count value error!\n行/列/点位总数错误!"));
 		return false;
 	}
 	if (modelArrangement.iFirstPointX < m_iPointRadius ||
@@ -151,8 +151,8 @@ bool TPointArrangementUi::check(const TPointArrangement& modelArrangement)
 		modelArrangement.iFirstPointY >(m_iWidth - m_iPointRadius))
 	{
 		QMessageBox::warning(nullptr,
-			QString::fromLocal8Bit("Warning"),
-			QString::fromLocal8Bit("First Point X/Y value error, X:[%1, %2], Y:[%1, %2]!\n\
+			QString::fromUtf8("Warning"),
+			QString::fromUtf8("First Point X/Y value error, X:[%1, %2], Y:[%1, %2]!\n\
 第一个点的X/Y坐标错误!").arg(m_iPointRadius).arg(m_iLength - m_iPointRadius)
 .arg(m_iPointRadius).arg(m_iWidth - m_iPointRadius));
 		return false;
@@ -161,8 +161,8 @@ bool TPointArrangementUi::check(const TPointArrangement& modelArrangement)
 		modelArrangement.iYSpacing < 2 * m_iPointRadius)
 	{
 		QMessageBox::warning(nullptr,
-			QString::fromLocal8Bit("Warning"),
-			QString::fromLocal8Bit("X/Y Spacing value is smaller than a point's diameter(%1)!\n\
+			QString::fromUtf8("Warning"),
+			QString::fromUtf8("X/Y Spacing value is smaller than a point's diameter(%1)!\n\
 X/Y间距不足以放两个点位!").arg(2 * m_iPointRadius));
 		return false;
 	}
@@ -176,8 +176,8 @@ X/Y间距不足以放两个点位!").arg(2 * m_iPointRadius));
 		if (modelArrangement.iYSpacing > iYSpacingMax)
 		{
 			QMessageBox::warning(nullptr,
-				QString::fromLocal8Bit("Warning"),
-				QString::fromLocal8Bit("Y Spacing value is too big!(%1)\nY轴间距过大")
+				QString::fromUtf8("Warning"),
+				QString::fromUtf8("Y Spacing value is too big!(%1)\nY轴间距过大")
 .arg(iYSpacingMax));
 			return false;
 		}
@@ -192,8 +192,8 @@ X/Y间距不足以放两个点位!").arg(2 * m_iPointRadius));
 		if (modelArrangement.iYSpacing > iYSpacingMax)
 		{
 			QMessageBox::warning(nullptr,
-				QString::fromLocal8Bit("Warning"),
-				QString::fromLocal8Bit("Y Spacing value is too big!(%1)\nY轴间距过大")
+				QString::fromUtf8("Warning"),
+				QString::fromUtf8("Y Spacing value is too big!(%1)\nY轴间距过大")
 				.arg(iYSpacingMax));
 			return false;
 		}
@@ -209,8 +209,8 @@ X/Y间距不足以放两个点位!").arg(2 * m_iPointRadius));
 		if (modelArrangement.iXSpacing > iXSpacingMax)
 		{
 			QMessageBox::warning(nullptr,
-				QString::fromLocal8Bit("Warning"),
-				QString::fromLocal8Bit("X Spacing value is too big!(%1)\nY轴间距过大")
+				QString::fromUtf8("Warning"),
+				QString::fromUtf8("X Spacing value is too big!(%1)\nY轴间距过大")
 				.arg(iXSpacingMax));
 			return false;
 		}
@@ -225,8 +225,8 @@ X/Y间距不足以放两个点位!").arg(2 * m_iPointRadius));
 		if (modelArrangement.iXSpacing > iXSpacingMax)
 		{
 			QMessageBox::warning(nullptr,
-				QString::fromLocal8Bit("Warning"),
-				QString::fromLocal8Bit("X Spacing value is too big!(%1)\nY轴间距过大")
+				QString::fromUtf8("Warning"),
+				QString::fromUtf8("X Spacing value is too big!(%1)\nY轴间距过大")
 				.arg(iXSpacingMax));
 			return false;
 		}

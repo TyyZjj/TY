@@ -183,10 +183,14 @@ struct sLogin
 
 		nLoginType_Card,		//刷卡登录(此时不需要密码, 不需要保留登录记录)
 
-		nLoginType_PhoneVerifyCode,//手机验证码(此时不需要密码, 需要手机验证码)
-		
+		//nLoginType_Database,	//从数据库间接获取登录信息
+
+		nLoginType_AutoLogin,	//自动登录
+
 		//跨设备远程登录
 		nLoginType_CrossDevice = nLoginType_Card,
+
+		nLoginType_PhoneVerifyCode,//手机验证码(此时不需要密码, 需要手机验证码)
 	};
 
 	sLoginUser		loginUser;		//登录用户

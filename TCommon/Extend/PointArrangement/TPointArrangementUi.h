@@ -1,4 +1,4 @@
-#ifndef _TPOINTARRANGEMENTUI_H_
+ï»¿#ifndef _TPOINTARRANGEMENTUI_H_
 #define _TPOINTARRANGEMENTUI_H_
 #include <QPoint>
 #include <QDialog>
@@ -29,53 +29,53 @@ enum nPointDirection
 };
 
 
-//»»ĞĞ·½·¨
+//æ¢è¡Œæ–¹æ³•
 enum nLineFeedWay
 {
-//¢Ù¢Ú¢Û
-//¢Ü¢İ¢Ş
-//¢ß¢à¢á
+//â‘ â‘¡â‘¢
+//â‘£â‘¤â‘¥
+//â‘¦â‘§â‘¨
 #define SameAsPrevious	"SameAsPrevious"
 
-//¢Ù¢Ú¢Û
-//¢Ş¢İ¢Ü
-//¢ß¢à¢á
+//â‘ â‘¡â‘¢
+//â‘¥â‘¤â‘£
+//â‘¦â‘§â‘¨
 #define SnakeLike		"SnakeLike"
-	nSameAsPrevious = 0,	//ºÍÉÏÒ»ĞĞ/ÁĞÒ»Ñù
-	nSnakeLike,	//ÉßĞÎ
+	nSameAsPrevious = 0,	//å’Œä¸Šä¸€è¡Œ/åˆ—ä¸€æ ·
+	nSnakeLike,	//è›‡å½¢
 };
 
 
 enum nArrangementType
 {
-	ArrangementType_AddOne,//ÖğÒ»Ìí¼ÓµãÎ»
-	ArrangementType_Auto,//×Ô¶¯ÅÅ²¼µãÎ»
+	ArrangementType_AddOne,//é€ä¸€æ·»åŠ ç‚¹ä½
+	ArrangementType_Auto,//è‡ªåŠ¨æ’å¸ƒç‚¹ä½
 };
 
-//µãÎ»ÅÅ²¼
+//ç‚¹ä½æ’å¸ƒ
 struct TPointArrangement
 {
-	nArrangementType iType = ArrangementType_AddOne;//µãÎ»ÅÅ²¼·½Ê½
-	int	iPointRowCount = 5;	//µãÎ»ĞĞÊı
-	int iPointColumnCount = 9;//µãÎ»ÁĞÊı
-	nPointPosition iFirstPointPosition = nPointPosition::PointPosition_TopLeft;	//µÚÒ»¸öµãÎ»Î»ÖÃ
-	nPointDirection iSecondPointDirection = nPointDirection::PointDirection_ToRight;//µÚ¶ş¸öµãÎ»Ïà¶ÔÓÚµÚÒ»¸öµãÎ»µÄ·½Ïò
+	nArrangementType iType = ArrangementType_AddOne;//ç‚¹ä½æ’å¸ƒæ–¹å¼
+	int	iPointRowCount = 5;	//ç‚¹ä½è¡Œæ•°
+	int iPointColumnCount = 9;//ç‚¹ä½åˆ—æ•°
+	nPointPosition iFirstPointPosition = nPointPosition::PointPosition_TopLeft;	//ç¬¬ä¸€ä¸ªç‚¹ä½ä½ç½®
+	nPointDirection iSecondPointDirection = nPointDirection::PointDirection_ToRight;//ç¬¬äºŒä¸ªç‚¹ä½ç›¸å¯¹äºç¬¬ä¸€ä¸ªç‚¹ä½çš„æ–¹å‘
 	nLineFeedWay	iLineFeedWay = nLineFeedWay::nSameAsPrevious;
-	int iFirstPointX = 0;//µÚÒ»¸öµãµÄXÖá×ø±ê
-	int iFirstPointY = 0;//µÚÒ»¸öµãµÄYÖá×ø±ê
-	int iXSpacing = 0;//X·½Ïò¼ä¸ô
+	int iFirstPointX = 0;//ç¬¬ä¸€ä¸ªç‚¹çš„Xè½´åæ ‡
+	int iFirstPointY = 0;//ç¬¬ä¸€ä¸ªç‚¹çš„Yè½´åæ ‡
+	int iXSpacing = 0;//Xæ–¹å‘é—´éš”
 	int iYSpacing = 0;
-	int iPointCount = 45;//µãÎ»×ÜÊı <= iPointRowCount * iPointColimnCount
+	int iPointCount = 45;//ç‚¹ä½æ€»æ•° <= iPointRowCount * iPointColimnCount
 
 	//************************************
-	// ²ÎÊı: 	int index: µ±Ç°µãµÄĞòºÅ, ´Ó1¿ªÊ¼
-	// ²ÎÊı: 	int iRowCount: ĞĞÊı
-	// ²ÎÊı: 	int iColumnCount: ÁĞÊı
-	// ²ÎÊı: 	nPointPosition iFirstPointPosition: ÆğÊ¼µãµÄÎ»ÖÃ
-	// ²ÎÊı: 	nPointDirection iSecondPointDirection: ½áÊøµãµÄÎ»ÖÃ
-	// ²ÎÊı: 	nLineFeedWay iLineFeedWay: »»ĞĞÊ±µÄ·½Ê½
-	// ·µ»Ø:	QList<int>: ËùÓĞÁÚ½ÓµãµÄĞòºÅ
-	// ¹¦ÄÜ:	»ñÈ¡Ä³¸öµãµÄËùÓĞÁÚ½ÓµãµÄĞòºÅ
+	// å‚æ•°: 	int index: å½“å‰ç‚¹çš„åºå·, ä»1å¼€å§‹
+	// å‚æ•°: 	int iRowCount: è¡Œæ•°
+	// å‚æ•°: 	int iColumnCount: åˆ—æ•°
+	// å‚æ•°: 	nPointPosition iFirstPointPosition: èµ·å§‹ç‚¹çš„ä½ç½®
+	// å‚æ•°: 	nPointDirection iSecondPointDirection: ç»“æŸç‚¹çš„ä½ç½®
+	// å‚æ•°: 	nLineFeedWay iLineFeedWay: æ¢è¡Œæ—¶çš„æ–¹å¼
+	// è¿”å›:	QList<int>: æ‰€æœ‰é‚»æ¥ç‚¹çš„åºå·
+	// åŠŸèƒ½:	è·å–æŸä¸ªç‚¹çš„æ‰€æœ‰é‚»æ¥ç‚¹çš„åºå·
 	//************************************
 	static QList<int> GetAdjacencyPointIndex(int index, int iRowCount, int iColumnCount,
 		nPointPosition iFirstPointPosition = nPointPosition::PointPosition_TopLeft,
@@ -83,16 +83,16 @@ struct TPointArrangement
 		nLineFeedWay iLineFeedWay = nLineFeedWay::nSameAsPrevious);
 
 	//************************************
-	// ²ÎÊı: 	int index: µ±Ç°µãµÄĞòºÅ, ´Ó1¿ªÊ¼
-	// ²ÎÊı: 	int iRowCount: ĞĞÊı
-	// ²ÎÊı: 	int iColumnCount: ÁĞÊı
-	// ²ÎÊı: 	int & iRow: ·µ»Ø ĞĞ, ´Ó1¿ªÊ¼
-	// ²ÎÊı: 	int & iColumn: ·µ»Ø ÁĞ, ´Ó1¿ªÊ¼
-	// ²ÎÊı: 	nPointPosition iFirstPointPosition: ÆğÊ¼µãµÄÎ»ÖÃ
-	// ²ÎÊı: 	nPointDirection iSecondPointDirection: ½áÊøµãµÄÎ»ÖÃ
-	// ²ÎÊı: 	nLineFeedWay iLineFeedWay: »»ĞĞÊ±µÄ·½Ê½
-	// ·µ»Ø:	bool: ³É¹¦/Ê§°Ü
-	// ¹¦ÄÜ:	ÓÉÄ³¸öµãµÄindex »ñÈ¡ Ä³¸öµãµÄÎ»ÖÃ
+	// å‚æ•°: 	int index: å½“å‰ç‚¹çš„åºå·, ä»1å¼€å§‹
+	// å‚æ•°: 	int iRowCount: è¡Œæ•°
+	// å‚æ•°: 	int iColumnCount: åˆ—æ•°
+	// å‚æ•°: 	int & iRow: è¿”å› è¡Œ, ä»1å¼€å§‹
+	// å‚æ•°: 	int & iColumn: è¿”å› åˆ—, ä»1å¼€å§‹
+	// å‚æ•°: 	nPointPosition iFirstPointPosition: èµ·å§‹ç‚¹çš„ä½ç½®
+	// å‚æ•°: 	nPointDirection iSecondPointDirection: ç»“æŸç‚¹çš„ä½ç½®
+	// å‚æ•°: 	nLineFeedWay iLineFeedWay: æ¢è¡Œæ—¶çš„æ–¹å¼
+	// è¿”å›:	bool: æˆåŠŸ/å¤±è´¥
+	// åŠŸèƒ½:	ç”±æŸä¸ªç‚¹çš„index è·å– æŸä¸ªç‚¹çš„ä½ç½®
 	//************************************
 	static bool GetPointPosition(int index, int iRowCount, int iColumnCount, int &iRow, int &iColumn,
 		nPointPosition iFirstPointPosition = nPointPosition::PointPosition_TopLeft,
@@ -100,16 +100,16 @@ struct TPointArrangement
 		nLineFeedWay iLineFeedWay = nLineFeedWay::nSameAsPrevious);
 	
 	//************************************
-	// ²ÎÊı: 	int & index: ·µ»ØÖµ µ±Ç°µãµÄĞòºÅ, ´Ó1¿ªÊ¼
-	// ²ÎÊı: 	int iRowCount: ĞĞÊı
-	// ²ÎÊı: 	int iColumnCount: ÁĞÊı
-	// ²ÎÊı: 	int iRow: ĞĞ, ´Ó1¿ªÊ¼
-	// ²ÎÊı: 	int iColumn: ÁĞ, ´Ó1¿ªÊ¼
-	// ²ÎÊı: 	nPointPosition iFirstPointPosition: ÆğÊ¼µãµÄÎ»ÖÃ
-	// ²ÎÊı: 	nPointDirection iSecondPointDirection: ½áÊøµãµÄÎ»ÖÃ
-	// ²ÎÊı: 	nLineFeedWay iLineFeedWay: »»ĞĞÊ±µÄ·½Ê½
-	// ·µ»Ø:	bool: ³É¹¦/Ê§°Ü
-	// ¹¦ÄÜ:	ÓÉÄ³¸öµãµÄĞĞÁĞÎ»ÖÃ »ñÈ¡ Ä³¸öµãµÄindex
+	// å‚æ•°: 	int & index: è¿”å›å€¼ å½“å‰ç‚¹çš„åºå·, ä»1å¼€å§‹
+	// å‚æ•°: 	int iRowCount: è¡Œæ•°
+	// å‚æ•°: 	int iColumnCount: åˆ—æ•°
+	// å‚æ•°: 	int iRow: è¡Œ, ä»1å¼€å§‹
+	// å‚æ•°: 	int iColumn: åˆ—, ä»1å¼€å§‹
+	// å‚æ•°: 	nPointPosition iFirstPointPosition: èµ·å§‹ç‚¹çš„ä½ç½®
+	// å‚æ•°: 	nPointDirection iSecondPointDirection: ç»“æŸç‚¹çš„ä½ç½®
+	// å‚æ•°: 	nLineFeedWay iLineFeedWay: æ¢è¡Œæ—¶çš„æ–¹å¼
+	// è¿”å›:	bool: æˆåŠŸ/å¤±è´¥
+	// åŠŸèƒ½:	ç”±æŸä¸ªç‚¹çš„è¡Œåˆ—ä½ç½® è·å– æŸä¸ªç‚¹çš„index
 	//************************************
 	static bool GetPointIndex(int &index, int iRowCount, int iColumnCount, int iRow, int iColumn,
 		nPointPosition iFirstPointPosition = nPointPosition::PointPosition_TopLeft,
@@ -117,19 +117,19 @@ struct TPointArrangement
 		nLineFeedWay iLineFeedWay = nLineFeedWay::nSameAsPrevious);
 
 	//************2024/05/21**********
-	// ¹¦ÄÜ: »ñÈ¡Ä³¸öµãµÄ×ø±êÎ»ÖÃ 
-	// ·µ»Ø: bool ³É¹¦/Ê§°Ü
-	// ²ÎÊı: int index: ĞòºÅ
-	// ²ÎÊı: int iRowCount: ×ÜĞĞÊı
-	// ²ÎÊı: int iColumnCount: ×ÜÁĞÊı 
-	// ²ÎÊı: int iFirstPointX: µÚÒ»¸öµãµÄX×ø±ê
-	// ²ÎÊı: int iFirstPointY: µÚÒ»¸öµãµÄY×ø±ê
-	// ²ÎÊı: int iXSpacing: X·½Ïò¼ä¾à
-	// ²ÎÊı: int iYSpacing: Y·½Ïò¼ä¾à
-	// ·µ»Ø: QPoint & point: ·µ»ØµãµÄ×ø±ê
-	// ²ÎÊı: nPointPosition iFirstPointPosition: ÆğÊ¼µãµÄÎ»ÖÃ
-	// ²ÎÊı: nPointDirection iSecondPointDirection: ½áÊøµãµÄÎ»ÖÃ
-	// ²ÎÊı: nLineFeedWay iLineFeedWay: »»ĞĞÊ±µÄ·½Ê½
+	// åŠŸèƒ½: è·å–æŸä¸ªç‚¹çš„åæ ‡ä½ç½® 
+	// è¿”å›: bool æˆåŠŸ/å¤±è´¥
+	// å‚æ•°: int index: åºå·
+	// å‚æ•°: int iRowCount: æ€»è¡Œæ•°
+	// å‚æ•°: int iColumnCount: æ€»åˆ—æ•° 
+	// å‚æ•°: int iFirstPointX: ç¬¬ä¸€ä¸ªç‚¹çš„Xåæ ‡
+	// å‚æ•°: int iFirstPointY: ç¬¬ä¸€ä¸ªç‚¹çš„Yåæ ‡
+	// å‚æ•°: int iXSpacing: Xæ–¹å‘é—´è·
+	// å‚æ•°: int iYSpacing: Yæ–¹å‘é—´è·
+	// è¿”å›: QPoint & point: è¿”å›ç‚¹çš„åæ ‡
+	// å‚æ•°: nPointPosition iFirstPointPosition: èµ·å§‹ç‚¹çš„ä½ç½®
+	// å‚æ•°: nPointDirection iSecondPointDirection: ç»“æŸç‚¹çš„ä½ç½®
+	// å‚æ•°: nLineFeedWay iLineFeedWay: æ¢è¡Œæ—¶çš„æ–¹å¼
 	//************************************
 	static bool getPoint(int index, int iRowCount, int iColumnCount,
 		int iFirstPointX, int iFirstPointY,
@@ -141,15 +141,15 @@ struct TPointArrangement
 };
 Q_DECLARE_METATYPE(TPointArrangement);
 
-//µãÎ»ÅÅ²¼ÉèÖÃ½çÃæ
+//ç‚¹ä½æ’å¸ƒè®¾ç½®ç•Œé¢
 class TPointArrangementUi : public QDialog
 {
 	Q_OBJECT
 
 public:
 	TPointArrangementUi(nArrangementType iType, 
-		int iLength,//ÏñËØ³¤¶È
-		int iWidth,//ÏñËØ¿í¶È
+		int iLength,//åƒç´ é•¿åº¦
+		int iWidth,//åƒç´ å®½åº¦
 		int iPointRadius,
 		TPointArrangement defaultModelArrangement,
 		QWidget *parent = Q_NULLPTR);

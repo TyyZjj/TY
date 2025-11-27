@@ -178,12 +178,12 @@
 //
 //	ret = TTextFile::WriteText("F:\\Data\\Test\\Zhongshan\\1.txt", "abc", "UTF-8");
 //	QList<std::tuple<int, int, QString>> lstTuple;
-//	lstTuple.append(std::make_tuple(1, 3, QString::fromLocal8Bit("лглглг")));
-//	lstTuple.append(std::make_tuple(1, 4, QString::fromLocal8Bit("лллллл")));
-//	lstTuple.append(std::make_tuple(3, 2, QString::fromLocal8Bit("лллллл")));
+//	lstTuple.append(std::make_tuple(1, 3, QString::fromUtf8("лглглг")));
+//	lstTuple.append(std::make_tuple(1, 4, QString::fromUtf8("лллллл")));
+//	lstTuple.append(std::make_tuple(3, 2, QString::fromUtf8("лллллл")));
 //	ret = TTextFile::InsertText("F:\\Data\\Test\\Zhongshan\\1.txt", lstTuple);
 //
-//	ret = TTextFile::InsertText("F:\\Data\\Test\\Zhongshan\\1.txt", 3, 3, QString::fromLocal8Bit("лглглг"));
+//	ret = TTextFile::InsertText("F:\\Data\\Test\\Zhongshan\\1.txt", 3, 3, QString::fromUtf8("лглглг"));
 //
 //	ret = TFile::CopyFile("F:\\Data\\2022\\TTest\\1.txt", "F:\\Data\\2022\\To\\1\\1.csv");
 //
@@ -224,6 +224,7 @@
 #include "TSystem.h"
 #include "TGlobalHotKey.h"
 #include "TQtGui.h"
+#include "TThreadSafeQueueCache.h"
 #include <QApplication>
 
 void SetThreadContextFun() {
@@ -236,18 +237,17 @@ void SetThreadContextFun() {
 typedef void(*SetThreadContextFunPoint)();
 
 
-
 int main(int argc, char* argv[])
 {
 	QFont font("Arial");
 	QRect rect(0, 0, 30, 200);
 	QString str2;
-	GetElidedText(font, "Hello World", 50, Qt::TextElideMode::ElideLeft, str2);
+	//GetElidedText(font, "Hello World", 50, Qt::TextElideMode::ElideLeft, str2);
 	//bool ret = GetHeightAdaptiveFont(30, font, "Arial");
 
-	QString str = TSystem::GetProcName(6924);
-	QList<QString> lstModuleName = TSystem::GetProcModuleNames(6924);
-	QList<MODULEENTRY32> lstModules = TSystem::GetProcModules(6924);
+	QString str = TSystem::GetProcName(58200);
+	QList<QString> lstModuleName = TSystem::GetProcModuleNames(58200);
+	QList<MODULEENTRY32> lstModules = TSystem::GetProcModules(58200);
 
 	unsigned long long LowLimit(0), highLimit(0);
 	GetCurrentThreadStackLimits(&LowLimit, &highLimit);

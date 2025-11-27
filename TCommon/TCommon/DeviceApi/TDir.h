@@ -101,11 +101,14 @@ public:
 	// 返回:	bool: 如果存在文件拷贝成功, 则返回成功; 如果只有一个文件夹, 则创建目标文件夹即成功;
 	// 功能:	文件夹拷贝, 仅用于文件夹的拷贝(不可用于文件的拷贝)
 	//************************************
+	static bool CopyDir(const QString& source,
+		const QString& destination,
+		bool replace = false);
 	static bool CopyDir(const QString &source,
 		const QString &destination,
-		bool replace = false,
-		QFileInfoList &lstSucc = QFileInfoList(),
-		QFileInfoList &lstFail = QFileInfoList());
+		QFileInfoList& lstSucc /*= QFileInfoList()*/,
+		QFileInfoList& lstFail /*= QFileInfoList()*/,
+		bool replace = false);
 
 	//************************************
 	// 参数: 	const QString & source: 源文件夹
@@ -121,13 +124,21 @@ public:
 	//				原文件夹/文件夹下文件不存在时, 弹出弹窗pInformation
 	//				目标文件夹/文件夹下文件已存在时, 弹出弹窗pQuestion
 	//************************************
-	static bool CopyDirWithWidget(const QString &source,
-		const QString &destination,
+	static bool CopyDirWithWidget(const QString& source,
+		const QString& destination,
 		TDirMsgBox pQuestion = QMessageBox::question,
 		TDirMsgBox pInformation = QMessageBox::information,
 		QWidget* parent = nullptr,
-		QFileInfoList &lstSucc = QFileInfoList(),
-		QFileInfoList &lstFail = QFileInfoList(),
+		//QFileInfoList& lstSucc = QFileInfoList(),
+		//QFileInfoList& lstFail = QFileInfoList(),
+		int level = 0);
+	static bool CopyDirWithWidget(const QString &source,
+		const QString &destination,
+		QFileInfoList& lstSucc /*= QFileInfoList()*/,
+		QFileInfoList& lstFail /*= QFileInfoList()*/,
+		TDirMsgBox pQuestion = QMessageBox::question,
+		TDirMsgBox pInformation = QMessageBox::information,
+		QWidget* parent = nullptr,
 		int level = 0);
 
 	//************************************
@@ -139,11 +150,14 @@ public:
 	// 返回:	bool: 成功/失败
 	// 功能:	文件/文件夹拷贝
 	//************************************
+	static bool Copy(const QString& source,
+		const QString& destination,
+		bool replace = false);
 	static bool Copy(const QString &source,
 		const QString &destination,
-		bool replace = false,
-		QFileInfoList &lstSucc = QFileInfoList(),
-		QFileInfoList &lstFail = QFileInfoList());
+		QFileInfoList& lstSucc /*= QFileInfoList()*/,
+		QFileInfoList& lstFail /*= QFileInfoList()*/,
+		bool replace = false);
 
 	//************************************
 	// 参数: 	const QString & source: 源文件/源文件夹
@@ -156,13 +170,18 @@ public:
 	// 返回:	bool
 	// 功能:	文件/文件夹拷贝
 	//************************************
-	static bool CopyWithWidget(const QString &source,
-		const QString &destination,
+	static bool CopyWithWidget(const QString& source,
+		const QString& destination,
 		TDirMsgBox pQuestion = QMessageBox::question,
 		TDirMsgBox pInformation = QMessageBox::information,
-		QWidget* parent = nullptr,
-		QFileInfoList &lstSucc = QFileInfoList(),
-		QFileInfoList &lstFail = QFileInfoList());
+		QWidget* parent = nullptr);
+	static bool CopyWithWidget(const QString &source,
+		const QString &destination,
+		QFileInfoList& lstSucc /*= QFileInfoList()*/,
+		QFileInfoList& lstFail /*= QFileInfoList()*/,
+		TDirMsgBox pQuestion = QMessageBox::question,
+		TDirMsgBox pInformation = QMessageBox::information,
+		QWidget* parent = nullptr);
 
 	//文件/文件夹大小
 	static unsigned long long Size(const QString &strDirPath);

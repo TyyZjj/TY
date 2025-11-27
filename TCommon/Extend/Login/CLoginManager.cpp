@@ -93,23 +93,23 @@ bool CLoginManager::Check(const QString &strUserId, const QString &strPassword)
 	{
 		if (login.loginUser.getPassword() == strPassword)
 		{
-			m_strLastInfo = QString::fromLocal8Bit("%1校验成功, 权限级别:%2!")
+			m_strLastInfo = QString::fromUtf8("%1校验成功, 权限级别:%2!")
 				.arg(strUserId)
 				.arg(login.loginUser.getAuthority());
 			return true;
 		}
 		else
 		{
-			m_strLastError = QString::fromLocal8Bit("密码错误!");
+			m_strLastError = QString::fromUtf8("密码错误!");
 			QString strPasswordTips = login.loginUser.getPasswordTips();
 			if (!strPasswordTips.isEmpty())
-				m_strLastError += QString::fromLocal8Bit("密码提示:%1.").arg(strPasswordTips);
+				m_strLastError += QString::fromUtf8("密码提示:%1.").arg(strPasswordTips);
 			return false;
 		}
 	}
 	else
 	{
-		m_strLastError = QString::fromLocal8Bit("不存在当前用户!");
+		m_strLastError = QString::fromUtf8("不存在当前用户!");
 		return false;
 	}
 }
@@ -137,12 +137,12 @@ bool CLoginManager::Save(const sLoginUser &newLoginUser)
 	ret = Save();
 	if (ret)
 	{
-		m_strLastInfo = QString::fromLocal8Bit("添加成功.");
+		m_strLastInfo = QString::fromUtf8("添加成功.");
 		return true;
 	}
 	else
 	{
-		m_strLastError = QString::fromLocal8Bit("添加成功, 但保存失败.");
+		m_strLastError = QString::fromUtf8("添加成功, 但保存失败.");
 		return false;
 	}
 }
@@ -153,12 +153,12 @@ bool CLoginManager::Delete(const QString &strUserId)
 	Authority(strUserId, iAuthority);
 	if (iAuthority == sLoginUser::nUserAuthority::nUserLevel_Develop)
 	{
-		m_strLastError = QString::fromLocal8Bit("删除失败,权限不足.");
+		m_strLastError = QString::fromUtf8("删除失败,权限不足.");
 		return false;
 	}
 	else if (iAuthority <= sLoginUser::nUserAuthority::nUserLevel_Invalid)
 	{
-		m_strLastError = QString::fromLocal8Bit("删除失败,无此用户.");
+		m_strLastError = QString::fromUtf8("删除失败,无此用户.");
 		return false;
 	}
 	else
@@ -175,7 +175,7 @@ bool CLoginManager::Delete(const QString &strUserId)
 			}
 			else if (strUserId == strAutoUserId)//要删除的用户id是自动用户id
 			{
-				m_strLastError = QString::fromLocal8Bit("删除失败,无法删除自动用户id. 用户主名称:%1, 自动用户id:%2.")
+				m_strLastError = QString::fromUtf8("删除失败,无法删除自动用户id. 用户主名称:%1, 自动用户id:%2.")
 					.arg(strUserMainName).arg(strAutoUserId);
 				return false;
 			}
@@ -187,19 +187,19 @@ bool CLoginManager::Delete(const QString &strUserId)
 		}
 		else
 		{
-			m_strLastError = QString::fromLocal8Bit("无法找到用户id: %1.").arg(strUserId);
+			m_strLastError = QString::fromUtf8("无法找到用户id: %1.").arg(strUserId);
 			return false;
 		}
 
 		bool ret = Save();
 		if (ret)
 		{
-			m_strLastInfo = QString::fromLocal8Bit("用户 %1 删除成功.").arg(strUserId);
+			m_strLastInfo = QString::fromUtf8("用户 %1 删除成功.").arg(strUserId);
 			return true;
 		}
 		else
 		{
-			m_strLastError = QString::fromLocal8Bit("删除成功,但保存失败.");
+			m_strLastError = QString::fromUtf8("删除成功,但保存失败.");
 			return false;
 		}
 	}
@@ -211,12 +211,12 @@ bool CLoginManager::Delete(const sUserId &userId)
 	Authority(userId.strUserId, iAuthority);
 	if (iAuthority == sLoginUser::nUserAuthority::nUserLevel_Develop)
 	{
-		m_strLastError = QString::fromLocal8Bit("删除失败,权限不足.");
+		m_strLastError = QString::fromUtf8("删除失败,权限不足.");
 		return false;
 	}
 	else if (iAuthority <= sLoginUser::nUserAuthority::nUserLevel_Invalid)
 	{
-		m_strLastError = QString::fromLocal8Bit("删除失败,无此用户.");
+		m_strLastError = QString::fromUtf8("删除失败,无此用户.");
 		return false;
 	}
 	else
@@ -227,7 +227,7 @@ bool CLoginManager::Delete(const sUserId &userId)
 		{
 			if (!login.loginUser.contains(userId))
 			{
-				m_strLastError = QString::fromLocal8Bit("要删除的用户id名称和类型不一致. id:%1,类型:%2.")
+				m_strLastError = QString::fromUtf8("要删除的用户id名称和类型不一致. id:%1,类型:%2.")
 					.arg(userId.strUserId).arg(userId.iUserIdType);
 				return false;
 			}
@@ -240,7 +240,7 @@ bool CLoginManager::Delete(const sUserId &userId)
 			}
 			else if (userId.iUserIdType == sUserId::nUserIdType::nUserIdType_UserAutoId)//要删除的用户id是自动用户id
 			{
-				m_strLastError = QString::fromLocal8Bit("删除失败,无法删除自动用户id. 用户主名称:%1, 自动用户id:%2.")
+				m_strLastError = QString::fromUtf8("删除失败,无法删除自动用户id. 用户主名称:%1, 自动用户id:%2.")
 					.arg(strUserMainName).arg(strAutoUserId);
 				return false;
 			}
@@ -252,19 +252,19 @@ bool CLoginManager::Delete(const sUserId &userId)
 		}
 		else
 		{
-			m_strLastError = QString::fromLocal8Bit("无法找到用户id: %1.").arg(userId.strUserId);
+			m_strLastError = QString::fromUtf8("无法找到用户id: %1.").arg(userId.strUserId);
 			return false;
 		}
 
 		bool ret = Save();
 		if (ret)
 		{
-			m_strLastError = QString::fromLocal8Bit("删除成功.");
+			m_strLastError = QString::fromUtf8("删除成功.");
 			return true;
 		}
 		else
 		{
-			m_strLastError = QString::fromLocal8Bit("删除成功,但保存失败.");
+			m_strLastError = QString::fromUtf8("删除成功,但保存失败.");
 			return false;
 		}
 	}
@@ -276,12 +276,12 @@ bool CLoginManager::DeleteUser(const QString &strUserId)
 	Authority(strUserId, iAuthority);
 	if (iAuthority == sLoginUser::nUserAuthority::nUserLevel_Develop)
 	{
-		m_strLastError = QString::fromLocal8Bit("删除失败,权限不足.");
+		m_strLastError = QString::fromUtf8("删除失败,权限不足.");
 		return false;
 	}
 	else if (iAuthority <= sLoginUser::nUserAuthority::nUserLevel_Invalid)
 	{
-		m_strLastError = QString::fromLocal8Bit("删除失败,无此用户.");
+		m_strLastError = QString::fromUtf8("删除失败,无此用户.");
 		return false;
 	}
 	else
@@ -294,7 +294,7 @@ bool CLoginManager::DeleteUser(const QString &strUserId)
 		}
 		else
 		{
-			m_strLastError = QString::fromLocal8Bit("无法找到用户id: %1.").arg(strUserId);
+			m_strLastError = QString::fromUtf8("无法找到用户id: %1.").arg(strUserId);
 			return false;
 		}
 	}
@@ -311,7 +311,7 @@ bool CLoginManager::Login(const QString &strUserId,
 		if (time < 60)
 		{
 			time = 60 - time;
-			m_strLastError = QString::fromLocal8Bit("登录失败超3次,还需等待%1秒.").arg(time);
+			m_strLastError = QString::fromUtf8("登录失败超3次,还需等待%1秒.").arg(time);
 			return false;
 		}
 	}
@@ -327,7 +327,7 @@ bool CLoginManager::Login(const QString &strUserId,
 		QString strAuthorityName = sLoginUser::getAuthorityName(iAuthority);
 		if (iAuthority < sLoginUser::nUserAuthority::nUserLevel_Operator)
 		{
-			m_strLastError = QString::fromLocal8Bit("登录失败, 权限不足.");
+			m_strLastError = QString::fromUtf8("登录失败, 权限不足.");
 			return false;
 		}
 
@@ -338,12 +338,12 @@ bool CLoginManager::Login(const QString &strUserId,
 			{
 				m_iLoginFailNum++;
 				m_lastFailTime = QDateTime::currentDateTime();
-				m_strLastError = QString::fromLocal8Bit("登录失败,密码错误.用户名:%1,失败次数:%2.")
+				m_strLastError = QString::fromUtf8("登录失败,密码错误.用户名:%1,失败次数:%2.")
 					.arg(strUserId)
 					.arg(m_iLoginFailNum);
 				QString strPasswordTips = loginUser.getPasswordTips();
 				if (!strPasswordTips.isEmpty())
-					m_strLastError += QString::fromLocal8Bit("\n密码提示:%1.").arg(strPasswordTips);
+					m_strLastError += QString::fromUtf8("\n密码提示:%1.").arg(strPasswordTips);
 				return false;
 			}
 		}
@@ -353,14 +353,14 @@ bool CLoginManager::Login(const QString &strUserId,
 		}
 		else
 		{
-			m_strLastError = QString::fromLocal8Bit("暂不支持的登录类型.");
+			m_strLastError = QString::fromUtf8("暂不支持的登录类型.");
 			return false;
 		}
 
 		m_iLoginFailNum = 0;
 		login.loginTime = QDateTime::currentDateTime();
 		login.iLoginType = iLoginType;
-		m_strLastInfo = QString::fromLocal8Bit("%1登陆成功,权限级别:%2!")
+		m_strLastInfo = QString::fromUtf8("%1登陆成功,权限级别:%2!")
 			.arg(strUserMainName)
 			.arg(strAuthorityName);
 
@@ -376,7 +376,7 @@ bool CLoginManager::Login(const QString &strUserId,
 	{
 		m_iLoginFailNum++;
 		m_lastFailTime = QDateTime::currentDateTime();
-		m_strLastError = QString::fromLocal8Bit("登录失败,无此用户.用户名:%1,失败次数:%2")
+		m_strLastError = QString::fromUtf8("登录失败,无此用户.用户名:%1,失败次数:%2")
 			.arg(strUserId)
 			.arg(m_iLoginFailNum);
 		return false;
@@ -401,12 +401,12 @@ bool CLoginManager::LastOperatorLogin()
 	{
 		bool ret = Login(login.loginUser.getUserMainName(),
 			login.loginUser.getPassword(),
-			sLogin::nLoginType::nLoginType_Normal);
+			sLogin::nLoginType::nLoginType_AutoLogin);
 		return ret;
 	}
 	else
 	{
-		m_strLastError = QString::fromLocal8Bit("用户:%1 已不存在").arg(strLastLoginOperator);
+		m_strLastError = QString::fromUtf8("用户:%1 已不存在").arg(strLastLoginOperator);
 	}
 	
 	return false;
@@ -458,7 +458,7 @@ QJsonObject CLoginManager::toJson()
 	{
 		if (!login.loginUser.isValid())
 		{
-			qDebug() << QString::fromLocal8Bit("无效的登录用户: %1, %2")
+			qDebug() << QString::fromUtf8("无效的登录用户: %1, %2")
 				.arg(login.loginUser.getUserMainName())
 				.arg(login.loginUser.getLastError());
 			return json;
@@ -506,7 +506,7 @@ bool CLoginManager::Save()
 		QJsonObject json = toJson();
 		if (json.isEmpty())
 		{
-			qDebug() << QString::fromLocal8Bit("登录用户信息为空.");
+			qDebug() << QString::fromUtf8("登录用户信息为空.");
 			return false;
 		}
 		QJsonDocument jsonDoc;
@@ -570,7 +570,7 @@ bool CLoginManager::GetLogin(const QString &strUserId, sLogin &login)
 			return true;
 		}
 	}
-	m_strLastError = QString::fromLocal8Bit("用户%1不存在.").arg(strUserId);
+	m_strLastError = QString::fromUtf8("用户%1不存在.").arg(strUserId);
 	return false;
 }
 
@@ -682,7 +682,7 @@ void CLoginManager::AddSuperUser()
 	sLoginUser defaultOperatorUser;
 	defaultOperatorUser.addUserId(defaultOperatorUserId.strUserId);
 	defaultOperatorUser.setPassword("Operator");
-	defaultOperatorUser.setAuthority(sLoginUser::nUserAuthority::nUserLevel_Admin);
+	defaultOperatorUser.setAuthority(sLoginUser::nUserAuthority::nUserLevel_Operator);
 	sLogin defaultOperatorLogin;
 	defaultOperatorLogin.loginUser = defaultOperatorUser;
 	if (!Contains(defaultOperatorUser))
@@ -704,9 +704,9 @@ void CLoginManager::OnTimer()
 			m_planLogoutTime = QDateTime();
 			bool ret = LastOperatorLogin();
 			if (ret)
-				qDebug() << QString::fromLocal8Bit("自动登出成功.");
+				qDebug() << QString::fromUtf8("自动登出成功.");
 			else
-				qDebug() << QString::fromLocal8Bit("自动登出失败. 信息:") << m_strLastError;
+				qDebug() << QString::fromUtf8("自动登出失败. 信息:") << m_strLastError;
 		}
 	}, Qt::QueuedConnection);
 	m_pTimer->start();

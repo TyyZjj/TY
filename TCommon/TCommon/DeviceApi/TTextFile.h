@@ -35,8 +35,9 @@ public:
 	// 返回:	QT_NAMESPACE::QString
 	// 功能:	读取文本(字符串), 不清楚文本的编码格式时, 可以使用该函数
 	//************************************
+	static QString ReadText(const QString& strFilePath);
 	static QString ReadText(const QString &strFilePath,
-		QByteArray &codec/* = "UTF-8" "GBK"*/ = QByteArray());
+		QByteArray &codec/* = "UTF-8" "GBK"*/ /*= QByteArray()*/);
 
 	static bool WriteText(const QString &strFilePath,
 		const QString &strContent,
@@ -86,11 +87,16 @@ public:
 	// 返回:	bool
 	// 功能:	替换文本
 	//************************************
+	static bool ReplaceText(const QString& strFilePath,
+		const QString& strKey,
+		const QString& strNew = QString(),
+		bool isReplaceAll = true,
+		TTextFileIsReplaceFun Fun = nullptr);
 	static bool ReplaceText(const QString &strFilePath,
 		const QString &strKey,
+		QList<int>& lstReplacedPos /*= QList<int>()*/,
 		const QString &strNew = QString(),
 		bool isReplaceAll = true,
-		QList<int> &lstReplacedPos = QList<int>(),
 		TTextFileIsReplaceFun Fun = nullptr);
 
 	//************************************
@@ -102,11 +108,15 @@ public:
 	// 返回:	bool
 	// 功能:	替换文本
 	//************************************
+	static bool ReplaceText(const QString& strFilePath,
+		const QRegExp& rx,
+		const QString& strNew = QString(),
+		bool isReplaceAll = true);
 	static bool ReplaceText(const QString &strFilePath,
 		const QRegExp &rx,
+		QList<int>& lstReplacedPos /*= QList<int>()*/,
 		const QString &strNew = QString(),
-		bool isReplaceAll = true,
-		QList<int> &lstReplacedPos = QList<int>());
+		bool isReplaceAll = true);
 
 	//************************************
 	// 参数: 	const QString & strFilePath: 文本路径

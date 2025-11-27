@@ -21,7 +21,7 @@ CLoginUI::CLoginUI(nLoginUiType type, QWidget *parent)
 	if (type == nLoginUiType::nLoginUiTechnicianInput)
 	{
 		m_iType = nLoginUiType::nLoginUiTechnicianInput;
-		this->setWindowTitle(QString::fromLocal8Bit("技术员登录"));
+		this->setWindowTitle(QString::fromUtf8("技术员登录"));
 		showPasswordAgainLayout(false);
 		showAuthorityLayout(false);
 		showOtherNameLayout(false);
@@ -32,7 +32,7 @@ CLoginUI::CLoginUI(nLoginUiType type, QWidget *parent)
 	else if (type == nLoginUiType::nLoginUiEngineerInput)
 	{
 		m_iType = nLoginUiType::nLoginUiEngineerInput;
-		this->setWindowTitle(QString::fromLocal8Bit("工程师登录"));
+		this->setWindowTitle(QString::fromUtf8("工程师登录"));
 		
 		showPasswordAgainLayout(false);
 		showAuthorityLayout(false);
@@ -44,7 +44,7 @@ CLoginUI::CLoginUI(nLoginUiType type, QWidget *parent)
 	else if (type == nLoginUiType::nLoginUiAdminInput)
 	{
 		m_iType = nLoginUiType::nLoginUiAdminInput;
-		this->setWindowTitle(QString::fromLocal8Bit("管理员登录"));
+		this->setWindowTitle(QString::fromUtf8("管理员登录"));
 		
 		showPasswordAgainLayout(false);
 		showAuthorityLayout(false);
@@ -56,7 +56,7 @@ CLoginUI::CLoginUI(nLoginUiType type, QWidget *parent)
 	else if (type == nLoginUiType::nLoginUiNewUserInput)
 	{
 		m_iType = nLoginUiType::nLoginUiNewUserInput;
-		this->setWindowTitle(QString::fromLocal8Bit("添加用户"));
+		this->setWindowTitle(QString::fromUtf8("添加用户"));
 		
 		showShowLayout(false);
 		showOperateLayout(false);
@@ -71,7 +71,7 @@ CLoginUI::CLoginUI(nLoginUiType type, QWidget *parent)
 	else if (type == nLoginUiType::nLoginUiEditUserInput)
 	{
 		m_iType = nLoginUiType::nLoginUiEditUserInput;
-		this->setWindowTitle(QString::fromLocal8Bit("编辑用户"));
+		this->setWindowTitle(QString::fromUtf8("编辑用户"));
 		
 		showShowLayout(false);
 		showOperateLayout(false);
@@ -86,7 +86,7 @@ CLoginUI::CLoginUI(nLoginUiType type, QWidget *parent)
 	else if (type == nLoginUiType::nLoginUiInputUserInput)
 	{
 		m_iType = nLoginUiType::nLoginUiInputUserInput;
-		this->setWindowTitle(QString::fromLocal8Bit("输入用户名"));
+		this->setWindowTitle(QString::fromUtf8("输入用户名"));
 
 		showPasswordLayout(false);
 		showPasswordAgainLayout(false);
@@ -99,7 +99,7 @@ CLoginUI::CLoginUI(nLoginUiType type, QWidget *parent)
 	else if (type == nLoginUiType::nLoginUiDelUserInput)
 	{
 		m_iType = nLoginUiType::nLoginUiDelUserInput;
-		this->setWindowTitle(QString::fromLocal8Bit("删除用户"));
+		this->setWindowTitle(QString::fromUtf8("删除用户"));
 
 		showPasswordLayout(false);
 		showPasswordAgainLayout(false);
@@ -112,7 +112,7 @@ CLoginUI::CLoginUI(nLoginUiType type, QWidget *parent)
 	else
 	{
 		m_iType = nLoginUiType::nLoginUiNormal;
-		this->setWindowTitle(QString::fromLocal8Bit("登录"));
+		this->setWindowTitle(QString::fromUtf8("登录"));
 
 		showPasswordAgainLayout(false);
 		showAuthorityLayout(false);
@@ -221,7 +221,7 @@ void CLoginUI::on_okBtn_clicked()
 		if (strUser.isEmpty() || strPassword.isEmpty())
 		{
 			showShowLayout(true);
-			ui->showLbl->setText(QString::fromLocal8Bit("用户名/密码不可为空!"));
+			ui->showLbl->setText(QString::fromUtf8("用户名/密码不可为空!"));
 			return;
 		}
 	}
@@ -268,13 +268,13 @@ void CLoginUI::on_okBtn_clicked()
 		}
 		else if (authority > sLoginUser::nUserAuthority::nUserLevel_Invalid)
 		{
-			ui->showLbl->setText(QString::fromLocal8Bit("%1权限不足!").arg(strUser));
+			ui->showLbl->setText(QString::fromUtf8("%1权限不足!").arg(strUser));
 			showShowLayout(true);
 			return;
 		}
 		else
 		{
-			ui->showLbl->setText(QString::fromLocal8Bit("不存在当前用户!"));
+			ui->showLbl->setText(QString::fromUtf8("不存在当前用户!"));
 			showShowLayout(true);
 			return;
 		}
@@ -305,13 +305,13 @@ void CLoginUI::on_okBtn_clicked()
 		}
 		else if (authority > sLoginUser::nUserAuthority::nUserLevel_Invalid)
 		{
-			ui->showLbl->setText(QString::fromLocal8Bit("%1权限不足!").arg(strUser));
+			ui->showLbl->setText(QString::fromUtf8("%1权限不足!").arg(strUser));
 			showShowLayout(true);
 			return;
 		}
 		else
 		{
-			ui->showLbl->setText(QString::fromLocal8Bit("不存在当前用户!"));
+			ui->showLbl->setText(QString::fromUtf8("不存在当前用户!"));
 			showShowLayout(true);
 			return;
 		}
@@ -326,7 +326,7 @@ void CLoginUI::on_okBtn_clicked()
 			if (ret)
 			{
 				ui->showLbl->clear();
-				qDebug() << QString::fromLocal8Bit("用户 %1 验证成功.").arg(strUser);
+				qDebug() << QString::fromUtf8("用户 %1 验证成功.").arg(strUser);
 				accept();
 			}
 			else
@@ -338,13 +338,13 @@ void CLoginUI::on_okBtn_clicked()
 		}
 		else if (authority > sLoginUser::nUserAuthority::nUserLevel_Invalid)
 		{
-			ui->showLbl->setText(QString::fromLocal8Bit("%1权限不足!").arg(strUser));
+			ui->showLbl->setText(QString::fromUtf8("%1权限不足!").arg(strUser));
 			showShowLayout(true);
 			return;
 		}
 		else
 		{
-			ui->showLbl->setText(QString::fromLocal8Bit("不存在当前用户!"));
+			ui->showLbl->setText(QString::fromUtf8("不存在当前用户!"));
 			showShowLayout(true);
 			return;
 		}
@@ -354,7 +354,7 @@ void CLoginUI::on_okBtn_clicked()
 		QString strPassword2 = ui->passwordEdit2->text();
 		if (strPassword != strPassword2)
 		{
-			ui->showLbl->setText(QString::fromLocal8Bit("两次密码输入不一致."));
+			ui->showLbl->setText(QString::fromUtf8("两次密码输入不一致."));
 			showShowLayout(true);
 			return;
 		}
@@ -362,7 +362,7 @@ void CLoginUI::on_okBtn_clicked()
 		if (strPasswordTips == strPassword ||
 			strPasswordTips.contains(strPassword))
 		{
-			ui->showLbl->setText(QString::fromLocal8Bit("密码提示不能包含密码信息."));
+			ui->showLbl->setText(QString::fromUtf8("密码提示不能包含密码信息."));
 			showShowLayout(true);
 			return;
 		}
@@ -395,9 +395,9 @@ void CLoginUI::on_okBtn_clicked()
 		bool ret = CLoginManager::GetKernel()->Save(loginUser);
 		if (ret)
 		{
-			QString strInfo = QString::fromLocal8Bit("用户 %1 添加成功.").arg(strUser);
+			QString strInfo = QString::fromUtf8("用户 %1 添加成功.").arg(strUser);
 			qDebug() << strInfo;
-			//QMessageBox::information(nullptr, QString::fromLocal8Bit("提示"), strInfo);
+			//QMessageBox::information(nullptr, QString::fromUtf8("提示"), strInfo);
 			accept();
 		}
 		else
@@ -412,7 +412,7 @@ void CLoginUI::on_okBtn_clicked()
 		QString strPassword2 = ui->passwordEdit2->text();
 		if (strPassword != strPassword2)
 		{
-			ui->showLbl->setText(QString::fromLocal8Bit("两次密码输入不一致."));
+			ui->showLbl->setText(QString::fromUtf8("两次密码输入不一致."));
 			showShowLayout(true);
 			return;
 		}
@@ -420,7 +420,7 @@ void CLoginUI::on_okBtn_clicked()
 		if (strPasswordTips == strPassword ||
 			strPasswordTips.contains(strPassword))
 		{
-			ui->showLbl->setText(QString::fromLocal8Bit("密码提示不能包含密码信息."));
+			ui->showLbl->setText(QString::fromUtf8("密码提示不能包含密码信息."));
 			showShowLayout(true);
 			return;
 		}
@@ -458,7 +458,7 @@ void CLoginUI::on_okBtn_clicked()
 		int iAuthority = login.loginUser.getAuthority();
 		if (iAuthority >= sLoginUser::nUserAuthority::nUserLevel_Develop)
 		{
-			ui->showLbl->setText(QString::fromLocal8Bit("权限不足."));
+			ui->showLbl->setText(QString::fromUtf8("权限不足."));
 			showShowLayout(true);
 			return;
 		}
@@ -482,7 +482,7 @@ void CLoginUI::on_okBtn_clicked()
 		bool ret = CLoginManager::GetKernel()->Delete(strUser);
 		if (ret)
 		{
-			//QMessageBox::information(nullptr, QString::fromLocal8Bit("提示"), QString::fromLocal8Bit("删除成功."));
+			//QMessageBox::information(nullptr, QString::fromUtf8("提示"), QString::fromUtf8("删除成功."));
 			accept();
 		}
 		else
@@ -494,7 +494,7 @@ void CLoginUI::on_okBtn_clicked()
 	}
 	else
 	{
-		ui->showLbl->setText(QString::fromLocal8Bit("无效的类型."));
+		ui->showLbl->setText(QString::fromUtf8("无效的类型."));
 		showShowLayout(true);
 		return;
 	}
@@ -546,12 +546,12 @@ void CLoginUI::on_addUserIdBtn_clicked()
 	layout->addItem(hSpacer1);
 
 	QComboBox* userIdTypeBox = new QComboBox(ui->borderFrame);
-	userIdTypeBox->addItems(QStringList() << QString::fromLocal8Bit("卡号")
-		<< QString::fromLocal8Bit("工号")
-		<< QString::fromLocal8Bit("手机")
-		<< QString::fromLocal8Bit("邮箱")
-		<< QString::fromLocal8Bit("QQ")
-		<< QString::fromLocal8Bit("微信"));
+	userIdTypeBox->addItems(QStringList() << QString::fromUtf8("卡号")
+		<< QString::fromUtf8("工号")
+		<< QString::fromUtf8("手机")
+		<< QString::fromUtf8("邮箱")
+		<< QString::fromUtf8("QQ")
+		<< QString::fromUtf8("微信"));
 	userIdTypeBox->setObjectName(QString::fromUtf8("newUserIdTypeBox%1").arg(iCount));
 	userIdTypeBox->setMinimumSize(QSize(70, 30));
 	userIdTypeBox->setMaximumSize(QSize(70, 30));

@@ -64,7 +64,13 @@ bool TTextFile::AppendText(const QString &strFilePath,
 	return true;
 }
 
-QString TTextFile::ReadText(const QString &strFilePath, 
+QString TTextFile::ReadText(const QString& strFilePath)
+{
+	QByteArray ba;
+	return ReadText(strFilePath, ba);
+}
+
+QString TTextFile::ReadText(const QString &strFilePath,
 	QByteArray &codec/* = "UTF-8" "GBK"*/ /*= QByteArray()*/)
 {
 	QByteArray ba = GetFileContent(strFilePath);
@@ -296,11 +302,26 @@ bool TTextFile::InsertText(const QString &strFilePath,
 	return CopyFile(strTempFilePath, strFilePath, true);
 }
 
-bool TTextFile::ReplaceText(const QString &strFilePath, 
+bool TTextFile::ReplaceText(const QString& strFilePath, 
+	const QString& strKey, 
+	const QString& strNew, 
+	bool isReplaceAll, 
+	TTextFileIsReplaceFun Fun)
+{
+	QList<int> lstReplacedPos;
+	return ReplaceText(strFilePath, 
+		strKey,
+		lstReplacedPos,
+		strNew,
+		isReplaceAll,
+		Fun);
+}
+
+bool TTextFile::ReplaceText(const QString &strFilePath,
 	const QString &strKey, 
+	QList<int>& lstReplacedPos /*= QList<int>()*/,
 	const QString &strNew /*= QString()*/, 
 	bool isReplaceAll /*= true*/, 
-	QList<int> &lstReplacedPos /*= QList<int>()*/, 
 	TTextFileIsReplaceFun Fun /*= nullptr*/)
 {
 	QByteArray codec;
@@ -322,11 +343,24 @@ bool TTextFile::ReplaceText(const QString &strFilePath,
 	return WriteText(strFilePath, txt, codec);
 }
 
-bool TTextFile::ReplaceText(const QString &strFilePath, 
+bool TTextFile::ReplaceText(const QString& strFilePath, 
+	const QRegExp& rx, 
+	const QString& strNew, 
+	bool isReplaceAll)
+{
+	QList<int> lstReplacedPos;
+	return ReplaceText(strFilePath,
+		rx,
+		lstReplacedPos,
+		strNew,
+		isReplaceAll);
+}
+
+bool TTextFile::ReplaceText(const QString &strFilePath,
 	const QRegExp &rx, 
+	QList<int>& lstReplacedPos /*= QList<int>()*/,
 	const QString &strNew /*= QString()*/, 
-	bool isReplaceAll /*= true*/, 
-	QList<int> &lstReplacedPos /*= QList<int>()*/)
+	bool isReplaceAll /*= true*/)
 {
 	QByteArray codec;
 	QString txt = ReadText(strFilePath, codec);
