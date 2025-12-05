@@ -1,5 +1,14 @@
-#ifndef _TCOMMONDEFINE_H_
+ï»¿#ifndef _TCOMMONDEFINE_H_
 #define _TCOMMONDEFINE_H_
+
+/*
+* 1.QMetaEnum
+* 2.Kernel
+* 3.è¯»å†™INI
+* 4.åºåˆ—åŒ–æ•°æ®
+* 5.åŠ è½½QTæ’ä»¶
+* 6.MD5
+*/
 
 #pragma region QMetaEnum
 #include <QString>
@@ -35,8 +44,8 @@ static QString typeToName(const T& type)
 
 
 #pragma region Kernel
-// µ¥ÊµÀıÀàºêÊµÏÖ·½Ê½
-//Q_DISABLE_COPY(ClassName); ½¨ÒéÔÚµ¥ÀıÀàÄÚÔö¼Ó´Ëºê
+// å•å®ä¾‹ç±»å®å®ç°æ–¹å¼
+//Q_DISABLE_COPY(ClassName); å»ºè®®åœ¨å•ä¾‹ç±»å†…å¢åŠ æ­¤å®
 #define Kernel(ClassName) \
 static ClassName* GetKernel(){\
 static ClassName * instance = nullptr; \
@@ -50,7 +59,7 @@ if(instance)\
 {delete instance;instance=nullptr;}\
 }
 
-/*·¶Àı
+/*èŒƒä¾‹
 class AAA
 {
 public:
@@ -63,16 +72,16 @@ private:
 #pragma endregion
 
 
-#pragma region ¶ÁĞ´INI
+#pragma region è¯»å†™INI
 #include <QMap>
 #include <QString>
 #include <QVariant>
 #include <QSettings>
 #include <QSharedPointer>
 
-//¶ÁĞ´INI
+//è¯»å†™INI
 //////////////////////////////////////////////////////////////////////////
-//Ê¹ÓÃÊ¾Àı
+//ä½¿ç”¨ç¤ºä¾‹
 //INI_BEGIN(AAAA, "C:\\xxxx\\xxx\\xxxx.ini")
 //INI_PARAM(Section1, bool, Name1, false)
 //INI_PARAM(Section1, int, Name2, 0)
@@ -120,16 +129,16 @@ private:\
 #pragma endregion
 
 
-#pragma region ĞòÁĞ»¯Êı¾İ
+#pragma region åºåˆ—åŒ–æ•°æ®
 #include <QIODevice>
 #include <QByteArray>
 #include <QDataStream>
 //************************************
-// º¯Êı:  	LibPublic::byteToTemp
-// ²ÎÊı:    const QByteArray & data
-// ²ÎÊı:    T & t
-// ·µ»Ø:    bool
-// ¹¦ÄÜ:		ĞòÁĞ»¯Êı¾İ
+// å‡½æ•°:  	LibPublic::byteToTemp
+// å‚æ•°:    const QByteArray & data
+// å‚æ•°:    T & t
+// è¿”å›:    bool
+// åŠŸèƒ½:		åºåˆ—åŒ–æ•°æ®
 //************************************
 template<typename  T >
 static bool byteToTemp(const QByteArray& data, T& t)
@@ -139,11 +148,11 @@ static bool byteToTemp(const QByteArray& data, T& t)
 	return true;
 }
 //************************************
-// º¯Êı:  	LibPublic::tempTobyte
-// ²ÎÊı:    const T & t
-// ²ÎÊı:    QByteArray & byte
-// ·µ»Ø:    bool
-// ¹¦ÄÜ:		·´ĞòÁĞ»¯
+// å‡½æ•°:  	LibPublic::tempTobyte
+// å‚æ•°:    const T & t
+// å‚æ•°:    QByteArray & byte
+// è¿”å›:    bool
+// åŠŸèƒ½:		ååºåˆ—åŒ–
 //************************************
 template<typename  T >
 static bool tempTobyte(const T& t, QByteArray& byte)
@@ -155,8 +164,10 @@ static bool tempTobyte(const T& t, QByteArray& byte)
 #pragma endregion
 
 
-#pragma region ¼ÓÔØ²å¼ş
+#pragma region åŠ è½½æ’ä»¶
+#include <QDir>
 #include <QList>
+#include <QDebug>
 #include <QLibrary>
 #include <QStringList>
 #include <QPluginLoader>
@@ -164,7 +175,11 @@ static bool tempTobyte(const T& t, QByteArray& byte)
 template<typename  T >
 static void getPluginObject(QList<T*>& lst, const QString& path, QStringList filter = QStringList() /*<< "RS-*.dll" << "RS-*.DLL"*/)
 {
-	QStringList list = GetPathFileNames(path, filter, QDir::Files | QDir::NoDotAndDotDot, QDir::Name);
+	QDir myFolder(path);
+	if (!myFolder.exists())
+		return;
+	
+	QStringList list = myFolder.entryList(filter, QDir::Files | QDir::NoDotAndDotDot, QDir::Name);
 	for (QString var : list)
 	{
 		QString pluginPath = path + "//" + var;
@@ -213,7 +228,7 @@ static void destroyPluginObject(QList<T*>& lst)
 #include <QDebug>
 #include <QByteArray>
 #include <QCryptographicHash>
-QByteArray getFileMd5(QString filePath)
+static QByteArray getFileMd5(QString filePath)
 {
 	QFile localFile(filePath);
 	if (!localFile.open(QFile::ReadOnly))
@@ -256,7 +271,7 @@ QByteArray getFileMd5(QString filePath)
 	QByteArray md5 = ch.result();
 	return md5.toHex().constData();
 }
-QByteArray getStrMd5(QString str)
+static QByteArray getStrMd5(QString str)
 {
 	QByteArray ba;
 	ba.append(str);

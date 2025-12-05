@@ -1,9 +1,14 @@
-#ifndef _TFIND_H_
+ï»¿#ifndef _TFIND_H_
 #define _TFIND_H_
 
-//²éÕÒÏà¹ØµÄËã·¨
+//æŸ¥æ‰¾ç›¸å…³çš„ç®—æ³•
+/*
+* TListFind
+* 1ã€QListé¡ºåºæŸ¥æ‰¾
+* 2ã€QStringä¸­æ˜¯å¦å­˜åœ¨æŸäº›å­—ç¬¦
+*/
 
-//1¡¢QListË³Ğò²éÕÒ
+//1ã€QListé¡ºåºæŸ¥æ‰¾
 namespace TListFind {
 #pragma region QList-Find
 	template<typename T, typename FindFun>
@@ -51,12 +56,12 @@ namespace TListFind {
 	}
 
 	//************************************
-	// ²ÎÊı: 	QList<T1> & lst : ²éÕÒ¼¯
-	// ²ÎÊı: 	const QList<T2> & lstFilter : ¹ıÂË¼¯
-	// ²ÎÊı: 	FindFun findFun
-	// ²ÎÊı: 	bool bFilterFind: true->¹ıÂËÕÒµ½µÄ; false->¹ıÂËÎ´ÕÒµ½µÄ
-	// ·µ»Ø:	void
-	// ¹¦ÄÜ:	¹ıÂËlst
+	// å‚æ•°: 	QList<T1> & lst : æŸ¥æ‰¾é›†
+	// å‚æ•°: 	const QList<T2> & lstFilter : è¿‡æ»¤é›†
+	// å‚æ•°: 	FindFun findFun
+	// å‚æ•°: 	bool bFilterFind: true->è¿‡æ»¤æ‰¾åˆ°çš„; false->è¿‡æ»¤æœªæ‰¾åˆ°çš„
+	// è¿”å›:	void
+	// åŠŸèƒ½:	è¿‡æ»¤lst
 	//************************************
 	template<typename T1, typename T2 = T1, typename FindFun>
 	void Filter(QList<T1> &lst, const QList<T2> &lstFilter, FindFun findFun, bool bFilterFind = true)

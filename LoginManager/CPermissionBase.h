@@ -1,4 +1,4 @@
-#ifndef _PERMISSIONBASE_H_
+ï»¿#ifndef _PERMISSIONBASE_H_
 #define _PERMISSIONBASE_H_
 #include <QObject>
 
@@ -32,7 +32,7 @@ private:
 };
 
 
-//È¨ÏÞµÄ»ù´¡Àà, Èç¹ûÄ³¸ö»­Ãæ/¹¦ÄÜÐèÒªÓ¦ÓÃÈ¨ÏÞ, ÐèÒª¼Ì³Ð´ËÀà
+//æƒé™çš„åŸºç¡€ç±», å¦‚æžœæŸä¸ªç”»é¢/åŠŸèƒ½éœ€è¦åº”ç”¨æƒé™, éœ€è¦ç»§æ‰¿æ­¤ç±»
 class LOGINMANAGER_EXPORT CPermissionBase
 {
 	friend class CLoginManagerObj;
@@ -49,19 +49,19 @@ protected:
 		const QString strResult,
 		QString strUserGroup) = 0;
 
-	//Ö´ÐÐÄ³Ïî¶¯Ì¬²Ù×÷Ê±, ÐèÒª¶¯Ì¬ÅÐ¶ÏÒ»¶ÑWidgetÊÇ·ñÂú×ãÈ¨ÏÞ, ½öÊÊÓÃÓÚËùÓÐÓÃ»§¾ùÎªÄ¬ÈÏÓÃ»§×éÊ±
-	//µ±´æÔÚÒ»¶Ñ¿Ø¼þÐèÒª²Ù×÷Ê±, ÍÆ¼öÊ¹ÓÃ´ËÍ¬Ãûº¯Êý
+	//æ‰§è¡ŒæŸé¡¹åŠ¨æ€æ“ä½œæ—¶, éœ€è¦åŠ¨æ€åˆ¤æ–­ä¸€å †Widgetæ˜¯å¦æ»¡è¶³æƒé™, ä»…é€‚ç”¨äºŽæ‰€æœ‰ç”¨æˆ·å‡ä¸ºé»˜è®¤ç”¨æˆ·ç»„æ—¶
+	//å½“å­˜åœ¨ä¸€å †æŽ§ä»¶éœ€è¦æ“ä½œæ—¶, æŽ¨èä½¿ç”¨æ­¤åŒåå‡½æ•°
 	virtual void enableLoginWidget(){}
 
-	//Ö´ÐÐÄ³Ïî¶¯Ì¬²Ù×÷Ê±, ÐèÒª¶¯Ì¬ÅÐ¶ÏÊÇ·ñÂú×ãÈ¨ÏÞ, ½öÊÊÓÃÓÚËùÓÐÓÃ»§¾ùÎªÄ¬ÈÏÓÃ»§×éÊ±
-	//iNeeded:²ÂÏë²Ù×÷ÐèÒªµÄÈ¨ÏÞ
+	//æ‰§è¡ŒæŸé¡¹åŠ¨æ€æ“ä½œæ—¶, éœ€è¦åŠ¨æ€åˆ¤æ–­æ˜¯å¦æ»¡è¶³æƒé™, ä»…é€‚ç”¨äºŽæ‰€æœ‰ç”¨æˆ·å‡ä¸ºé»˜è®¤ç”¨æˆ·ç»„æ—¶
+	//iNeeded:çŒœæƒ³æ“ä½œéœ€è¦çš„æƒé™
 	bool hasPermission(DUGL iNeeded);
-	//Ô¤Áô µ±¿ÉÒÔ¶¯Ì¬´´½¨ÓÃ»§×éÖ®ºó, Ó¦¸ÃÍ¨¹ý´Ë½Ó¿Ú+m_defaultCPSetÀ´ÅÐ¶Ïµ±Ç°²Ù×÷ÊÇ·ñÂú×ãÈ¨ÏÞ
+	//é¢„ç•™ å½“å¯ä»¥åŠ¨æ€åˆ›å»ºç”¨æˆ·ç»„ä¹‹åŽ, åº”è¯¥é€šè¿‡æ­¤æŽ¥å£+m_defaultCPSetæ¥åˆ¤æ–­å½“å‰æ“ä½œæ˜¯å¦æ»¡è¶³æƒé™
 	bool hasPermission(QString strPermissionName) = delete;
 
-	//×Ô¶¯µÇ³ö
-	//Èç¹ûÐèÒª×Ô¶¯µÇ³ö, µ÷ÓÃ´Ëº¯Êý, Èí¼þ»áÉè¶¨Ê±¼ä×Ô¶¯µÇ³öÊ±¼ä, ²¢ÔÚÊ±¼äµ½´ïºó×Ô¶¯µÇ³ö
-	//Èç¹ûÒªÇóÓÐ×Ô¶¯µÇ³ö¹¦ÄÜ, µ«ÊÇÈËÔ±²Ù×÷Ê±²»×Ô¶¯µÇ³ö, ÐèÒªÔÚÃô¸Ð½çÃæÊ¶±ðµ½ÈËÔ±²Ù×÷(ÈçÊó±êÒÆ¶¯)Ê±£¬µ÷ÓÃ´Ëº¯Êý, »á×Ô¶¯Ë¢ÐÂµÇ³öÊ±¼ä
+	//è‡ªåŠ¨ç™»å‡º
+	//å¦‚æžœéœ€è¦è‡ªåŠ¨ç™»å‡º, è°ƒç”¨æ­¤å‡½æ•°, è½¯ä»¶ä¼šè®¾å®šæ—¶é—´è‡ªåŠ¨ç™»å‡ºæ—¶é—´, å¹¶åœ¨æ—¶é—´åˆ°è¾¾åŽè‡ªåŠ¨ç™»å‡º
+	//å¦‚æžœè¦æ±‚æœ‰è‡ªåŠ¨ç™»å‡ºåŠŸèƒ½, ä½†æ˜¯äººå‘˜æ“ä½œæ—¶ä¸è‡ªåŠ¨ç™»å‡º, éœ€è¦åœ¨æ•æ„Ÿç•Œé¢è¯†åˆ«åˆ°äººå‘˜æ“ä½œ(å¦‚é¼ æ ‡ç§»åŠ¨)æ—¶ï¼Œè°ƒç”¨æ­¤å‡½æ•°, ä¼šè‡ªåŠ¨åˆ·æ–°ç™»å‡ºæ—¶é—´
 	void Active();
 	
 private:
@@ -69,9 +69,29 @@ private:
 	CPSet m_defaultCPSet;	
 	CPSet m_cpSet;
 
-	DUGL m_iDUGL = DUGL::nUserLevel_Invalid;//µ±Ç°µÇÂ¼µÄÓÃ»§µÄDUGL
+	DUGL m_iDUGL = DUGL::nUserLevel_Invalid;//å½“å‰ç™»å½•çš„ç”¨æˆ·çš„DUGL
 };
 
+
+/*èŒƒä¾‹
+* class  ModelManager :public CPermissionBase
+* {
+* protected:	
+	virtual void login(const QString& strAutoUserId,
+	const QString& strShowUser,
+	const QString strResult,
+	QString strUserGroup)
+	{
+	bool enable = hasPermission(DUGL::nUserLevel_Engineer);
+	EnableWidget(ui->btnTrainStop, enable);
+	EnableWidget(ui->btnSelectedLatestModel, enable);
+	EnableWidget(ui->btnLoadSelectedModel, enable);
+	EnableWidget(ui->btnDeleteAllROIModel, enable);
+	EnableWidget(ui->btnCancelAllSelectedROIs, enable);
+	EnableWidget(ui->btnDataExplorer, enable);
+	}
+* }
+*/
 
 #endif
 

@@ -5,9 +5,9 @@
 #include <QVBoxLayout>
 #include <QHBoxLayout>
 #include <QRegularExpression>
-#include "CDockWidgetFoldWidget.h"
+#include "TDockWidgetFoldWidget.h"
 
-CDockWidgetFoldWidget::CDockWidgetFoldWidget(QMainWindow* pMainWindow, 
+TDockWidgetFoldWidget::TDockWidgetFoldWidget(QMainWindow* pMainWindow, 
 	nFoldDirection direction /*= nFoldLeft*/,
 	const QString& title /*= ""*/, 
 	QWidget* parent /*= nullptr*/):
@@ -19,21 +19,21 @@ CDockWidgetFoldWidget::CDockWidgetFoldWidget(QMainWindow* pMainWindow,
 	initWidget();
 }
 
-CDockWidgetFoldWidget::~CDockWidgetFoldWidget()
+TDockWidgetFoldWidget::~TDockWidgetFoldWidget()
 {
 }
 
-void CDockWidgetFoldWidget::setControlWidget(QDockWidget* controlWidget)
+void TDockWidgetFoldWidget::setControlWidget(QDockWidget* controlWidget)
 {
 	m_pControlWidget = controlWidget;
 }
 
-void CDockWidgetFoldWidget::setParternWidget(QWidget* parternWidget)
+void TDockWidgetFoldWidget::setParternWidget(QWidget* parternWidget)
 {
 	m_pParternWidget = parternWidget;
 }
 
-void CDockWidgetFoldWidget::hideDock()
+void TDockWidgetFoldWidget::hideDock()
 {
 	if (m_pControlWidget && m_pParternWidget)
 	{
@@ -42,7 +42,7 @@ void CDockWidgetFoldWidget::hideDock()
 	}
 }
 
-void CDockWidgetFoldWidget::hideAllDock()
+void TDockWidgetFoldWidget::hideAllDock()
 {
 	if (m_pControlWidget && m_pParternWidget)
 	{
@@ -50,7 +50,7 @@ void CDockWidgetFoldWidget::hideAllDock()
 		QList<QDockWidget*> lstAreaDock = getAreaDockWidget(area);
 		for (auto* pDock : lstAreaDock)
 		{
-			CDockWidgetFoldWidget* pFoldWidget = dynamic_cast<CDockWidgetFoldWidget*>(pDock->widget());
+			TDockWidgetFoldWidget* pFoldWidget = dynamic_cast<TDockWidgetFoldWidget*>(pDock->widget());
 			if (pFoldWidget)
 			{
 				pFoldWidget->hideDock();
@@ -63,7 +63,7 @@ void CDockWidgetFoldWidget::hideAllDock()
 	}
 }
 
-void CDockWidgetFoldWidget::initWidget()
+void TDockWidgetFoldWidget::initWidget()
 {
 	QGridLayout* pGridLayout = new QGridLayout(this);
 	pGridLayout->setContentsMargins(0, 0, 0, 0);
@@ -160,7 +160,7 @@ void CDockWidgetFoldWidget::initWidget()
 		}, Qt::QueuedConnection);
 }
 
-QList<QDockWidget*> CDockWidgetFoldWidget::getAreaDockWidget(Qt::DockWidgetArea area)
+QList<QDockWidget*> TDockWidgetFoldWidget::getAreaDockWidget(Qt::DockWidgetArea area)
 {
 	QList<QDockWidget*> lstAreaDock;
 	if (m_pMainWindow == nullptr)
@@ -177,7 +177,7 @@ QList<QDockWidget*> CDockWidgetFoldWidget::getAreaDockWidget(Qt::DockWidgetArea 
 	return lstAreaDock;
 }
 
-void CDockWidgetFoldWidget::setTitle(const QString& title)
+void TDockWidgetFoldWidget::setTitle(const QString& title)
 {
 	m_strTitle = title;
 	if (m_iDirection == nFoldDirection::nFoldLeft ||

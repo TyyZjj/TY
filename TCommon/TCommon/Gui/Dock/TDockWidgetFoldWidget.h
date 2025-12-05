@@ -18,16 +18,16 @@ enum nFoldDirection
 	nFoldBottom = ::Qt::DockWidgetArea::BottomDockWidgetArea,
 };
 
-class CDockWidgetFoldWidget : public QWidget
+class TDockWidgetFoldWidget : public QWidget
 {
 	Q_OBJECT
 
 public:
-	CDockWidgetFoldWidget(QMainWindow* pMainWindow, 
+	TDockWidgetFoldWidget(QMainWindow* pMainWindow, 
 		nFoldDirection direction = nFoldLeft,
 		const QString& title = "",
 		QWidget* parent = nullptr);
-	~CDockWidgetFoldWidget();
+	~TDockWidgetFoldWidget();
 
 	//设置成员变量 m_controlWidget 的值
 	void setControlWidget(QDockWidget* controlWidget);

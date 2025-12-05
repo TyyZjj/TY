@@ -1,9 +1,9 @@
 ﻿#include <QVariant>
 #include <QHBoxLayout>
-#include "CDockWidget.h"
+#include "TDockWidget.h"
 
 
-CDockWidget::CDockWidget(QMainWindow* parent,
+TDockWidget::TDockWidget(QMainWindow* parent,
 	QWidget* pWidget,
 	nFoldDirection direction /*= nFoldLeft*/,
 	const QString& title /*= ""*/,
@@ -21,18 +21,18 @@ CDockWidget::CDockWidget(QMainWindow* parent,
 }
 
 
-CDockWidget::~CDockWidget()
+TDockWidget::~TDockWidget()
 {
 	//releaseFoldDockWidget();
 }
 
 
-void CDockWidget::setTitleBarStyleSheet(const QString& styleSheet)
+void TDockWidget::setTitleBarStyleSheet(const QString& styleSheet)
 {
 	m_pTitleBar->setStyleSheet(styleSheet);
 }
 
-void CDockWidget::hideDock()
+void TDockWidget::hideDock()
 {
 	if (m_pFoldDockWidget &&
 		m_pFoldWidget)
@@ -43,13 +43,13 @@ void CDockWidget::hideDock()
 	}
 }
 
-void CDockWidget::minimizeDock()
+void TDockWidget::minimizeDock()
 {
 	if (m_pFoldBtn && !this->isHidden())
 		emit m_pFoldBtn->clicked();
 }
 
-void CDockWidget::setTitle(const QString& title)
+void TDockWidget::setTitle(const QString& title)
 {
 	m_strTitle = title;
 	setWindowTitle(title);
@@ -59,23 +59,23 @@ void CDockWidget::setTitle(const QString& title)
 		m_pFoldWidget->setTitle(title);
 }
 
-bool CDockWidget::isFoldDockHidden()
+bool TDockWidget::isFoldDockHidden()
 {
 	return m_pFoldDockWidget->isHidden();
 }
 
-bool CDockWidget::isCompleteHidden()
+bool TDockWidget::isCompleteHidden()
 {
 	return this->isHidden() && m_pFoldDockWidget->isHidden();
 }
 
-void CDockWidget::setHideState(bool bDockHide, bool bFoldDockHide)
+void TDockWidget::setHideState(bool bDockHide, bool bFoldDockHide)
 {
 	this->setHidden(bDockHide);
 	m_pFoldDockWidget->setHidden(bFoldDockHide);
 }
 
-void CDockWidget::setCompleteHide(bool hide, bool& isHidden, bool& isDockHide, bool& isFoldDockHide)
+void TDockWidget::setCompleteHide(bool hide, bool& isHidden, bool& isDockHide, bool& isFoldDockHide)
 {
 	if (isHidden)
 	{
@@ -103,7 +103,7 @@ void CDockWidget::setCompleteHide(bool hide, bool& isHidden, bool& isDockHide, b
 	}
 }
 
-void CDockWidget::initWidget()
+void TDockWidget::initWidget()
 {
 	setProperty(PROPERTY_DOCK_TYPE, DOCK_TYPE_FOLD_DOCK);
 	m_pTitleBar = new QWidget(this);
@@ -226,7 +226,7 @@ void CDockWidget::initWidget()
 }
 
 
-void CDockWidget::releaseFoldDockWidget()
+void TDockWidget::releaseFoldDockWidget()
 {
 	if (m_pFoldWidget)
 	{
@@ -242,7 +242,7 @@ void CDockWidget::releaseFoldDockWidget()
 	}
 }
 
-void CDockWidget::initFoldDockWidget(nFoldDirection direction)
+void TDockWidget::initFoldDockWidget(nFoldDirection direction)
 {
 	releaseFoldDockWidget();
 
@@ -255,7 +255,7 @@ void CDockWidget::initFoldDockWidget(nFoldDirection direction)
 		& ~QDockWidget::DockWidgetMovable
 		& ~QDockWidget::DockWidgetFloatable*/);
 	m_pFoldDockWidget->hide();
-	m_pFoldWidget = new CDockWidgetFoldWidget(m_pParent, m_iDirection, m_strTitle, m_pFoldDockWidget);
+	m_pFoldWidget = new TDockWidgetFoldWidget(m_pParent, m_iDirection, m_strTitle, m_pFoldDockWidget);
 	m_pFoldWidget->setControlWidget(m_pFoldDockWidget);
 	m_pFoldWidget->setParternWidget(this);
 	m_pFoldDockWidget->setWidget(m_pFoldWidget);
@@ -282,7 +282,7 @@ void CDockWidget::initFoldDockWidget(nFoldDirection direction)
 	}
 }
 
-void CDockWidget::resetDirection(nFoldDirection direction)
+void TDockWidget::resetDirection(nFoldDirection direction)
 {
 	m_pFoldBtn->show();
 	m_iDirection = direction;
@@ -306,7 +306,7 @@ void CDockWidget::resetDirection(nFoldDirection direction)
 	initFoldDockWidget(direction);
 }
 
-QList<QList<QDockWidget*>> CDockWidget::getAreaDockWidget(Qt::DockWidgetArea area, int* pCurDockIndx /*= nullptr*/)
+QList<QList<QDockWidget*>> TDockWidget::getAreaDockWidget(Qt::DockWidgetArea area, int* pCurDockIndx /*= nullptr*/)
 {
 	QList<QList<QDockWidget*>> lstAreaDock;
 	if (m_pParent == nullptr)
@@ -359,7 +359,7 @@ QList<QList<QDockWidget*>> CDockWidget::getAreaDockWidget(Qt::DockWidgetArea are
 	return lstAreaDock;
 }
 
-void CDockWidget::hideAllDock(QList<QList<QDockWidget*>> lstAreaDock /*= QList<QList<QDockWidget*>>()*/)
+void TDockWidget::hideAllDock(QList<QList<QDockWidget*>> lstAreaDock /*= QList<QList<QDockWidget*>>()*/)
 {
 	if (lstAreaDock.isEmpty())
 	{
@@ -370,7 +370,7 @@ void CDockWidget::hideAllDock(QList<QList<QDockWidget*>> lstAreaDock /*= QList<Q
 	{
 		for (auto dock : lstDock)
 		{
-			CDockWidget* pDock = dynamic_cast<CDockWidget*>(dock);
+			TDockWidget* pDock = dynamic_cast<TDockWidget*>(dock);
 			if (pDock)
 			{
 				pDock->hideDock();

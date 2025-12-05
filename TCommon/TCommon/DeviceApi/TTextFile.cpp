@@ -1,4 +1,4 @@
-#include <QDir>
+Ôªø#include <QDir>
 #include <QFileInfo>
 #include <QTextStream>
 #include "TDefine.h"
@@ -44,6 +44,7 @@ bool TTextFile::AppendText(const QString &strFilePath,
 		return false;
 	
 	QTextCodec *textCodec(nullptr);
+#ifdef _TTEXTCODEC_H_//TTextCodec.h
 	if (isAutoDetectCode)
 	{
 		QByteArray codec;
@@ -51,6 +52,7 @@ bool TTextFile::AppendText(const QString &strFilePath,
 		TTextCodec::GetCorrectUnicode(ba, codec);
 		textCodec = TTextCodec::codecForName(codec);
 	}
+#endif // _TTEXTCODEC_H_
 
 	QFile file(strFilePath);
 	if (!file.open(QIODevice::Append | QIODevice::Text))
@@ -74,9 +76,11 @@ QString TTextFile::ReadText(const QString &strFilePath,
 	QByteArray &codec/* = "UTF-8" "GBK"*/ /*= QByteArray()*/)
 {
 	QByteArray ba = GetFileContent(strFilePath);
-	QString txt;
+	QString txt(ba);
+#ifdef _TTEXTCODEC_H_//TTextCodec.h
 	if (!ba.isEmpty())
 		txt = TTextCodec::GetCorrectUnicode(ba, codec);
+#endif // _TTEXTCODEC_H_
 	return txt;
 }
 
@@ -151,7 +155,7 @@ bool TTextFile::InsertText(const QString &strFilePath,
 				int iLineFeedCount = QString(LINE_FEED).count();
 				if (iTotalPos < pos &&
 					iTotalPos + iLineFeedCount > pos)
-					return false;//≤Â»ÎŒª÷√∏’∫√‘⁄ªª––∑˚µƒŒª÷√
+					return false;//ÊèíÂÖ•‰ΩçÁΩÆÂàöÂ•ΩÂú®Êç¢Ë°åÁ¨¶ÁöÑ‰ΩçÁΩÆ
 				iTotalPos += iLineFeedCount;
 				tempTextStream << endl;
 			}

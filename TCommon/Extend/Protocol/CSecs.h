@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include <QList>
 #include <QString>
 #include <QByteArray>
@@ -36,9 +36,9 @@ struct sSecsItem
 {
 	//enum nValueType
 	//{
-	//	CharType = 0,//×Ö·û ByteArray
-	//	BinaryType,//¶þ½øÖÆ
-	//	ListType,//ÁÐ±í
+	//	CharType = 0,//å­—ç¬¦ ByteArray
+	//	BinaryType,//äºŒè¿›åˆ¶
+	//	ListType,//åˆ—è¡¨
 	//};
 
 	nSecsType nType = nSecsType::List;
@@ -47,9 +47,7 @@ struct sSecsItem
 	QByteArray bytearray;
 	QList<sSecsItem> lstSecsItem;
 
-
-
-	friend QString typeToName(const nSecsType& nType)
+	static QString typeToName(const nSecsType& nType)
 	{
 		QString name = "NONE";
 		switch (nType)
@@ -111,7 +109,7 @@ struct sSecsItem
 	{
 		if (info.nType == nSecsType::List)
 		{
-			out << VALUELOG(typeToName(info.nType), info.iValueSize, "") << endl;
+			out << VALUELOG(sSecsItem::typeToName(info.nType), info.iValueSize, "") << endl;
 			for (auto item : info.lstSecsItem)
 			{
 				out << item ;
@@ -119,7 +117,7 @@ struct sSecsItem
 		}
 		else
 		{
-			out << VALUELOG(typeToName(info.nType),info.bytearray.count(), QString(info.bytearray)) << endl;
+			out << VALUELOG(sSecsItem::typeToName(info.nType),info.bytearray.count(), QString(info.bytearray)) << endl;
 		}
 		return out;
 	}
@@ -162,23 +160,23 @@ struct sSecsData
 		-----------------------
 		*/
 
-		LengthIndex = 0,	//³¤¶ÈÆðÊ¼Î»
-		LengthCount = 4,	//³¤¶È×Ö½ÚÊý
-		SessionIdIndex = 4,	//SessionÆðÊ¼Î»
-		SessionIdCount = 2,	//Session×Ö½ÚÊý
-		StreamIdIndex = 6,	//StreamÆðÊ¼Î»
-		FunctionIdIndex = 7,//FunctionÆðÊ¼Î»
-		PtypeIndex = 8,		//PtypeÆðÊ¼Î»
-		StypeIndex = 9,		//StypeÆðÊ¼Î»  Stype  0=Data Message; 1=Select request; 2=Select reply; 5=Link test request; 6=Link test reply; 9=Separate request
-		SystemByteIndex = 10,//ÏµÍ³×Ö½Ú(¼ÆÊýÆ÷)ÆðÊ¼Î»
-		SystemByteCount = 4, //ÏµÍ³×Ö½Ú(¼ÆÊýÆ÷)×Ö½ÚÊý
+		LengthIndex = 0,	//é•¿åº¦èµ·å§‹ä½
+		LengthCount = 4,	//é•¿åº¦å­—èŠ‚æ•°
+		SessionIdIndex = 4,	//Sessionèµ·å§‹ä½
+		SessionIdCount = 2,	//Sessionå­—èŠ‚æ•°
+		StreamIdIndex = 6,	//Streamèµ·å§‹ä½
+		FunctionIdIndex = 7,//Functionèµ·å§‹ä½
+		PtypeIndex = 8,		//Ptypeèµ·å§‹ä½
+		StypeIndex = 9,		//Stypeèµ·å§‹ä½  Stype  0=Data Message; 1=Select request; 2=Select reply; 5=Link test request; 6=Link test reply; 9=Separate request
+		SystemByteIndex = 10,//ç³»ç»Ÿå­—èŠ‚(è®¡æ•°å™¨)èµ·å§‹ä½
+		SystemByteCount = 4, //ç³»ç»Ÿå­—èŠ‚(è®¡æ•°å™¨)å­—èŠ‚æ•°
 		SecsHeaderLength = 14,
 	};
 
 	
 
 	QString strFlowName;
-	int	iLength = 0;	//Õû¸öÏûÏ¢×Ö½Ú³¤¶È(°üÀ¨14Î»SecsÍ·)
+	int	iLength = 0;	//æ•´ä¸ªæ¶ˆæ¯å­—èŠ‚é•¿åº¦(åŒ…æ‹¬14ä½Secså¤´)
 	int	iSession1 = 0x00;
 	int iSession2 = 0x00;
 	int iStreamId = 0;
@@ -210,51 +208,51 @@ class CSecs
 public:
 
 	//************************************
-	// º¯Êý:		IntToByte
-	// ²ÎÊý: 	const int iNum	Êý×Ö
-	// ²ÎÊý: 	int iByteCount  ×ª»»³ÉÊý¾ÝºóµÄ³¤¶È
-	// ·µ»Ø:		QByteArray	Êý¾Ý
-	// ¹¦ÄÜ:		
+	// å‡½æ•°:		IntToByte
+	// å‚æ•°: 	const int iNum	æ•°å­—
+	// å‚æ•°: 	int iByteCount  è½¬æ¢æˆæ•°æ®åŽçš„é•¿åº¦
+	// è¿”å›ž:		QByteArray	æ•°æ®
+	// åŠŸèƒ½:		
 	//************************************
 	static QByteArray IntToByte(const int iNum, int iByteCount = 4);
 	//************************************
-	// º¯Êý:		ByteToInt
-	// ²ÎÊý: 	const QByteArray & ba	Êý¾Ý
-	// ·µ»Ø:		int	Êý×Ö
-	// ¹¦ÄÜ:		
+	// å‡½æ•°:		ByteToInt
+	// å‚æ•°: 	const QByteArray & ba	æ•°æ®
+	// è¿”å›ž:		int	æ•°å­—
+	// åŠŸèƒ½:		
 	//************************************
 	static int ByteToInt(const QByteArray& ba);
 
 	//************************************
-	// ²ÎÊý: 	nSecsType type
-	// ²ÎÊý: 	int iLength: ³¤¶È 16½øÖÆ
-	// ·µ»Ø:		QByteArray:
-	// ¹¦ÄÜ:		´ò°üÀàÐÍ
+	// å‚æ•°: 	nSecsType type
+	// å‚æ•°: 	int iLength: é•¿åº¦ 16è¿›åˆ¶
+	// è¿”å›ž:		QByteArray:
+	// åŠŸèƒ½:		æ‰“åŒ…ç±»åž‹
 	//************************************
 	static QByteArray PackageValueHead(nSecsType type,int lenth);
 
 	//************************************
-	// ²ÎÊý: 	const QString & str: ×Ö¶ÎÖµ
-	// ²ÎÊý: 	int iLength: ³¤¶È 16½øÖÆ
-	// ²ÎÊý:	char fill:Ìî³ä×Ö½Ú
-	// ·µ»Ø:	QByteArray:
-	// ¹¦ÄÜ:	´ò°üÄ³¸ö×Ö¶Î
+	// å‚æ•°: 	const QString & str: å­—æ®µå€¼
+	// å‚æ•°: 	int iLength: é•¿åº¦ 16è¿›åˆ¶
+	// å‚æ•°:	char fill:å¡«å……å­—èŠ‚
+	// è¿”å›ž:	QByteArray:
+	// åŠŸèƒ½:	æ‰“åŒ…æŸä¸ªå­—æ®µ
 	//************************************
 	static QByteArray PackageValue(const QString &str, int iLength, char fill = ' ');
 
 	static QByteArray PackageValue(int bnum);
 
 	//************************************
-	// ²ÎÊý: 	QByteArray stream: S
-	// ²ÎÊý: 	QByteArray function: F
-	// ²ÎÊý: 	int iSendFlowNum: ²Î¼ûm_iSendFlowNum
-	// ²ÎÊý: 	int iBodyByteCount: ÏûÏ¢Ö÷Ìâ×Ö½Ú³¤¶È
-	// ²ÎÊý: 	QByteArray ptype: ²Î¼ûnSecsHeader
-	// ²ÎÊý: 	QByteArray stype: ²Î¼ûnSecsHeader, Stype  0=Data Message; 1=Select request; 2=Select reply; 5=Link test request; 6=Link test reply; 9=Separate request
-	// ²ÎÊý: 	QByteArray session1: ²Î¼ûnSecsHeader
-	// ²ÎÊý: 	QByteArray session2: ²Î¼ûnSecsHeader
-	// ·µ»Ø:	QT_NAMESPACE::QByteArray
-	// ¹¦ÄÜ:	´ò°üÏûÏ¢Í·
+	// å‚æ•°: 	QByteArray stream: S
+	// å‚æ•°: 	QByteArray function: F
+	// å‚æ•°: 	int iSendFlowNum: å‚è§m_iSendFlowNum
+	// å‚æ•°: 	int iBodyByteCount: æ¶ˆæ¯ä¸»é¢˜å­—èŠ‚é•¿åº¦
+	// å‚æ•°: 	QByteArray ptype: å‚è§nSecsHeader
+	// å‚æ•°: 	QByteArray stype: å‚è§nSecsHeader, Stype  0=Data Message; 1=Select request; 2=Select reply; 5=Link test request; 6=Link test reply; 9=Separate request
+	// å‚æ•°: 	QByteArray session1: å‚è§nSecsHeader
+	// å‚æ•°: 	QByteArray session2: å‚è§nSecsHeader
+	// è¿”å›ž:	QT_NAMESPACE::QByteArray
+	// åŠŸèƒ½:	æ‰“åŒ…æ¶ˆæ¯å¤´
 	//************************************
 	static QByteArray PackageHead(QByteArray stream,
 		QByteArray function,
@@ -274,10 +272,10 @@ public:
 		QByteArray session2 = Hex0);
 
 	//************************************
-	// ²ÎÊý: 	const QByteArray & data
-	// ²ÎÊý: 	sSecsData & secsData: ½âÎö³öÀ´µÄSecsÊý¾Ý
-	// ·µ»Ø:	bool: ÊÇ·ñ³É¹¦
-	// ¹¦ÄÜ:	½âÎöSECSÊý¾Ý
+	// å‚æ•°: 	const QByteArray & data
+	// å‚æ•°: 	sSecsData & secsData: è§£æžå‡ºæ¥çš„Secsæ•°æ®
+	// è¿”å›ž:	bool: æ˜¯å¦æˆåŠŸ
+	// åŠŸèƒ½:	è§£æžSECSæ•°æ®
 	//************************************
 	static bool ParseData(const QByteArray &data, sSecsData &secsData);
 private:
@@ -285,33 +283,33 @@ private:
 
 
 	//************************************
-	// Method:    GetByteArray ¸ù¾ÝÊäÈëµÄ×Ö·û»ñµÃÖ¸¶¨³¤¶ÈµÄByteArray, ÉáÈ¥³¬³öµÄ³¤¶È, ³¤¶È²»×ãÒÔfill²¹È«, ²¹ÔÚºó·½
+	// Method:    GetByteArray æ ¹æ®è¾“å…¥çš„å­—ç¬¦èŽ·å¾—æŒ‡å®šé•¿åº¦çš„ByteArray, èˆåŽ»è¶…å‡ºçš„é•¿åº¦, é•¿åº¦ä¸è¶³ä»¥fillè¡¥å…¨, è¡¥åœ¨åŽæ–¹
 	// FullName:  CMesCore::GetByteArray
 	// Returns:   bool
-	// Parameter: const QString & str:ÊäÈëµÄ×Ö·û
-	// Parameter: int len:³¤¶È
-	// Parameter: char fill:Ìî³ä×Ö½Ú
+	// Parameter: const QString & str:è¾“å…¥çš„å­—ç¬¦
+	// Parameter: int len:é•¿åº¦
+	// Parameter: char fill:å¡«å……å­—èŠ‚
 	//************************************
 	static QByteArray GetByteArray(const QString &str, int len, char fill = ' ');
 
 	//************************************
-	// ²ÎÊý: 	const QByteArray & data: ÊäÈë
-	// ²ÎÊý: 	int & iOffset: ÊäÈë/Êä³ö Æ«ÒÆÁ¿
-	// ²ÎÊý: 	sSecsItem::nValueType & type: Êä³ö, ÖµµÄÀàÐÍ
-	// ²ÎÊý: 	int & iBegin:  Êä³ö, ¿ªÊ¼×Ö¶Î 0x41/0x42/0x21/0x01
-	// ²ÎÊý: 	int & iHeadSize:  Êä³ö, ÊýÖµÍ·Õ¼ÓÃµÄ×Ö½Ú´óÐ¡
-	// ²ÎÊý: 	int & iValueSize: Êä³ö, ÊýÖµÕ¼ÓÃ×Ö½ÚµÄ´óÐ¡
-	// ·µ»Ø:	bool ³É¹¦/Ê§°Ü
-	// ¹¦ÄÜ:	½âÎö¿ªÊ¼µÄ×Ö¶Î
+	// å‚æ•°: 	const QByteArray & data: è¾“å…¥
+	// å‚æ•°: 	int & iOffset: è¾“å…¥/è¾“å‡º åç§»é‡
+	// å‚æ•°: 	sSecsItem::nValueType & type: è¾“å‡º, å€¼çš„ç±»åž‹
+	// å‚æ•°: 	int & iBegin:  è¾“å‡º, å¼€å§‹å­—æ®µ 0x41/0x42/0x21/0x01
+	// å‚æ•°: 	int & iHeadSize:  è¾“å‡º, æ•°å€¼å¤´å ç”¨çš„å­—èŠ‚å¤§å°
+	// å‚æ•°: 	int & iValueSize: è¾“å‡º, æ•°å€¼å ç”¨å­—èŠ‚çš„å¤§å°
+	// è¿”å›ž:	bool æˆåŠŸ/å¤±è´¥
+	// åŠŸèƒ½:	è§£æžå¼€å§‹çš„å­—æ®µ
 	//************************************
 	static bool ParseValueHead(const QByteArray &data, int &iOffset, nSecsType &ntype, int &iBegin, int &iHeadSize, int &iValueSize);
 
 	//************************************
-	// ²ÎÊý: 	const QByteArray & data: ÊäÈë
-	// ²ÎÊý: 	sSecsItem & secsItem: secsÊý¾Ý
-	// ²ÎÊý: 	int iMaxLength: dataµÄ×î´ó³¤¶È
-	// ·µ»Ø:	bool: ÊÇ·ñ³É¹¦
-	// ¹¦ÄÜ:	½âÎöSecsÊý¾ÝÖÐµÄÏûÏ¢Ìå
+	// å‚æ•°: 	const QByteArray & data: è¾“å…¥
+	// å‚æ•°: 	sSecsItem & secsItem: secsæ•°æ®
+	// å‚æ•°: 	int iMaxLength: dataçš„æœ€å¤§é•¿åº¦
+	// è¿”å›ž:	bool: æ˜¯å¦æˆåŠŸ
+	// åŠŸèƒ½:	è§£æžSecsæ•°æ®ä¸­çš„æ¶ˆæ¯ä½“
 	//************************************
 	static bool ParseValue(const QByteArray &data, int &iOffset, sSecsItem &secsItem);
 

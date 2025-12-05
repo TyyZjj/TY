@@ -1,4 +1,4 @@
-/*
+ï»¿/*
 
 												  ... .^^:.
 										  .   ..~75GPPBGGGY!^.
@@ -139,7 +139,7 @@
 :::::::.!GG####7~^:::::::::.................................................^####&#^..................
 .......:5BBBBB#?~^:.........................................................^#BGGB&5..................
 */
-
+//#include <Windows.h>
 //#include <QDir>
 //#include <tuple>
 //#include "TFile.h"
@@ -157,7 +157,7 @@
 //	
 //	ret = TFile::Decompress("F:\\SoftwareDownload\\QQ\\test\\FileRecv.zip", "F:\\SoftwareDownload\\QQ\\test\\");
 //	TFile::Compress("F:\\SoftwareDownload\\QQ", QStringList() << "F:\\SoftwareDownload\\QQ\\FileRecv");
-//	ret = TFile::MoveFile("E:\\2022-myl\\chromedriver_win32", "E:\\2022-myl\\new\\");
+//	//ret = TFile::MoveFile("E:\\2022-myl\\chromedriver_win32", "E:\\2022-myl\\new\\");
 //	TFile::EmptyRecycleBin("J:\\new");
 //	TFile::DeleteFileToCrash("J:\\new");
 //
@@ -170,7 +170,7 @@
 //
 //
 //	QFileInfoList lstSucc, lstFail;
-//	ret = TDir::Copy("F:\\Data\\2022\\ZhongshanWaiGuan", "F:\\Data\\Test", true, lstSucc, lstFail);
+//	//ret = TDir::Copy("F:\\Data\\2022\\ZhongshanWaiGuan", "F:\\Data\\Test", true, lstSucc, lstFail);
 //	RemoveDirBySize("F:\\Data\\Test");
 //	//QFileInfoList lstFileInfos = TDir::GetFolderFileInfoList("F:\\Data\\2022\\TTest", QStringList() << "*.txt" << "*.lnk");
 //	//QStringList lstFileName = TDir::GetFolderFileNameList("F:\\Data\\2022\\TTest", QStringList() << "*.txt" << "*.lnk");
@@ -178,14 +178,14 @@
 //
 //	ret = TTextFile::WriteText("F:\\Data\\Test\\Zhongshan\\1.txt", "abc", "UTF-8");
 //	QList<std::tuple<int, int, QString>> lstTuple;
-//	lstTuple.append(std::make_tuple(1, 3, QString::fromUtf8("ÌÇÌÇÌÇ")));
-//	lstTuple.append(std::make_tuple(1, 4, QString::fromUtf8("ÌÌÌÌÌÌ")));
-//	lstTuple.append(std::make_tuple(3, 2, QString::fromUtf8("ÌÌÌÌÌÌ")));
+//	lstTuple.append(std::make_tuple(1, 3, QString::fromUtf8("ç³–ç³–ç³–")));
+//	lstTuple.append(std::make_tuple(1, 4, QString::fromUtf8("çƒ«çƒ«çƒ«")));
+//	lstTuple.append(std::make_tuple(3, 2, QString::fromUtf8("çƒ«çƒ«çƒ«")));
 //	ret = TTextFile::InsertText("F:\\Data\\Test\\Zhongshan\\1.txt", lstTuple);
 //
-//	ret = TTextFile::InsertText("F:\\Data\\Test\\Zhongshan\\1.txt", 3, 3, QString::fromUtf8("ÌÇÌÇÌÇ"));
+//	ret = TTextFile::InsertText("F:\\Data\\Test\\Zhongshan\\1.txt", 3, 3, QString::fromUtf8("ç³–ç³–ç³–"));
 //
-//	ret = TFile::CopyFile("F:\\Data\\2022\\TTest\\1.txt", "F:\\Data\\2022\\To\\1\\1.csv");
+//	//ret = TFile::CopyFile("F:\\Data\\2022\\TTest\\1.txt", "F:\\Data\\2022\\To\\1\\1.csv");
 //
 //
 //	QFileInfo fileInfo("F:\\Data\\2022\\TTest\\efeqd.txt");
@@ -204,7 +204,7 @@
 //	}
 //	TTextCodec::GetCorrectUnicode("");
 //
-//	iCpuUsage = TSystem::GetProcessCpuUsage();
+//	//iCpuUsage = TSystem::GetProcessCpuUsage();
 //
 //	return 1;
 //}
@@ -221,10 +221,12 @@
 #include <processthreadsapi.h>
 #include <QMap>
 #include <QWidget>
+#include <QObject>
 #include "TSystem.h"
 #include "TGlobalHotKey.h"
 #include "TQtGui.h"
 #include "TThreadSafeQueueCache.h"
+//#include "CGlobalMessage.h"
 #include <QApplication>
 
 void SetThreadContextFun() {
@@ -237,8 +239,58 @@ void SetThreadContextFun() {
 typedef void(*SetThreadContextFunPoint)();
 
 
+//class messageSender : public QObject
+//{
+//	Q_OBJECT
+//public:
+//	messageSender(QObject* parent = nullptr) : QObject(parent) {
+//		CGlobalMessage::GetKernel()->notify("testMessage");
+//	}
+//
+//Q_SIGNALS:
+//		void signalTestMessage();
+//};
+//
+//class messageObj : public QObject
+//{
+//	Q_OBJECT
+//
+//public:
+//	messageObj(QObject* parent = nullptr) : QObject(parent) {
+//		CGlobalMessage::GetKernel()->attach("testMessage", this, SLOT(onTestMessageReceived()));
+//	}
+//
+//public Q_SLOTS:
+//	void onTestMessageReceived() {
+//		std::cout << "Test message received!" << std::endl;
+//	}
+//
+//};	
+
+
+#include "E:\Code\Github\TY\TCommon\TGenericInvoker.h"
+
+
+int Add(int a, int b) {
+	return a + b;
+}
+
+double Add(double a, double b) {
+	return a + b;
+}
+
 int main(int argc, char* argv[])
 {
+	TGenericInvoker::GetKernel()->RegisterAny((int(*)(int, int))Add);
+	TGenericInvoker::GetKernel()->RegisterAny((double(*)(double, double))Add);
+	//TGenericInvoker::GetKernel()->RegisterAny((Test(*)(Test, double))testFun);
+	std::any any = TGenericInvoker::GetKernel()->InvokeAny<>(3.5, 5);
+	//std::anyè½¬int
+	if (any.has_value()) {
+		int result = std::any_cast<int>(any);
+	}
+	
+
 	QFont font("Arial");
 	QRect rect(0, 0, 30, 200);
 	QString str2;

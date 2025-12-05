@@ -1,4 +1,4 @@
-#ifndef _TDIR_H_ 
+ï»¿#ifndef _TDIR_H_ 
 #define _TDIR_H_
 
 #include <QDir>
@@ -7,6 +7,21 @@
 #include <QMessageBox>
 #include <QFileInfo>
 #include "SDir.h"
+
+/*
+* 1.è·å–æ–‡ä»¶å¤¹ä¸‹æ–‡ä»¶çš„æ–‡ä»¶å
+* 2.è·å–æ–‡ä»¶å¤¹ä¸‹æ–‡ä»¶çš„ä¿¡æ¯(ä¸éå†æ–‡ä»¶å¤¹)
+* 3.è·å–æ–‡ä»¶å¤¹ä¸‹æ‰€æœ‰çš„æ–‡ä»¶å
+* 4.è·å–æ–‡ä»¶å¤¹ä¸‹æ‰€æœ‰çš„æ–‡ä»¶ä¿¡æ¯(éå†æ–‡ä»¶å¤¹)
+* 5.è·å–æ–‡ä»¶å¤¹ä¸‹çš„æ ‘çŠ¶ç»“æ„
+* 6.æ–‡ä»¶å¤¹æ‹·è´, ä»…ç”¨äºæ–‡ä»¶å¤¹çš„æ‹·è´(ä¸å¯ç”¨äºæ–‡ä»¶çš„æ‹·è´)
+* 7.æ–‡ä»¶/æ–‡ä»¶å¤¹æ‹·è´
+* 8.æ–‡ä»¶/æ–‡ä»¶å¤¹å¤§å°
+* 9.æ–‡ä»¶/æ–‡ä»¶å¤¹æ˜¯å¦ä¸ºç©º 
+* 10.æ–‡ä»¶å¤¹ä¸­æ˜¯å¦åŒ…å«æ­¤æ–‡ä»¶
+* 11.è¿”å›ä¸€ä¸ªè·¯å¾„çš„é©±åŠ¨å™¨è·¯å¾„
+* 12.æŒ‰ç…§ä¸€å®šè§„åˆ™åˆ é™¤æ–‡ä»¶å¤¹ä¸‹çš„æ–‡ä»¶
+*/
 
 typedef QMessageBox::StandardButton(*TDirMsgBox)(QWidget *,
 	const QString &,
@@ -37,12 +52,12 @@ class TDir : public QDir
 public:
 
 	//************************************
-	// ²ÎÊı: 	const QString & strPath: ÎÄ¼ş¼ĞÂ·¾¶, È«Â·¾¶
-	// ²ÎÊı: 	const QStringList & lstNameFilter: ÎÄ¼şÃû¹ıÂË¹Ø¼ü´Ê, ĞÎÈç"*.txt"
-	// ²ÎÊı: 	QDir::Filters filters: É¸Ñ¡¹æÔò
-	// ²ÎÊı: 	QDir::SortFlags sort: ÅÅĞò¹æÔò
-	// ·µ»Ø:	QT_NAMESPACE::QStringList: ÎÄ¼şÃûÁĞ±í
-	// ¹¦ÄÜ:	»ñÈ¡ÎÄ¼ş¼ĞÏÂÎÄ¼şµÄÎÄ¼şÃû
+	// å‚æ•°: 	const QString & strPath: æ–‡ä»¶å¤¹è·¯å¾„, å…¨è·¯å¾„
+	// å‚æ•°: 	const QStringList & lstNameFilter: æ–‡ä»¶åè¿‡æ»¤å…³é”®è¯, å½¢å¦‚"*.txt"
+	// å‚æ•°: 	QDir::Filters filters: ç­›é€‰è§„åˆ™
+	// å‚æ•°: 	QDir::SortFlags sort: æ’åºè§„åˆ™
+	// è¿”å›:	QT_NAMESPACE::QStringList: æ–‡ä»¶ååˆ—è¡¨
+	// åŠŸèƒ½:	è·å–æ–‡ä»¶å¤¹ä¸‹æ–‡ä»¶çš„æ–‡ä»¶å
 	//************************************
 	static QStringList GetFolderFileNameList(const QString &strFolderPath,
 		const QStringList &lstNameFilter = QStringList(),
@@ -50,13 +65,13 @@ public:
 		QDir::SortFlags sort = QDir::SortFlag::Name);
 
 	//************************************
-	// ²ÎÊı: 	const QString & strFolderPath: ÎÄ¼ş¼ĞÂ·¾¶, È«Â·¾¶
-	// ²ÎÊı: 	const QStringList & lstNameFilter: Ãû³Æ¹ıÂË¹Ø¼ü´Ê, ĞÎÈç"*.txt"
-	// ²ÎÊı: 	bool bSubFolder: ÊÇ·ñ°üº¬×ÓÎÄ¼ş¼Ğ
-	// ²ÎÊı: 	QDir::Filters filters: É¸Ñ¡¹æÔò
-	// ²ÎÊı: 	QDir::SortFlags sort : ÅÅĞò¹æÔò
-	// ·µ»Ø:	QT_NAMESPACE::QFileInfoList : ÎÄ¼şĞÅÏ¢ÁĞ±í
-	// ¹¦ÄÜ:	»ñÈ¡ÎÄ¼ş¼ĞÏÂÎÄ¼şµÄĞÅÏ¢(²»±éÀúÎÄ¼ş¼Ğ)
+	// å‚æ•°: 	const QString & strFolderPath: æ–‡ä»¶å¤¹è·¯å¾„, å…¨è·¯å¾„
+	// å‚æ•°: 	const QStringList & lstNameFilter: åç§°è¿‡æ»¤å…³é”®è¯, å½¢å¦‚"*.txt"
+	// å‚æ•°: 	bool bSubFolder: æ˜¯å¦åŒ…å«å­æ–‡ä»¶å¤¹
+	// å‚æ•°: 	QDir::Filters filters: ç­›é€‰è§„åˆ™
+	// å‚æ•°: 	QDir::SortFlags sort : æ’åºè§„åˆ™
+	// è¿”å›:	QT_NAMESPACE::QFileInfoList : æ–‡ä»¶ä¿¡æ¯åˆ—è¡¨
+	// åŠŸèƒ½:	è·å–æ–‡ä»¶å¤¹ä¸‹æ–‡ä»¶çš„ä¿¡æ¯(ä¸éå†æ–‡ä»¶å¤¹)
 	//************************************
 	static QFileInfoList GetFolderFileInfoList(const QString &strFolderPath,
 		const QStringList &lstNameFilter = QStringList(),
@@ -64,42 +79,42 @@ public:
 		QDir::SortFlags sort = QDir::SortFlag::Name);
 
 	//************************************
-	// ²ÎÊı: 	const QString & strFolderPath: ÎÄ¼ş¼ĞÂ·¾¶, È«Â·¾¶
-	// ²ÎÊı: 	const QStringList & lstNameFilter: ÎÄ¼şÃû¹ıÂË¹Ø¼ü´Ê, ĞÎÈç"*.txt"
-	// ²ÎÊı: 	bool isContainFolder: ÊÇ·ñ°üº¬ÎÄ¼ş¼Ğ
-	// ·µ»Ø:	QT_NAMESPACE::QStringList: ÎÄ¼şÃûÁĞ±í
-	// ¹¦ÄÜ:	»ñÈ¡ÎÄ¼ş¼ĞÏÂËùÓĞµÄÎÄ¼şÃû
+	// å‚æ•°: 	const QString & strFolderPath: æ–‡ä»¶å¤¹è·¯å¾„, å…¨è·¯å¾„
+	// å‚æ•°: 	const QStringList & lstNameFilter: æ–‡ä»¶åè¿‡æ»¤å…³é”®è¯, å½¢å¦‚"*.txt"
+	// å‚æ•°: 	bool isContainFolder: æ˜¯å¦åŒ…å«æ–‡ä»¶å¤¹
+	// è¿”å›:	QT_NAMESPACE::QStringList: æ–‡ä»¶ååˆ—è¡¨
+	// åŠŸèƒ½:	è·å–æ–‡ä»¶å¤¹ä¸‹æ‰€æœ‰çš„æ–‡ä»¶å
 	//************************************
 	static QStringList GetFolderAllFileNameList(const QString &strFolderPath,
 		const QStringList &lstNameFilter = QStringList(),
 		bool isContainFolder = false);
 
 	//************************************
-	// ²ÎÊı: 	const QString & strFolderPath: ÎÄ¼ş¼ĞÂ·¾¶, È«Â·¾¶
-	// ²ÎÊı: 	const QStringList & lstNameFilter: ÎÄ¼şÃû¹ıÂË¹Ø¼ü´Ê, ĞÎÈç"*.txt"
-	// ²ÎÊı: 	bool isContainFolder: ÊÇ·ñ°üº¬ÎÄ¼ş¼Ğ
-	// ·µ»Ø:	QT_NAMESPACE::QFileInfoList: ÎÄ¼şÃûÁĞ±í
-	// ¹¦ÄÜ:	»ñÈ¡ÎÄ¼ş¼ĞÏÂËùÓĞµÄÎÄ¼şĞÅÏ¢(±éÀúÎÄ¼ş¼Ğ)
+	// å‚æ•°: 	const QString & strFolderPath: æ–‡ä»¶å¤¹è·¯å¾„, å…¨è·¯å¾„
+	// å‚æ•°: 	const QStringList & lstNameFilter: æ–‡ä»¶åè¿‡æ»¤å…³é”®è¯, å½¢å¦‚"*.txt"
+	// å‚æ•°: 	bool isContainFolder: æ˜¯å¦åŒ…å«æ–‡ä»¶å¤¹
+	// è¿”å›:	QT_NAMESPACE::QFileInfoList: æ–‡ä»¶ååˆ—è¡¨
+	// åŠŸèƒ½:	è·å–æ–‡ä»¶å¤¹ä¸‹æ‰€æœ‰çš„æ–‡ä»¶ä¿¡æ¯(éå†æ–‡ä»¶å¤¹)
 	//************************************
 	static QFileInfoList GetFolderAllFileInfoList(const QString &strFolderPath,
 		const QStringList &lstNameFilter = QStringList(),
 		bool isContainFolder = false);
 
 	//************************************
-	// ²ÎÊı: 	const QString & strFolderPath: ÎÄ¼ş¼ĞÂ·¾¶, È«Â·¾¶
-	// ·µ»Ø:	TDirNode
-	// ¹¦ÄÜ:	»ñÈ¡ÎÄ¼ş¼ĞÏÂµÄÊ÷×´½á¹¹
+	// å‚æ•°: 	const QString & strFolderPath: æ–‡ä»¶å¤¹è·¯å¾„, å…¨è·¯å¾„
+	// è¿”å›:	TDirNode
+	// åŠŸèƒ½:	è·å–æ–‡ä»¶å¤¹ä¸‹çš„æ ‘çŠ¶ç»“æ„
 	//************************************
 	static TDirNode* GetFolderDirTree(const QString &strFolderPath);
 
 	//************************************
-	// ²ÎÊı: 	const QString & source: Ô´ÎÄ¼ş¼Ğ
-	// ²ÎÊı: 	const QString & destination: Ä¿±êÎÄ¼ş¼Ğ
-	// ²ÎÊı: 	bool replace: Èç¹ûÎÄ¼şÒÑ´æÔÚ, ÊÇ·ñÌæ»»
-	// ²ÎÊı: 	QFileInfoList & lstSucc: ¿½±´³É¹¦µÄÎÄ¼şĞÅÏ¢
-	// ²ÎÊı: 	QFileInfoList & lstFail: ¿½±´Ê§°ÜµÄÎÄ¼şĞÅÏ¢
-	// ·µ»Ø:	bool: Èç¹û´æÔÚÎÄ¼ş¿½±´³É¹¦, Ôò·µ»Ø³É¹¦; Èç¹ûÖ»ÓĞÒ»¸öÎÄ¼ş¼Ğ, Ôò´´½¨Ä¿±êÎÄ¼ş¼Ğ¼´³É¹¦;
-	// ¹¦ÄÜ:	ÎÄ¼ş¼Ğ¿½±´, ½öÓÃÓÚÎÄ¼ş¼ĞµÄ¿½±´(²»¿ÉÓÃÓÚÎÄ¼şµÄ¿½±´)
+	// å‚æ•°: 	const QString & source: æºæ–‡ä»¶å¤¹
+	// å‚æ•°: 	const QString & destination: ç›®æ ‡æ–‡ä»¶å¤¹
+	// å‚æ•°: 	bool replace: å¦‚æœæ–‡ä»¶å·²å­˜åœ¨, æ˜¯å¦æ›¿æ¢
+	// å‚æ•°: 	QFileInfoList & lstSucc: æ‹·è´æˆåŠŸçš„æ–‡ä»¶ä¿¡æ¯
+	// å‚æ•°: 	QFileInfoList & lstFail: æ‹·è´å¤±è´¥çš„æ–‡ä»¶ä¿¡æ¯
+	// è¿”å›:	bool: å¦‚æœå­˜åœ¨æ–‡ä»¶æ‹·è´æˆåŠŸ, åˆ™è¿”å›æˆåŠŸ; å¦‚æœåªæœ‰ä¸€ä¸ªæ–‡ä»¶å¤¹, åˆ™åˆ›å»ºç›®æ ‡æ–‡ä»¶å¤¹å³æˆåŠŸ;
+	// åŠŸèƒ½:	æ–‡ä»¶å¤¹æ‹·è´, ä»…ç”¨äºæ–‡ä»¶å¤¹çš„æ‹·è´(ä¸å¯ç”¨äºæ–‡ä»¶çš„æ‹·è´)
 	//************************************
 	static bool CopyDir(const QString& source,
 		const QString& destination,
@@ -111,18 +126,18 @@ public:
 		bool replace = false);
 
 	//************************************
-	// ²ÎÊı: 	const QString & source: Ô´ÎÄ¼ş¼Ğ
-	// ²ÎÊı: 	const QString & destination: Ä¿±êÎÄ¼ş¼Ğ
-	// ²ÎÊı: 	TDirMsgBox pQuestion: µ¯´°º¯Êı, ÎªnullptrÊ±²»µ¯´°
-	// ²ÎÊı: 	TDirMsgBox pInformation: µ¯´°º¯Êı, ÎªnullptrÊ±²»µ¯´°
-	// ²ÎÊı: 	QWidget * parent: ¸¸´°¿Ú, ½öÔÚpQuestion!=nullptrÊ±ÉúĞ§
-	// ²ÎÊı: 	QFileInfoList & lstSucc: ¿½±´³É¹¦µÄÎÄ¼şĞÅÏ¢
-	// ²ÎÊı: 	QFileInfoList & lstFail: ¿½±´Ê§°ÜµÄÎÄ¼şĞÅÏ¢
-	// ²ÎÊı: 	int level: ²ã¼¶, º¯ÊıÄÚ²¿µİ¹éµ÷ÓÃÊ¹ÓÃ, Íâ²¿µ÷ÓÃ²»Ìî
-	// ·µ»Ø:	bool: bool: Èç¹û´æÔÚÎÄ¼ş¿½±´³É¹¦, Ôò·µ»Ø³É¹¦; Èç¹ûÖ»ÓĞÒ»¸öÎÄ¼ş¼Ğ, Ôò´´½¨Ä¿±êÎÄ¼ş¼Ğ¼´³É¹¦;
-	// ¹¦ÄÜ:	ÎÄ¼ş¼Ğ¿½±´, ½öÓÃÓÚÎÄ¼ş¼ĞµÄ¿½±´(²»¿ÉÓÃÓÚÎÄ¼şµÄ¿½±´).
-	//				Ô­ÎÄ¼ş¼Ğ/ÎÄ¼ş¼ĞÏÂÎÄ¼ş²»´æÔÚÊ±, µ¯³öµ¯´°pInformation
-	//				Ä¿±êÎÄ¼ş¼Ğ/ÎÄ¼ş¼ĞÏÂÎÄ¼şÒÑ´æÔÚÊ±, µ¯³öµ¯´°pQuestion
+	// å‚æ•°: 	const QString & source: æºæ–‡ä»¶å¤¹
+	// å‚æ•°: 	const QString & destination: ç›®æ ‡æ–‡ä»¶å¤¹
+	// å‚æ•°: 	TDirMsgBox pQuestion: å¼¹çª—å‡½æ•°, ä¸ºnullptræ—¶ä¸å¼¹çª—
+	// å‚æ•°: 	TDirMsgBox pInformation: å¼¹çª—å‡½æ•°, ä¸ºnullptræ—¶ä¸å¼¹çª—
+	// å‚æ•°: 	QWidget * parent: çˆ¶çª—å£, ä»…åœ¨pQuestion!=nullptræ—¶ç”Ÿæ•ˆ
+	// å‚æ•°: 	QFileInfoList & lstSucc: æ‹·è´æˆåŠŸçš„æ–‡ä»¶ä¿¡æ¯
+	// å‚æ•°: 	QFileInfoList & lstFail: æ‹·è´å¤±è´¥çš„æ–‡ä»¶ä¿¡æ¯
+	// å‚æ•°: 	int level: å±‚çº§, å‡½æ•°å†…éƒ¨é€’å½’è°ƒç”¨ä½¿ç”¨, å¤–éƒ¨è°ƒç”¨ä¸å¡«
+	// è¿”å›:	bool: bool: å¦‚æœå­˜åœ¨æ–‡ä»¶æ‹·è´æˆåŠŸ, åˆ™è¿”å›æˆåŠŸ; å¦‚æœåªæœ‰ä¸€ä¸ªæ–‡ä»¶å¤¹, åˆ™åˆ›å»ºç›®æ ‡æ–‡ä»¶å¤¹å³æˆåŠŸ;
+	// åŠŸèƒ½:	æ–‡ä»¶å¤¹æ‹·è´, ä»…ç”¨äºæ–‡ä»¶å¤¹çš„æ‹·è´(ä¸å¯ç”¨äºæ–‡ä»¶çš„æ‹·è´).
+	//				åŸæ–‡ä»¶å¤¹/æ–‡ä»¶å¤¹ä¸‹æ–‡ä»¶ä¸å­˜åœ¨æ—¶, å¼¹å‡ºå¼¹çª—pInformation
+	//				ç›®æ ‡æ–‡ä»¶å¤¹/æ–‡ä»¶å¤¹ä¸‹æ–‡ä»¶å·²å­˜åœ¨æ—¶, å¼¹å‡ºå¼¹çª—pQuestion
 	//************************************
 	static bool CopyDirWithWidget(const QString& source,
 		const QString& destination,
@@ -142,13 +157,13 @@ public:
 		int level = 0);
 
 	//************************************
-	// ²ÎÊı: 	const QString & source: Ô´ÎÄ¼ş/Ô´ÎÄ¼ş¼Ğ
-	// ²ÎÊı: 	const QString & destination: Ä¿±êÎÄ¼ş/Ä¿±êÎÄ¼ş¼Ğ
-	// ²ÎÊı: 	bool replace: Èç¹ûÄ¿±êÒÑ´æÔÚ, ÊÇ·ñÌæ»»
-	// ²ÎÊı: 	QFileInfoList & lstSucc: ¿½±´³É¹¦µÄÎÄ¼şĞÅÏ¢
-	// ²ÎÊı: 	QFileInfoList & lstFail: ¿½±´Ê§°ÜµÄÎÄ¼şĞÅÏ¢
-	// ·µ»Ø:	bool: ³É¹¦/Ê§°Ü
-	// ¹¦ÄÜ:	ÎÄ¼ş/ÎÄ¼ş¼Ğ¿½±´
+	// å‚æ•°: 	const QString & source: æºæ–‡ä»¶/æºæ–‡ä»¶å¤¹
+	// å‚æ•°: 	const QString & destination: ç›®æ ‡æ–‡ä»¶/ç›®æ ‡æ–‡ä»¶å¤¹
+	// å‚æ•°: 	bool replace: å¦‚æœç›®æ ‡å·²å­˜åœ¨, æ˜¯å¦æ›¿æ¢
+	// å‚æ•°: 	QFileInfoList & lstSucc: æ‹·è´æˆåŠŸçš„æ–‡ä»¶ä¿¡æ¯
+	// å‚æ•°: 	QFileInfoList & lstFail: æ‹·è´å¤±è´¥çš„æ–‡ä»¶ä¿¡æ¯
+	// è¿”å›:	bool: æˆåŠŸ/å¤±è´¥
+	// åŠŸèƒ½:	æ–‡ä»¶/æ–‡ä»¶å¤¹æ‹·è´
 	//************************************
 	static bool Copy(const QString& source,
 		const QString& destination,
@@ -160,15 +175,15 @@ public:
 		bool replace = false);
 
 	//************************************
-	// ²ÎÊı: 	const QString & source: Ô´ÎÄ¼ş/Ô´ÎÄ¼ş¼Ğ
-	// ²ÎÊı: 	const QString & destination: Ä¿±êÎÄ¼ş/Ä¿±êÎÄ¼ş¼Ğ
-	// ²ÎÊı: 	TDirMsgBox pQuestion: µ¯´°º¯Êı, ÎªnullptrÊ±²»µ¯´°
-	// ²ÎÊı: 	TDirMsgBox pInformation: µ¯´°º¯Êı, ÎªnullptrÊ±²»µ¯´°
-	// ²ÎÊı: 	QWidget * parent: ¸¸´°¿Ú, ½öÔÚpQuestion!=nullptrÊ±ÉúĞ§
-	// ²ÎÊı: 	QFileInfoList & lstSucc: ¿½±´³É¹¦µÄÎÄ¼şĞÅÏ¢
-	// ²ÎÊı: 	QFileInfoList & lstFail: ¿½±´Ê§°ÜµÄÎÄ¼şĞÅÏ¢
-	// ·µ»Ø:	bool
-	// ¹¦ÄÜ:	ÎÄ¼ş/ÎÄ¼ş¼Ğ¿½±´
+	// å‚æ•°: 	const QString & source: æºæ–‡ä»¶/æºæ–‡ä»¶å¤¹
+	// å‚æ•°: 	const QString & destination: ç›®æ ‡æ–‡ä»¶/ç›®æ ‡æ–‡ä»¶å¤¹
+	// å‚æ•°: 	TDirMsgBox pQuestion: å¼¹çª—å‡½æ•°, ä¸ºnullptræ—¶ä¸å¼¹çª—
+	// å‚æ•°: 	TDirMsgBox pInformation: å¼¹çª—å‡½æ•°, ä¸ºnullptræ—¶ä¸å¼¹çª—
+	// å‚æ•°: 	QWidget * parent: çˆ¶çª—å£, ä»…åœ¨pQuestion!=nullptræ—¶ç”Ÿæ•ˆ
+	// å‚æ•°: 	QFileInfoList & lstSucc: æ‹·è´æˆåŠŸçš„æ–‡ä»¶ä¿¡æ¯
+	// å‚æ•°: 	QFileInfoList & lstFail: æ‹·è´å¤±è´¥çš„æ–‡ä»¶ä¿¡æ¯
+	// è¿”å›:	bool
+	// åŠŸèƒ½:	æ–‡ä»¶/æ–‡ä»¶å¤¹æ‹·è´
 	//************************************
 	static bool CopyWithWidget(const QString& source,
 		const QString& destination,
@@ -183,37 +198,37 @@ public:
 		TDirMsgBox pInformation = QMessageBox::information,
 		QWidget* parent = nullptr);
 
-	//ÎÄ¼ş/ÎÄ¼ş¼Ğ´óĞ¡
+	//æ–‡ä»¶/æ–‡ä»¶å¤¹å¤§å°
 	static unsigned long long Size(const QString &strDirPath);
 
-	//ÎÄ¼ş/ÎÄ¼ş¼ĞÊÇ·ñÎª¿Õ 
-	//ÎÄ¼ş¼ĞÎª¿Õ, ·µ»Øtrue
-	//ÎÄ¼ş´óĞ¡Îª0, ·µ»Øtrue
+	//æ–‡ä»¶/æ–‡ä»¶å¤¹æ˜¯å¦ä¸ºç©º 
+	//æ–‡ä»¶å¤¹ä¸ºç©º, è¿”å›true
+	//æ–‡ä»¶å¤§å°ä¸º0, è¿”å›true
 	static bool Empty(const QString &strDirPath);
 
 	//************************************
-	// ²ÎÊı: 	const QString & strFolderPath: ÎÄ¼ş¼ĞÂ·¾¶
-	// ²ÎÊı: 	const QString & strDirPath: ÎÄ¼şÂ·¾¶
-	// ·µ»Ø:	bool
-	// ¹¦ÄÜ:	ÎÄ¼ş¼ĞÖĞÊÇ·ñ°üº¬´ËÎÄ¼ş
+	// å‚æ•°: 	const QString & strFolderPath: æ–‡ä»¶å¤¹è·¯å¾„
+	// å‚æ•°: 	const QString & strDirPath: æ–‡ä»¶è·¯å¾„
+	// è¿”å›:	bool
+	// åŠŸèƒ½:	æ–‡ä»¶å¤¹ä¸­æ˜¯å¦åŒ…å«æ­¤æ–‡ä»¶
 	//************************************
 	static bool	Contain(const QString &strFolderPath, const QString &strDirPath);
 
 
 	//************************************
-	// ²ÎÊı: 	const QString & strPath: Ò»¸öÂ·¾¶
-	// ·µ»Ø:	QT_NAMESPACE::QString
-	// ¹¦ÄÜ:	·µ»ØÒ»¸öÂ·¾¶µÄÇı¶¯Æ÷Â·¾¶
+	// å‚æ•°: 	const QString & strPath: ä¸€ä¸ªè·¯å¾„
+	// è¿”å›:	QT_NAMESPACE::QString
+	// åŠŸèƒ½:	è¿”å›ä¸€ä¸ªè·¯å¾„çš„é©±åŠ¨å™¨è·¯å¾„
 	//************************************
 	static QString DrivePath(const QString &strPath);
 
 	//************************************
-	// ²ÎÊı: 	const QString & strDirPath: ÎÄ¼ş¼ĞÂ·¾¶(±ØĞëÊÇÎÄ¼ş¼Ğ)
-	// ²ÎÊı: 	TRemoveCondition condition: Ö´ĞĞÉ¾³ıµÄÌõ¼ş(ÎÄ¼ş¼ĞÂú×ãÊ²Ã´Ìõ¼ş)
-	// ²ÎÊı: 	TRemoveSortRule sort: ÎÄ¼ş¼ĞÄÚÎÄ¼şµÄÅÅĞò¹æÔò
-	// ²ÎÊı: 	TRemoveRule rule: É¾³ıÎÄ¼şµÄ¹æÔò(ÎÄ¼şÂú×ãÊ²Ã´Ìõ¼ş)
-	// ·µ»Ø:	void
-	// ¹¦ÄÜ:	°´ÕÕÒ»¶¨¹æÔòÉ¾³ıÎÄ¼ş¼ĞÏÂµÄÎÄ¼ş
+	// å‚æ•°: 	const QString & strDirPath: æ–‡ä»¶å¤¹è·¯å¾„(å¿…é¡»æ˜¯æ–‡ä»¶å¤¹)
+	// å‚æ•°: 	TRemoveCondition condition: æ‰§è¡Œåˆ é™¤çš„æ¡ä»¶(æ–‡ä»¶å¤¹æ»¡è¶³ä»€ä¹ˆæ¡ä»¶)
+	// å‚æ•°: 	TRemoveSortRule sort: æ–‡ä»¶å¤¹å†…æ–‡ä»¶çš„æ’åºè§„åˆ™
+	// å‚æ•°: 	TRemoveRule rule: åˆ é™¤æ–‡ä»¶çš„è§„åˆ™(æ–‡ä»¶æ»¡è¶³ä»€ä¹ˆæ¡ä»¶)
+	// è¿”å›:	void
+	// åŠŸèƒ½:	æŒ‰ç…§ä¸€å®šè§„åˆ™åˆ é™¤æ–‡ä»¶å¤¹ä¸‹çš„æ–‡ä»¶
 	//************************************
 	static void RemoveDirByRule(const QString &strDirPath, 
 		TRemoveCondition condition = nullptr, 
@@ -223,20 +238,20 @@ public:
 
 
 //************************************
-// ²ÎÊı: 	const QString & strDirPath: ÎÄ¼ş¼ĞÂ·¾¶(±ØĞëÊÇÎÄ¼ş¼Ğ)
-// ²ÎÊı: 	int iMaxDelete: ×î´óÉ¾³ı´óĞ¡(µ¥Î»MB) 
-// ²ÎÊı: 	int iFreeSpace: Ê£Óà¿Õ¼äÃÅÏŞ(µ¥Î»MB)
-// ·µ»Ø:	void
-// ¹¦ÄÜ:	´ÅÅÌ½«ÂúÊ±, É¾³ıÎÄ¼ş
+// å‚æ•°: 	const QString & strDirPath: æ–‡ä»¶å¤¹è·¯å¾„(å¿…é¡»æ˜¯æ–‡ä»¶å¤¹)
+// å‚æ•°: 	int iMaxDelete: æœ€å¤§åˆ é™¤å¤§å°(å•ä½MB) 
+// å‚æ•°: 	int iFreeSpace: å‰©ä½™ç©ºé—´é—¨é™(å•ä½MB)
+// è¿”å›:	void
+// åŠŸèƒ½:	ç£ç›˜å°†æ»¡æ—¶, åˆ é™¤æ–‡ä»¶
 //************************************
 void RemoveDirByDisk(const QString &strDirPath, int iMaxDelete = 500, int iFreeSpace = 500);
 
 
 //************************************
-// ²ÎÊı: 	const QString & strDirPath: : ÎÄ¼ş¼ĞÂ·¾¶(±ØĞëÊÇÎÄ¼ş¼Ğ)
-// ²ÎÊı: 	int iMaxSize: ÎÄ¼ş¼Ğ×î´ó´óĞ¡(µ¥Î»MB) 
-// ·µ»Ø:	void
-// ¹¦ÄÜ:	ÎÄ¼ş¼Ğ³¬¹ı´óĞ¡Ê±, É¾³ıÆäÖĞÎÄ¼ş
+// å‚æ•°: 	const QString & strDirPath: : æ–‡ä»¶å¤¹è·¯å¾„(å¿…é¡»æ˜¯æ–‡ä»¶å¤¹)
+// å‚æ•°: 	int iMaxSize: æ–‡ä»¶å¤¹æœ€å¤§å¤§å°(å•ä½MB) 
+// è¿”å›:	void
+// åŠŸèƒ½:	æ–‡ä»¶å¤¹è¶…è¿‡å¤§å°æ—¶, åˆ é™¤å…¶ä¸­æ–‡ä»¶
 //************************************
 void RemoveDirBySize(const QString &strDirPath, int iMaxSize = 500);
 

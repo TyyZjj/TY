@@ -1,10 +1,19 @@
-#ifndef _TFILE_H_ 
+ï»¿#ifndef _TFILE_H_ 
 #define _TFILE_H_
 
 #include <QFile>
 #include <QString>
 #include <QMessageBox>
 #include "SFile.h"
+
+/*
+* 1.æ‹·è´/å¤åˆ¶æ–‡ä»¶
+* 2.åˆ›å»ºæ–‡ä»¶(æ™®é€šæ–‡ä»¶, ç‰¹æ®Šæ–‡ä»¶é‡å†™) 
+* 3.ä½¿ç”¨WinApiåˆ é™¤æ–‡ä»¶/æ–‡ä»¶å¤¹(åŒ…å«æ–‡ä»¶å¤¹å†…æ–‡ä»¶)è‡³å›æ”¶ç«™
+* 4.ä½¿ç”¨WinApiæ¸…é™¤æŒ‡å®šè·¯å¾„ä¸‹çš„å›æ”¶ç«™
+* 5.ä½¿ç”¨WinApiç§»åŠ¨æ–‡ä»¶/æ–‡ä»¶å¤¹
+* 6.å‹ç¼©/è§£å‹æ–‡ä»¶/æ–‡ä»¶å¤¹
+*/
 
 typedef QMessageBox::StandardButton(*TFileMsgBox)(QWidget *,
 	const QString &,
@@ -16,24 +25,24 @@ class TFile : public QFile
 {
 public:
 	//************************************
-	// ²ÎÊı: 	const QString & fileName: Ô´ÎÄ¼ş
-	// ²ÎÊı: 	const QString & newName: Ä¿±êÎÄ¼ş
-	// ²ÎÊı: 	bool isReplace: Èç¹ûÎÄ¼şÒÑ´æÔÚ, ÊÇ·ñÌæ»»
-	// ·µ»Ø:	bool
-	// ¹¦ÄÜ:	ÎÄ¼ş¿½±´, ½öÓÃÓÚÎÄ¼şµÄ¿½±´
+	// å‚æ•°: 	const QString & fileName: æºæ–‡ä»¶
+	// å‚æ•°: 	const QString & newName: ç›®æ ‡æ–‡ä»¶
+	// å‚æ•°: 	bool isReplace: å¦‚æœæ–‡ä»¶å·²å­˜åœ¨, æ˜¯å¦æ›¿æ¢
+	// è¿”å›:	bool
+	// åŠŸèƒ½:	æ–‡ä»¶æ‹·è´, ä»…ç”¨äºæ–‡ä»¶çš„æ‹·è´
 	//************************************
 	static bool CopyFile(const QString &fileName,
 		const QString &newName,
 		bool replace = false);
 
 	//************************************
-	// ²ÎÊı: 	const QString & fileName: Ô´ÎÄ¼ş
-	// ²ÎÊı: 	const QString & newName: Ä¿±êÎÄ¼ş
-	// ²ÎÊı: 	TFileShowQuestion pQuestion: µ¯´°º¯Êı, ÎªnullptrÊ±²»µ¯´°
-	// ²ÎÊı: 	TFileShowQuestion pInformation: µ¯´°º¯Êı, ÎªnullptrÊ±²»µ¯´°
-	// ²ÎÊı: 	QWidget * parent:¸¸´°¿Ú, ½öÔÚpQuestion/pInformation!=nullptrÊ±ÉúĞ§
-	// ·µ»Ø:	bool
-	// ¹¦ÄÜ:	ÎÄ¼ş¿½±´, ½öÓÃÓÚÎÄ¼şµÄ¿½±´, ´øµ¯´°
+	// å‚æ•°: 	const QString & fileName: æºæ–‡ä»¶
+	// å‚æ•°: 	const QString & newName: ç›®æ ‡æ–‡ä»¶
+	// å‚æ•°: 	TFileShowQuestion pQuestion: å¼¹çª—å‡½æ•°, ä¸ºnullptræ—¶ä¸å¼¹çª—
+	// å‚æ•°: 	TFileShowQuestion pInformation: å¼¹çª—å‡½æ•°, ä¸ºnullptræ—¶ä¸å¼¹çª—
+	// å‚æ•°: 	QWidget * parent:çˆ¶çª—å£, ä»…åœ¨pQuestion/pInformation!=nullptræ—¶ç”Ÿæ•ˆ
+	// è¿”å›:	bool
+	// åŠŸèƒ½:	æ–‡ä»¶æ‹·è´, ä»…ç”¨äºæ–‡ä»¶çš„æ‹·è´, å¸¦å¼¹çª—
 	//************************************
 	static bool CopyFileWithWidget(const QString &fileName, 
 		const QString &newName, 
@@ -42,43 +51,43 @@ public:
 		QWidget* parent = nullptr);
 
 	//************************************
-	// ²ÎÊı: 	QString strFilePath: ÎÄ¼şÂ·¾¶
-	// ·µ»Ø:	bool
-	// ¹¦ÄÜ:	´´½¨ÎÄ¼ş(ÆÕÍ¨ÎÄ¼ş, ÌØÊâÎÄ¼şÖØĞ´) 
+	// å‚æ•°: 	QString strFilePath: æ–‡ä»¶è·¯å¾„
+	// è¿”å›:	bool
+	// åŠŸèƒ½:	åˆ›å»ºæ–‡ä»¶(æ™®é€šæ–‡ä»¶, ç‰¹æ®Šæ–‡ä»¶é‡å†™) 
 	//************************************
 	static bool CreateFile(const QString &strFilePath);
 
 	//************************************
-	// ²ÎÊı: 	QString strFilePath
-	// ·µ»Ø:	bool
-	// ¹¦ÄÜ:	Ê¹ÓÃWinApiÉ¾³ıÎÄ¼ş/ÎÄ¼ş¼Ğ(°üº¬ÎÄ¼ş¼ĞÄÚÎÄ¼ş)ÖÁ»ØÊÕÕ¾
+	// å‚æ•°: 	QString strFilePath
+	// è¿”å›:	bool
+	// åŠŸèƒ½:	ä½¿ç”¨WinApiåˆ é™¤æ–‡ä»¶/æ–‡ä»¶å¤¹(åŒ…å«æ–‡ä»¶å¤¹å†…æ–‡ä»¶)è‡³å›æ”¶ç«™
 	//************************************
 	static bool DeleteFileToCrash(const QString &strFilePath);
 
 	//************************************
-	// ²ÎÊı: 	const QString & strDrivePath: Â·¾¶(Ö¸¶¨Çı¶¯Æ÷/ÎÄ¼ş¼Ğ)
-	// ·µ»Ø:	long: ³É¹¦·µ»ØS_OK
-	// ¹¦ÄÜ:	Ê¹ÓÃWinApiÇå³ıÖ¸¶¨Â·¾¶ÏÂµÄ»ØÊÕÕ¾
+	// å‚æ•°: 	const QString & strDrivePath: è·¯å¾„(æŒ‡å®šé©±åŠ¨å™¨/æ–‡ä»¶å¤¹)
+	// è¿”å›:	long: æˆåŠŸè¿”å›S_OK
+	// åŠŸèƒ½:	ä½¿ç”¨WinApiæ¸…é™¤æŒ‡å®šè·¯å¾„ä¸‹çš„å›æ”¶ç«™
 	//************************************
 	static long EmptyRecycleBin(const QString &strPath = QString());
 
 	//************************************
-	// ²ÎÊı: 	const QString & strFrom:
-	// ²ÎÊı: 	const QString & strTo:
-	// ²ÎÊı:	bool replace
-	// ·µ»Ø:	bool
-	// ¹¦ÄÜ:	Ê¹ÓÃWinApiÒÆ¶¯ÎÄ¼ş/ÎÄ¼ş¼Ğ
+	// å‚æ•°: 	const QString & strFrom:
+	// å‚æ•°: 	const QString & strTo:
+	// å‚æ•°:	bool replace
+	// è¿”å›:	bool
+	// åŠŸèƒ½:	ä½¿ç”¨WinApiç§»åŠ¨æ–‡ä»¶/æ–‡ä»¶å¤¹
 	//************************************
 	static bool MoveFile(const QString &strFrom, const QString &strTo, bool replace = false);
 
-#pragma region Ñ¹Ëõ½âÑ¹
+#pragma region å‹ç¼©è§£å‹
 	//************************************
-	// ²ÎÊı: 	const QString & strTargetPath: Ä¿±êÎÄ¼ş(Ñ¹ËõºóµÄ)
-	// ²ÎÊı: 	const QStringList & lstSourcePath: Ô´ÎÄ¼ş/ÎÄ¼ş¼ĞÁĞ±í
-	// ²ÎÊı: 	bool replace: Èç¹ûÄ¿±êÎÄ¼şÒÑ´æÔÚ, ÊÇ·ñÌæ»»
-	// ²ÎÊı: 	bool delSource: Ñ¹ËõºóÊÇ·ñÉ¾³ıÔ­ÎÄ¼ş
-	// ·µ»Ø:	bool
-	// ¹¦ÄÜ:	Ñ¹ËõÎÄ¼ş/ÎÄ¼ş¼Ğ(ĞèÒªÒÀÀµ7z.exeºÍ7z.dll¿â, Ïà¹ØÈí¼ş²Î¼û..\3rdParty\7-Zip)
+	// å‚æ•°: 	const QString & strTargetPath: ç›®æ ‡æ–‡ä»¶(å‹ç¼©åçš„)
+	// å‚æ•°: 	const QStringList & lstSourcePath: æºæ–‡ä»¶/æ–‡ä»¶å¤¹åˆ—è¡¨
+	// å‚æ•°: 	bool replace: å¦‚æœç›®æ ‡æ–‡ä»¶å·²å­˜åœ¨, æ˜¯å¦æ›¿æ¢
+	// å‚æ•°: 	bool delSource: å‹ç¼©åæ˜¯å¦åˆ é™¤åŸæ–‡ä»¶
+	// è¿”å›:	bool
+	// åŠŸèƒ½:	å‹ç¼©æ–‡ä»¶/æ–‡ä»¶å¤¹(éœ€è¦ä¾èµ–7z.exeå’Œ7z.dllåº“, ç›¸å…³è½¯ä»¶å‚è§..\3rdParty\7-Zip)
 	//************************************
 	static bool Compress(const QString& strTargetPath, 
 		const QStringList& lstSourcePath, 
@@ -86,11 +95,11 @@ public:
 		bool delSource = false);
 
 	//************************************
-	// ²ÎÊı: 	const QString & strSourcePath: Ñ¹ËõÎÄ¼şµÄÄ¿Â¼
-	// ²ÎÊı: 	const QString & strTargetPath: ĞèÒª½âÑ¹µ½µÄÄ¿Â¼(ÎÄ¼ş¼Ğ)
-	// ²ÎÊı: 	bool replace: Èç¹ûÎÄ¼şÒÑ´æÔÚ, ÊÇ·ñÌæ»»
-	// ·µ»Ø:	bool
-	// ¹¦ÄÜ:	½âÑ¹ÎÄ¼ş
+	// å‚æ•°: 	const QString & strSourcePath: å‹ç¼©æ–‡ä»¶çš„ç›®å½•
+	// å‚æ•°: 	const QString & strTargetPath: éœ€è¦è§£å‹åˆ°çš„ç›®å½•(æ–‡ä»¶å¤¹)
+	// å‚æ•°: 	bool replace: å¦‚æœæ–‡ä»¶å·²å­˜åœ¨, æ˜¯å¦æ›¿æ¢
+	// è¿”å›:	bool
+	// åŠŸèƒ½:	è§£å‹æ–‡ä»¶
 	//************************************
 	static bool Decompress(const QString& strSourcePath, 
 		const QString& strTargetPath, 

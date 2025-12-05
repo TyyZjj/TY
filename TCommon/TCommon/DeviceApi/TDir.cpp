@@ -1,4 +1,4 @@
-#include "TDir.h"
+ï»¿#include "TDir.h"
 #include "TFile.h"
 #include "TDefine.h"
 #include "TAlgorithm.h"
@@ -35,7 +35,7 @@ void TDirNode::setParent(TDirNode *parent)
 bool isFileNameMatchNameFilter(const QString &strFilter, const QString &strFileName)
 {
 	QString strNameFilter = strFilter;
-	if (strNameFilter.contains(SIGN_ASTERISK))//Èç¹ûÊÇÒª¹ıÂË¸ñÊ½
+	if (strNameFilter.contains(SIGN_ASTERISK))//å¦‚æœæ˜¯è¦è¿‡æ»¤æ ¼å¼
 	{
 		while (strNameFilter.contains(SIGN_ASTERISK))
 			strNameFilter = strNameFilter.remove(SIGN_ASTERISK);
@@ -50,7 +50,7 @@ bool isFileNameMatchNameFilter(const QString &strFilter, const QString &strFileN
 				return true;
 		}
 	}
-	else//¹ıÂËÎÄ¼şÃû
+	else//è¿‡æ»¤æ–‡ä»¶å
 	{
 		if (strFileName.contains(strNameFilter))
 			return true;
@@ -72,6 +72,8 @@ QStringList TDir::GetFolderFileNameList(const QString &strFolderPath,
 	QDir dir(strFolderPath);
 	if (!dir.exists())
 		return lstFileName;
+
+#ifdef _TFIND_H_//TAlgorithm.h
 	QFileInfo fileInfo(strFolderPath);
 	if (fileInfo.isDir() &&
 		!fileInfo.isSymLink() &&
@@ -80,6 +82,7 @@ QStringList TDir::GetFolderFileNameList(const QString &strFolderPath,
 
 	if (lstFileName.count() && lstNameFilter.count())
 		TListFind::Filter(lstFileName, lstNameFilter, isFileNameMatchNameFilter, false);
+#endif // _TFIND_H_
 	return lstFileName;
 }
 
@@ -92,6 +95,8 @@ QFileInfoList TDir::GetFolderFileInfoList(const QString &strFolderPath,
 	QDir dir(strFolderPath);
 	if (!dir.exists())
 		return lstFileInfo;
+
+#ifdef _TFIND_H_//TAlgorithm.h
 	QFileInfo fileInfo(strFolderPath);
 	if (fileInfo.isDir() &&
 		!fileInfo.isSymLink() &&
@@ -100,6 +105,7 @@ QFileInfoList TDir::GetFolderFileInfoList(const QString &strFolderPath,
 
 	if (lstFileInfo.count() && lstNameFilter.count())
 		TListFind::Filter(lstFileInfo, lstNameFilter, isFileInfoMatchNameFilter, false);
+#endif // _TFIND_H_
 	return lstFileInfo;
 }
 
@@ -111,6 +117,8 @@ QStringList TDir::GetFolderAllFileNameList(const QString &strFolderPath,
 	QDir dir(strFolderPath);
 	if (!dir.exists())
 		return lstFileName;
+
+#ifdef _TFIND_H_//TAlgorithm.h
 	QFileInfo fileInfo(strFolderPath);
 	if (fileInfo.isDir() &&
 		!fileInfo.isSymLink() &&
@@ -138,6 +146,7 @@ QStringList TDir::GetFolderAllFileNameList(const QString &strFolderPath,
 	if (lstFileName.count() &&
 		lstNameFilter.count())
 		TListFind::Filter(lstFileName, lstNameFilter, isFileNameMatchNameFilter, false);
+#endif // _TFIND_H_
 
 	return lstFileName;
 }
@@ -151,6 +160,7 @@ QFileInfoList TDir::GetFolderAllFileInfoList(const QString &strFolderPath,
 	if (!dir.exists())
 		return lstFileInfo;
 
+#ifdef _TFIND_H_//TAlgorithm.h
 	QFileInfo fileInfo(strFolderPath);
 	if (fileInfo.isDir() &&
 		!fileInfo.isSymLink() &&
@@ -177,6 +187,7 @@ QFileInfoList TDir::GetFolderAllFileInfoList(const QString &strFolderPath,
 	if (lstFileInfo.count() &&
 		lstNameFilter.count())
 		TListFind::Filter(lstFileInfo, lstNameFilter, isFileInfoMatchNameFilter, false);
+#endif // _TFIND_H_
 	return lstFileInfo;
 }
 
@@ -251,7 +262,10 @@ bool TDir::CopyDir(const QString &source,
 		QFileInfo fileInfo(strSrcFilePath);
 		if (fileInfo.isFile() || fileInfo.isSymLink())
 		{
-			bool ret = TFile::CopyFile(strSrcFilePath, strDstFilePath, replace);
+			bool ret(false);
+#ifdef _TFILE_H_//TFile.h
+			ret = TFile::CopyFile(strSrcFilePath, strDstFilePath, replace);
+#endif // _TFILE_H_
 			if (ret)
 				lstSucc.append(fileInfo);
 			else
@@ -266,7 +280,7 @@ bool TDir::CopyDir(const QString &source,
 		}
 	}
 
-	if (lstSucc.isEmpty() && lstFail.isEmpty())//½öÒ»¸öÎÄ¼ş¼Ğ, ÆäÏÂÃ»ÓĞÎÄ¼ş
+	if (lstSucc.isEmpty() && lstFail.isEmpty())//ä»…ä¸€ä¸ªæ–‡ä»¶å¤¹, å…¶ä¸‹æ²¡æœ‰æ–‡ä»¶
 		return true;
 
 	return !lstSucc.isEmpty();
@@ -299,7 +313,7 @@ bool TDir::CopyDirWithWidget(const QString &source,
 	QWidget* parent /*= nullptr*/, 
 	int level /*= 0*/)
 {
-	//1.È«ÊÇ/È«·ñ
+	//1.å…¨æ˜¯/å…¨å¦
 	static QMessageBox::StandardButton folderBtn, fileBtn;
 	if (level == 0)
 	{
@@ -307,14 +321,14 @@ bool TDir::CopyDirWithWidget(const QString &source,
 		fileBtn = QMessageBox::StandardButton::NoButton;
 	}
 
-	//2.Ô´ÎÄ¼ş¼Ğ²»´æÔÚ
+	//2.æºæ–‡ä»¶å¤¹ä¸å­˜åœ¨
 	QDir dir;
 	if (!dir.exists(source))
 	{
 		if (pInformation != nullptr)
 		{
-			pInformation(parent, QString::fromUtf8("´íÎó:"),
-				QString::fromUtf8("Ô´ÎÄ¼ş¼Ğ²»´æÔÚ."),
+			pInformation(parent, QString::fromUtf8("é”™è¯¯:"),
+				QString::fromUtf8("æºæ–‡ä»¶å¤¹ä¸å­˜åœ¨."),
 				QMessageBox::StandardButton::Ok,
 				QMessageBox::StandardButton::Ok);
 		}
@@ -326,15 +340,15 @@ bool TDir::CopyDirWithWidget(const QString &source,
 	{
 		if (pInformation != nullptr)
 		{
-			pInformation(parent, QString::fromUtf8("´íÎó:"),
-				QString::fromUtf8("Ô´ÎÄ¼ş¼Ğ²»ÊÇÎÄ¼ş¼Ğ."),
+			pInformation(parent, QString::fromUtf8("é”™è¯¯:"),
+				QString::fromUtf8("æºæ–‡ä»¶å¤¹ä¸æ˜¯æ–‡ä»¶å¤¹."),
 				QMessageBox::StandardButton::Ok,
 				QMessageBox::StandardButton::Ok);
 		}
 		return false;
 	}
 
-	//3.Ä¿±êÎÄ¼ş¼Ğ
+	//3.ç›®æ ‡æ–‡ä»¶å¤¹
 	if (dir.exists(destination))
 	{
 		QMessageBox::StandardButton folderBtnTemp = folderBtn;
@@ -342,8 +356,8 @@ bool TDir::CopyDirWithWidget(const QString &source,
 		{
 			if (pQuestion != nullptr)
 			{
-				folderBtnTemp = pQuestion(parent, QString::fromUtf8("ÌáÊ¾:"),
-					QString::fromUtf8("ÎÄ¼ş¼ĞÒÑ´æÔÚ, ÊÇ·ñºÏ²¢?"),
+				folderBtnTemp = pQuestion(parent, QString::fromUtf8("æç¤º:"),
+					QString::fromUtf8("æ–‡ä»¶å¤¹å·²å­˜åœ¨, æ˜¯å¦åˆå¹¶?"),
 					QMessageBox::StandardButtons(QMessageBox::StandardButton::Yes |
 						QMessageBox::StandardButton::YesToAll |
 						QMessageBox::StandardButton::No |
@@ -381,8 +395,8 @@ bool TDir::CopyDirWithWidget(const QString &source,
 			lstFail.append(lstFileInfo);
 			if (pInformation != nullptr)
 			{
-				pInformation(parent, QString::fromUtf8("´íÎó:"),
-					QString::fromUtf8("´´½¨Ä¿Â¼Ê§°Ü. Ä¿Â¼:%1 .").arg(destination),
+				pInformation(parent, QString::fromUtf8("é”™è¯¯:"),
+					QString::fromUtf8("åˆ›å»ºç›®å½•å¤±è´¥. ç›®å½•:%1 .").arg(destination),
 					QMessageBox::StandardButton::Ok,
 					QMessageBox::StandardButton::Ok);
 			}
@@ -390,7 +404,7 @@ bool TDir::CopyDirWithWidget(const QString &source,
 		}
 	}
 
-	//4.ÎÄ¼ş¼ĞÄÚÈİµÄ¿½±´
+	//4.æ–‡ä»¶å¤¹å†…å®¹çš„æ‹·è´
 	QString strSrcPath = QDir::toNativeSeparators(source);
 	if (!strSrcPath.endsWith(QDir::separator()))
 		strSrcPath += QDir::separator();
@@ -409,8 +423,8 @@ bool TDir::CopyDirWithWidget(const QString &source,
 		{
 			if (pInformation != nullptr)
 			{
-				pInformation(parent, QString::fromUtf8("´íÎó:"),
-					QString::fromUtf8("%1²»´æÔÚ. Â·¾¶:%2 .").arg(fileInfo.fileName()).arg(strSrcFilePath),
+				pInformation(parent, QString::fromUtf8("é”™è¯¯:"),
+					QString::fromUtf8("%1ä¸å­˜åœ¨. è·¯å¾„:%2 .").arg(fileInfo.fileName()).arg(strSrcFilePath),
 					QMessageBox::StandardButtons(QMessageBox::StandardButton::Ok),
 					QMessageBox::StandardButton::Ok);
 			}
@@ -418,7 +432,7 @@ bool TDir::CopyDirWithWidget(const QString &source,
 			continue;
 		}
 
-		//5.ÎÄ¼ş¿½±´
+		//5.æ–‡ä»¶æ‹·è´
 		if (fileInfo.isFile() || fileInfo.isSymLink())
 		{
 			if (QFile::exists(strDstFilePath))
@@ -428,8 +442,8 @@ bool TDir::CopyDirWithWidget(const QString &source,
 				{
 					if (pQuestion != nullptr)
 					{
-						fileBtnTemp = pQuestion(parent, QString::fromUtf8("ÌáÊ¾:"),
-							QString::fromUtf8("ÎÄ¼şÒÑ´æÔÚ, ÊÇ·ñÌæ»»?"),
+						fileBtnTemp = pQuestion(parent, QString::fromUtf8("æç¤º:"),
+							QString::fromUtf8("æ–‡ä»¶å·²å­˜åœ¨, æ˜¯å¦æ›¿æ¢?"),
 							QMessageBox::StandardButtons(QMessageBox::StandardButton::Yes |
 								QMessageBox::StandardButton::YesToAll |
 								QMessageBox::StandardButton::No |
@@ -456,13 +470,16 @@ bool TDir::CopyDirWithWidget(const QString &source,
 					continue;
 				}
 			}
-			bool ret = TFile::CopyFile(strSrcFilePath, strDstFilePath, true);
+			bool ret(false);
+#ifdef _TFILE_H_//TFile.h
+			ret = TFile::CopyFile(strSrcFilePath, strDstFilePath, true);
+#endif // _TFILE_H_
 			if (ret)
 				lstSucc.append(fileInfo);
 			else
 				lstFail.append(fileInfo);
 		}
-		//6.ÎÄ¼ş¼Ğ¿½±´
+		//6.æ–‡ä»¶å¤¹æ‹·è´
 		else if (fileInfo.isDir())
 		{
 			QFileInfoList lstSucc2, lstFail2;
@@ -479,7 +496,7 @@ bool TDir::CopyDirWithWidget(const QString &source,
 		}
 	}
 
-	if (lstSucc.isEmpty() && lstFail.isEmpty())//½öÒ»¸öÎÄ¼ş¼Ğ, ÆäÏÂÃ»ÓĞÎÄ¼ş
+	if (lstSucc.isEmpty() && lstFail.isEmpty())//ä»…ä¸€ä¸ªæ–‡ä»¶å¤¹, å…¶ä¸‹æ²¡æœ‰æ–‡ä»¶
 		return true;
 
 	return !lstSucc.isEmpty();
@@ -505,7 +522,10 @@ bool TDir::Copy(const QString &source,
 	QFileInfo sourceFileInfo(source);
 	if (sourceFileInfo.isFile() || sourceFileInfo.isSymLink())
 	{
+		bool ret(false);
+#ifdef _TFILE_H_//TFile.h
 		ret = TFile::CopyFile(source, destination, replace);
+#endif // _TFILE_H_
 		if (ret)
 			lstSucc.append(sourceFileInfo);
 		else
@@ -547,8 +567,8 @@ bool TDir::CopyWithWidget(const QString &source,
 	{
 		if (pInformation != nullptr)
 		{
-			pInformation(parent, QString::fromUtf8("´íÎó:"),
-				QString::fromUtf8("Ô­ÎÄ¼ş²»´æÔÚ."),
+			pInformation(parent, QString::fromUtf8("é”™è¯¯:"),
+				QString::fromUtf8("åŸæ–‡ä»¶ä¸å­˜åœ¨."),
 				QMessageBox::StandardButton::Ok,
 				QMessageBox::StandardButton::Ok);
 		}
@@ -559,11 +579,13 @@ bool TDir::CopyWithWidget(const QString &source,
 	QFileInfo sourceFileInfo(source), destinationFileInfo(destination);
 	if (sourceFileInfo.isFile() || sourceFileInfo.isSymLink())
 	{
+#ifdef _TFILE_H_//TFile.h
 		ret = TFile::CopyFileWithWidget(source,
 			destination,
 			pQuestion,
 			pInformation,
 			parent);
+#endif // _TFILE_H_
 		if (ret)
 			lstSucc.append(sourceFileInfo);
 		else
@@ -590,7 +612,7 @@ unsigned long long TDir::Size(const QString &strDirPath)
 	if (fileInfo.isDir())
 	{
 		if (fileInfo.absoluteFilePath().endsWith(SIGN_POINT))
-			return 0;//ŞğÆú'.'ÎÄ¼ş¼Ğ
+			return 0;//æ‘’å¼ƒ'.'æ–‡ä»¶å¤¹
 		if (fileInfo.isSymLink())
 			return 0;
 
@@ -615,7 +637,7 @@ bool TDir::Empty(const QString &strDirPath)
 	if (fileInfo.isDir())
 	{
 		if (fileInfo.absoluteFilePath().endsWith("."))
-			return 0;//ŞğÆú'.'ÎÄ¼ş¼Ğ
+			return 0;//æ‘’å¼ƒ'.'æ–‡ä»¶å¤¹
 		if (fileInfo.isSymLink())
 			return 0;
 
@@ -631,7 +653,7 @@ bool TDir::Contain(const QString &strFolderPath, const QString &strDirPath)
 {
 	QDir dir;
 	if (!dir.exists(strFolderPath) ||
-		!QFile::exists(strDirPath))//ÎÄ¼ş¼Ğ/ÎÄ¼ş²»´æÔÚ ²»¿¼ÂÇ"."ÎÄ¼ş¼Ğ
+		!QFile::exists(strDirPath))//æ–‡ä»¶å¤¹/æ–‡ä»¶ä¸å­˜åœ¨ ä¸è€ƒè™‘"."æ–‡ä»¶å¤¹
 		return false;
 
 	QString strFolderPathTemp = QDir::toNativeSeparators(strFolderPath);
@@ -652,7 +674,7 @@ QString TDir::DrivePath(const QString &strPath)
 	{
 		iDepth++;
 		strPathTemp = QFileInfo(strPathTemp).absolutePath();
-		if (iDepth > std::numeric_limits<char>::max())//µİ¹éÕ»µÄ×î´óÉî¶È, ·ÀÖ¹ËÀÑ­»·
+		if (iDepth > std::numeric_limits<char>::max())//é€’å½’æ ˆçš„æœ€å¤§æ·±åº¦, é˜²æ­¢æ­»å¾ªç¯
 			return QString();
 	}
 	return strPathTemp;
@@ -667,7 +689,7 @@ void TDir::RemoveDirByRule(const QString &strDirPath,
 		return;
 
 	if (condition != nullptr &&
-		!condition(strDirPath))//ÎÄ¼ş¼Ğ²»Âú×ãÉ¾³ıÌõ¼ş
+		!condition(strDirPath))//æ–‡ä»¶å¤¹ä¸æ»¡è¶³åˆ é™¤æ¡ä»¶
 		return;
 
 	QFileInfoList lstFileInfo = GetFolderAllFileInfoList(strDirPath, QStringList(), true);
@@ -713,7 +735,7 @@ void RemoveDirByDisk(const QString &strDirPath,
 	},
 		[](QFileInfoList &lstFileInfo) {
 		std::sort(lstFileInfo.begin(), lstFileInfo.end(), [](QFileInfo left, QFileInfo right)->bool {
-			return left.lastModified() < right.lastModified();//°´×îºóĞŞ¸ÄÊ±¼äÅÅĞò
+			return left.lastModified() < right.lastModified();//æŒ‰æœ€åä¿®æ”¹æ—¶é—´æ’åº
 		});
 	},
 		[](const QFileInfoList &lstFileInfo, int iFileIndex)->bool {
@@ -733,7 +755,7 @@ void RemoveDirByDisk(const QString &strDirPath,
 				return true;
 			}
 		}
-		if (fileInfo.isDir())//¿ÉÄÜ´æÔÚÃ»ÓĞ±»É¾µôµÄÎÄ¼ş¼Ğ, ²»¹Ü
+		if (fileInfo.isDir())//å¯èƒ½å­˜åœ¨æ²¡æœ‰è¢«åˆ æ‰çš„æ–‡ä»¶å¤¹, ä¸ç®¡
 		{
 			QDir dir(strPath);
 			if (dir.exists() && TDir::Empty(strPath))
@@ -766,7 +788,7 @@ void RemoveDirBySize(const QString &strDirPath, int iMaxSize /*= 500*/)
 	},
 		[](QFileInfoList &lstFileInfo) {
 		std::sort(lstFileInfo.begin(), lstFileInfo.end(), [](QFileInfo left, QFileInfo right)->bool {
-			return left.lastModified() < right.lastModified();//°´×îºóĞŞ¸ÄÊ±¼äÅÅĞò
+			return left.lastModified() < right.lastModified();//æŒ‰æœ€åä¿®æ”¹æ—¶é—´æ’åº
 		});
 	},
 		[](const QFileInfoList &lstFileInfo, int iFileIndex)->bool {
@@ -786,7 +808,7 @@ void RemoveDirBySize(const QString &strDirPath, int iMaxSize /*= 500*/)
 				return true;
 			}
 		}
-		if (fileInfo.isDir())//¿ÉÄÜ´æÔÚÃ»ÓĞ±»É¾µôµÄÎÄ¼ş¼Ğ, ²»¹Ü
+		if (fileInfo.isDir())//å¯èƒ½å­˜åœ¨æ²¡æœ‰è¢«åˆ æ‰çš„æ–‡ä»¶å¤¹, ä¸ç®¡
 		{
 			QDir dir(strPath);
 			if (dir.exists() && TDir::Empty(strPath))

@@ -6,9 +6,4 @@
     <QtTouchProperty>
     </QtTouchProperty>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'" Label="QtSettings">
-    <QtLastBackgroundBuild>2025-03-07T08:57:37.2365039Z</QtLastBackgroundBuild>
-    <QtTouchProperty>
-    </QtTouchProperty>
-  </PropertyGroup>
 </Project>

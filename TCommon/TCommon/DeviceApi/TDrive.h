@@ -1,51 +1,59 @@
-#ifndef _TDrive_H_
+ï»¿#ifndef _TDrive_H_
 #define _TDrive_H_
 
 #include <QString>
 #include <QStringList>
+/*
+* 1.è·å–(é©±åŠ¨å™¨)ç£ç›˜æ•°é‡
+* 2.è·å–æ‰€æœ‰(é©±åŠ¨å™¨)ç£ç›˜çš„åç§°
+* 3.è·å–é©±åŠ¨å™¨çš„ç±»å‹
+* 4.è·å–ç£ç›˜å‰©ä½™ç©ºé—´(å•ä½MB)
+* 5.è·å–å‰©ä½™ç©ºé—´æœ€å¤§çš„ç£ç›˜(ç¡¬ç›˜)
+* 6.è·å–å½“å‰ç£ç›˜çŠ¶æ€(ç©ºé—´)
+*/
 
-//Çı¶¯Æ÷Ïà¹ØµÄÀà
+//é©±åŠ¨å™¨ç›¸å…³çš„ç±»
 class TDrive
 {
 public:
-	//»ñÈ¡(Çı¶¯Æ÷)´ÅÅÌÊıÁ¿
+	//è·å–(é©±åŠ¨å™¨)ç£ç›˜æ•°é‡
 	static unsigned long GetDiskCount();
 
-	//»ñÈ¡ËùÓĞ(Çı¶¯Æ÷)´ÅÅÌµÄÃû³Æ
+	//è·å–æ‰€æœ‰(é©±åŠ¨å™¨)ç£ç›˜çš„åç§°
 	static QStringList GetAllDriveName();
 
 	//************************************
-	// ²ÎÊı: 	const QString & strDriveName: "C:\\"
-	// ·µ»Ø:	unsigned int
-	//		0(DRIVE_UNKNOWN: Î´ÖªÉè±¸),
-	//		1(DRIVE_NO_ROOT_DIR: Â·¾¶ÎŞĞ§),
-	//		2(DRIVE_REMOVABLE: ¿ÉÒÆ¶¯´ÅÅÌ),
-	//		3(DRIVE_FIXED: Ó²ÅÌ),
-	//		4(DRIVE_REMOTE: ÍøÂç´ÅÅÌ),
-	//		5(DRIVE_CDROM: ¹âÇı),
-	//		6(DRIVE_RAMDISK: ĞéÄâRAM´ÅÅÌ)
-	// ¹¦ÄÜ:	»ñÈ¡Çı¶¯Æ÷µÄÀàĞÍ
+	// å‚æ•°: 	const QString & strDriveName: "C:\\"
+	// è¿”å›:	unsigned int
+	//		0(DRIVE_UNKNOWN: æœªçŸ¥è®¾å¤‡),
+	//		1(DRIVE_NO_ROOT_DIR: è·¯å¾„æ— æ•ˆ),
+	//		2(DRIVE_REMOVABLE: å¯ç§»åŠ¨ç£ç›˜),
+	//		3(DRIVE_FIXED: ç¡¬ç›˜),
+	//		4(DRIVE_REMOTE: ç½‘ç»œç£ç›˜),
+	//		5(DRIVE_CDROM: å…‰é©±),
+	//		6(DRIVE_RAMDISK: è™šæ‹ŸRAMç£ç›˜)
+	// åŠŸèƒ½:	è·å–é©±åŠ¨å™¨çš„ç±»å‹
 	//************************************
 	static unsigned int GetDriveType(const QString &strDriveName);
 
-	//»ñÈ¡´ÅÅÌÊ£Óà¿Õ¼ä(µ¥Î»MB)
+	//è·å–ç£ç›˜å‰©ä½™ç©ºé—´(å•ä½MB)
 	static unsigned long long GetDiskFreeSpace(const QString &strDriver);
 	
 	//************************************
-	// ²ÎÊı: 	unsigned long long & iMaxFreeSpace: Êä³ö(µ¥Î»MB)
-	// ·µ»Ø:	QT_NAMESPACE::QString: ÅÌ·ûÃû³Æ("C:\\")
-	// ¹¦ÄÜ:	»ñÈ¡Ê£Óà¿Õ¼ä×î´óµÄ´ÅÅÌ(Ó²ÅÌ)
+	// å‚æ•°: 	unsigned long long & iMaxFreeSpace: è¾“å‡º(å•ä½MB)
+	// è¿”å›:	QT_NAMESPACE::QString: ç›˜ç¬¦åç§°("C:\\")
+	// åŠŸèƒ½:	è·å–å‰©ä½™ç©ºé—´æœ€å¤§çš„ç£ç›˜(ç¡¬ç›˜)
 	//************************************
 	static QString GetMaxFreeSpaceDisk(unsigned long long &iMaxFreeSpace);
 
 	//************************************
-	// ²ÎÊı: 	const QString & strDriveName: Çı¶¯Æ÷Â·¾¶ QDir::drives()
-	// ²ÎÊı: 	int & iSizePercent: ÒÑÊ¹ÓÃµÄ±ÈÀı
-	// ²ÎÊı: 	QString & strSizeUse: ÒÑÊ¹ÓÃ¿Õ¼ä(µ¥Î»GB)
-	// ²ÎÊı: 	QString & strSizeFree: ¿ÕÓà¿Õ¼ä(µ¥Î»GB)
-	// ²ÎÊı: 	QString & strSizeAll: ËùÓĞ¿Õ¼ä(µ¥Î»GB)
-	// ·µ»Ø:	void
-	// ¹¦ÄÜ:	»ñÈ¡µ±Ç°´ÅÅÌ×´Ì¬
+	// å‚æ•°: 	const QString & strDriveName: é©±åŠ¨å™¨è·¯å¾„ QDir::drives()
+	// å‚æ•°: 	int & iSizePercent: å·²ä½¿ç”¨çš„æ¯”ä¾‹
+	// å‚æ•°: 	QString & strSizeUse: å·²ä½¿ç”¨ç©ºé—´(å•ä½GB)
+	// å‚æ•°: 	QString & strSizeFree: ç©ºä½™ç©ºé—´(å•ä½GB)
+	// å‚æ•°: 	QString & strSizeAll: æ‰€æœ‰ç©ºé—´(å•ä½GB)
+	// è¿”å›:	void
+	// åŠŸèƒ½:	è·å–å½“å‰ç£ç›˜çŠ¶æ€
 	//************************************
 	static void GetDiskSpaceInfo(const QString &strDriveName,
 		int &iSizePercent,

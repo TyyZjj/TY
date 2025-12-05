@@ -1,6 +1,6 @@
-#ifndef _TSYSTEM_H_
+ï»¿#ifndef _TSYSTEM_H_
 #define _TSYSTEM_H_
-/*ÏµÍ³ºÍÓ²¼şÏà¹Ø*/
+/*ç³»ç»Ÿå’Œç¡¬ä»¶ç›¸å…³*/
 
 #include <QVersionNumber>
 #include <QOperatingSystemVersion>
@@ -10,79 +10,117 @@
 #include <TlHelp32.h>
 #endif // WIN32
 
+/*
+* 1.çº¿ç¨‹æ‰€åœ¨å¤„ç†å™¨
+* 2.è·å–å½“å‰ç³»ç»Ÿä¸­æ‰€æœ‰çš„è¿›ç¨‹Id
+* 3.æ˜¯å¦æ˜¯32ä½è¿›ç¨‹è¿è¡Œäº64ä½æ“ä½œç³»ç»Ÿä¸­
+* 4.ç¨‹åºå¼€æœºè‡ªå¯
+* 5.æ˜¯å¦åœ¨æ•´ä¸ªç³»ç»Ÿè¿è¡Œçš„å†…å­˜ä¸­æ˜¯å”¯ä¸€çš„
+* 
+* è¿›ç¨‹çº¿ç¨‹æ¨¡å—ä¿¡æ¯
+* 1.æ ¹æ®è¿›ç¨‹åç§°æŸ¥æ‰¾è¿›ç¨‹id
+* 2.æ ¹æ®è¿›ç¨‹IdæŸ¥æ‰¾å…¶è¿›ç¨‹å(.exeçš„åç§°)
+* 3.æ ¹æ®è¿›ç¨‹åç§°æŸ¥æ‰¾å…¶å†…éƒ¨çº¿ç¨‹id
+* 4.è·å–è¿›ç¨‹ä¸‹æ‰€æœ‰çš„æ¨¡å—å
+* 5.è·å–è¿›ç¨‹ä¸‹æ‰€æœ‰çš„æ¨¡å—ä¿¡æ¯
+* 6.æ ¹æ®è¿›ç¨‹IDå’Œçª—å£æ ‡é¢˜æŸ¥æ‰¾çª—å£å¥æŸ„
+* 
+* CPUç›¸å…³
+* 1.è·å–CPUæ ¸å¿ƒæ•°
+* 2.è·å–CPUåˆ©ç”¨ç‡(ç™¾åˆ†æ¯”)
+* 3.è·å–è¿›ç¨‹çš„CPUåˆ©ç”¨ç‡(ç™¾åˆ†æ¯”)
+* 4.è®¾ç½®è¿›ç¨‹(çº¿ç¨‹)ä½¿ç”¨æœ€å¤šä½¿ç”¨çš„æ ¸å¿ƒæ•°, æŒ‡å®šè¿›ç¨‹çº¿ç¨‹ä½¿ç”¨å“ªä¸ª/å“ªäº›CPU
+* 
+* IOç›¸å…³
+* 
+* å†…å­˜ç›¸å…³
+* 1.è·å–å½“å‰å†…å­˜çŠ¶æ€
+* 2.è¿›ç¨‹çš„å†…å­˜ä½¿ç”¨é‡
+*/
 
 class TSystem
 {
 public:
-	//1¡¢Ïß³ÌËùÔÚ´¦ÀíÆ÷ processthreadsapi.h -> GetCurrentProcessorNumber/GetCurrentProcessorNumberEx
-	//2¡¢»ñÈ¡µ±Ç°ÏµÍ³ÖĞËùÓĞµÄ½ø³ÌId
-		//->½ø³Ì¿ìÕÕ:CreateToolhelp32Snapshot »ò EnumProcessesÃ¶¾Ù½ø³Ì
+	//1ã€çº¿ç¨‹æ‰€åœ¨å¤„ç†å™¨ processthreadsapi.h -> GetCurrentProcessorNumber/GetCurrentProcessorNumberEx
+	//2ã€è·å–å½“å‰ç³»ç»Ÿä¸­æ‰€æœ‰çš„è¿›ç¨‹Id
+		//->è¿›ç¨‹å¿«ç…§:CreateToolhelp32Snapshot æˆ– EnumProcessesæšä¸¾è¿›ç¨‹
 		
-	//ÊÇ·ñÊÇ32Î»½ø³ÌÔËĞĞÓÚ64Î»²Ù×÷ÏµÍ³ÖĞ
+	//æ˜¯å¦æ˜¯32ä½è¿›ç¨‹è¿è¡Œäº64ä½æ“ä½œç³»ç»Ÿä¸­
 	static bool IsWow64();
 
-	//³ÌĞò¿ª»ú×ÔÆô
+	//ç¨‹åºå¼€æœºè‡ªå¯
 	static void PowerBoot(bool isStart = true);
 
 	//************************************
-	// ²ÎÊı: 	const QString & identifier: Ê¶±ğÂë
-	// ·µ»Ø:	bool
-	// ¹¦ÄÜ:	ÊÇ·ñÔÚÕû¸öÏµÍ³ÔËĞĞµÄÄÚ´æÖĞÊÇÎ¨Ò»µÄ
+	// å‚æ•°: 	const QString & identifier: è¯†åˆ«ç 
+	// è¿”å›:	bool
+	// åŠŸèƒ½:	æ˜¯å¦åœ¨æ•´ä¸ªç³»ç»Ÿè¿è¡Œçš„å†…å­˜ä¸­æ˜¯å”¯ä¸€çš„
 	//************************************
 	static bool IsSystemSingle(const QString& identifier);
 
-#pragma region ½ø³ÌÏß³ÌÄ£¿éĞÅÏ¢
+#pragma region è¿›ç¨‹çº¿ç¨‹æ¨¡å—ä¿¡æ¯
 	//************************************
-	// ²ÎÊı: 	const QString & strProcessName: XXX.exe
-	// ·µ»Ø:	QList<unsigned long>
-	// ¹¦ÄÜ:	¸ù¾İ½ø³ÌÃû³Æ²éÕÒ½ø³Ìid
+	// å‚æ•°: 	const QString & strProcessName: XXX.exe
+	// è¿”å›:	QList<unsigned long>
+	// åŠŸèƒ½:	æ ¹æ®è¿›ç¨‹åç§°æŸ¥æ‰¾è¿›ç¨‹id
 	//************************************
 	static QList<unsigned long> GetProcIdByName(const QString &strProcName);
-	//¸ù¾İ½ø³ÌId²éÕÒÆä½ø³ÌÃû(.exeµÄÃû³Æ)
+	//æ ¹æ®è¿›ç¨‹IdæŸ¥æ‰¾å…¶è¿›ç¨‹å(.exeçš„åç§°)
 	static QString GetProcName(unsigned long iProcessId);
 
 	//************************************
-	// ²ÎÊı: 	const QString & strProcessName: XXX.exe
-	// ·µ»Ø:	QMap<½ø³ÌID, QList<¸Ã½ø³Ì¶ÔÓ¦µÄËùÓĞÏß³Ì>>  //×¢: ÆäÖĞ, listÖĞµÚÒ»¸öidÊÇÖ÷Ïß³Ìid
-	// ¹¦ÄÜ:	¸ù¾İ½ø³ÌÃû³Æ²éÕÒÆäÄÚ²¿Ïß³Ìid
+	// å‚æ•°: 	const QString & strProcessName: XXX.exe
+	// è¿”å›:	QMap<è¿›ç¨‹ID, QList<è¯¥è¿›ç¨‹å¯¹åº”çš„æ‰€æœ‰çº¿ç¨‹>>  //æ³¨: å…¶ä¸­, listä¸­ç¬¬ä¸€ä¸ªidæ˜¯ä¸»çº¿ç¨‹id
+	// åŠŸèƒ½:	æ ¹æ®è¿›ç¨‹åç§°æŸ¥æ‰¾å…¶å†…éƒ¨çº¿ç¨‹id
 	//************************************
 	static QMap<unsigned long, QList<unsigned long>> GetProcThreadIdByName(const QString &strProcessName);
 
-	//»ñÈ¡½ø³ÌÏÂËùÓĞµÄÄ£¿éÃû
+	//è·å–è¿›ç¨‹ä¸‹æ‰€æœ‰çš„æ¨¡å—å
 	static QList<QString> GetProcModuleNames(unsigned long iProcessId);
 
 #ifdef WIN32
-	//»ñÈ¡½ø³ÌÏÂËùÓĞµÄÄ£¿éĞÅÏ¢
+	//è·å–è¿›ç¨‹ä¸‹æ‰€æœ‰çš„æ¨¡å—ä¿¡æ¯
 	static QList<MODULEENTRY32> GetProcModules(unsigned long iProcessId);
 #endif // WIN32
 
+	/**
+	 * @brief æ ¹æ®è¿›ç¨‹IDå’Œçª—å£æ ‡é¢˜æŸ¥æ‰¾çª—å£å¥æŸ„
+	 *
+	 * è¯¥å‡½æ•°é€šè¿‡æšä¸¾æ‰€æœ‰é¡¶å±‚çª—å£ï¼ŒæŸ¥æ‰¾å±äºæŒ‡å®šè¿›ç¨‹ä¸”æ ‡é¢˜åŒ¹é…çš„çª—å£ã€‚
+	 * å¦‚æœszTitleä¸ºç©ºå­—ç¬¦ä¸²ï¼Œåˆ™è¿”å›è¯¥è¿›ç¨‹çš„ç¬¬ä¸€ä¸ªçª—å£å¥æŸ„ã€‚
+	 *
+	 * @param dwProcessId ç›®æ ‡è¿›ç¨‹ID
+	 * @param szTitle ç›®æ ‡çª—å£æ ‡é¢˜ï¼ˆANSIå­—ç¬¦ä¸²ï¼‰ï¼Œç©ºå­—ç¬¦ä¸²è¡¨ç¤ºåŒ¹é…ä»»æ„æ ‡é¢˜
+	 * @param lstTitle [out] è¿”å›è¯¥è¿›ç¨‹æ‰€æœ‰æšä¸¾åˆ°çš„çª—å£æ ‡é¢˜åˆ—è¡¨
+	 * @return HWND æ‰¾åˆ°çš„çª—å£å¥æŸ„ï¼Œæœªæ‰¾åˆ°è¿”å›NULL
+	 */
 	static HWND GetWidByProcId(DWORD dwProcessId, const CHAR *szTitle, QStringList &lstTitle);
 #pragma endregion
 
 
-#pragma region CPUÏà¹Ø
-	//»ñÈ¡CPUºËĞÄÊı
+#pragma region CPUç›¸å…³
+	//è·å–CPUæ ¸å¿ƒæ•°
 	static int GetProcessorNumber();
 	//************************************
-	// ·µ»Ø:	int
-	// ¹¦ÄÜ:	»ñÈ¡CPUÀûÓÃÂÊ(°Ù·Ö±È)
+	// è¿”å›:	int
+	// åŠŸèƒ½:	è·å–CPUåˆ©ç”¨ç‡(ç™¾åˆ†æ¯”)
 	//************************************
 	static int GetCpuUsage();
 	//************************************
-	// ²ÎÊı: 	void * handle: ½ø³Ì¾ä±ú, ÎªnullptrÊ±Ôò»ñÈ¡µ±Ç°½ø³Ì
-	// ·µ»Ø:	int
-	// ¹¦ÄÜ:	»ñÈ¡½ø³ÌµÄCPUÀûÓÃÂÊ(°Ù·Ö±È), (×¢Òâ: Õë¶ÔÄ³¸ö½ø³Ì, µÚÒ»´Îµ÷ÓÃ´Ëº¯ÊıÊ±, ´Ëº¯Êı×ÜÊÇ·µ»Ø-1)
+	// å‚æ•°: 	void * handle: è¿›ç¨‹å¥æŸ„, ä¸ºnullptræ—¶åˆ™è·å–å½“å‰è¿›ç¨‹
+	// è¿”å›:	int
+	// åŠŸèƒ½:	è·å–è¿›ç¨‹çš„CPUåˆ©ç”¨ç‡(ç™¾åˆ†æ¯”), (æ³¨æ„: é’ˆå¯¹æŸä¸ªè¿›ç¨‹, ç¬¬ä¸€æ¬¡è°ƒç”¨æ­¤å‡½æ•°æ—¶, æ­¤å‡½æ•°æ€»æ˜¯è¿”å›-1)
 	//************************************
 	static int GetProcCpuUsage(void *handle = nullptr);
 	static int GetProcCpuUsage(unsigned long iProcessId);
-	//static int GetThreadCpuUsage(void *handle = nullptr);//Ïß³ÌµÄcpuÀûÓÃÂÊ, ÒâÒå²»´ó
+	//static int GetThreadCpuUsage(void *handle = nullptr);//çº¿ç¨‹çš„cpuåˆ©ç”¨ç‡, æ„ä¹‰ä¸å¤§
 
 	//************************************
-	// ²ÎÊı: 	int mask: ºËĞÄÊı [0~64]
-	// ²ÎÊı: 	void* handle: ½ø³Ì¾ä±ú
-	// ·µ»Ø:	void
-	// ¹¦ÄÜ:	ÉèÖÃ½ø³Ì(Ïß³Ì)Ê¹ÓÃ×î¶àÊ¹ÓÃµÄºËĞÄÊı
-	// Ö¸¶¨½ø³ÌÏß³ÌÊ¹ÓÃÄÄ¸ö/ÄÄĞ©CPU
+	// å‚æ•°: 	int mask: æ ¸å¿ƒæ•° [0~64]
+	// å‚æ•°: 	void* handle: è¿›ç¨‹å¥æŸ„
+	// è¿”å›:	void
+	// åŠŸèƒ½:	è®¾ç½®è¿›ç¨‹(çº¿ç¨‹)ä½¿ç”¨æœ€å¤šä½¿ç”¨çš„æ ¸å¿ƒæ•°
+	// æŒ‡å®šè¿›ç¨‹çº¿ç¨‹ä½¿ç”¨å“ªä¸ª/å“ªäº›CPU
 	//	GetSystemCpuSetInformation
 	//	GetProcessDefaultCpuSets
 	//	SetProcessDefaultCpuSets
@@ -96,28 +134,28 @@ public:
 #pragma endregion
 
 
-#pragma region IOÏà¹Ø
-	//ÏµÍ³µÄioËÙÂÊ
-	//½ø³ÌµÄioËÙÂÊ
+#pragma region IOç›¸å…³
+	//ç³»ç»Ÿçš„ioé€Ÿç‡
+	//è¿›ç¨‹çš„ioé€Ÿç‡
 	//winioctl.h _FILESYSTEM_STATISTICS
 #pragma endregion
 
 
-#pragma region ÄÚ´æÏà¹Ø
+#pragma region å†…å­˜ç›¸å…³
 	//************************************
-	// ²ÎÊı: 	int & memorypercent: ÄÚ´æÒÑÕ¼ÓÃ±ÈÀı
-	// ²ÎÊı: 	int & memoryuse: ÒÑÊ¹ÓÃµÄÄÚ´æ µ¥Î»:MB
-	// ²ÎÊı: 	int & memoryfree: ¿ÕÓàµÄÄÚ´æ µ¥Î»:MB
-	// ²ÎÊı: 	int & memoryall: ×ÜµÄÄÚ´æ µ¥Î»:MB
-	// ·µ»Ø:	void
-	// ¹¦ÄÜ:	»ñÈ¡µ±Ç°ÄÚ´æ×´Ì¬
+	// å‚æ•°: 	int & memorypercent: å†…å­˜å·²å ç”¨æ¯”ä¾‹
+	// å‚æ•°: 	int & memoryuse: å·²ä½¿ç”¨çš„å†…å­˜ å•ä½:MB
+	// å‚æ•°: 	int & memoryfree: ç©ºä½™çš„å†…å­˜ å•ä½:MB
+	// å‚æ•°: 	int & memoryall: æ€»çš„å†…å­˜ å•ä½:MB
+	// è¿”å›:	void
+	// åŠŸèƒ½:	è·å–å½“å‰å†…å­˜çŠ¶æ€
 	//************************************
 	static void GetMemory(int& memorypercent, 
 		int& memoryuse, 
 		int& memoryfree, 
 		int& memoryall);
 
-	//½ø³ÌµÄÄÚ´æÊ¹ÓÃÁ¿ GetProcessMemoryInfo
+	//è¿›ç¨‹çš„å†…å­˜ä½¿ç”¨é‡ GetProcessMemoryInfo
 #pragma endregion
 };
 

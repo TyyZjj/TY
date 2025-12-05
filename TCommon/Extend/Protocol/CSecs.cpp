@@ -1,4 +1,4 @@
-#include "CSecs.h"
+ï»¿#include "CSecs.h"
 #include <QDebug>
 
 
@@ -147,7 +147,7 @@ bool CSecs::ParseData(const QByteArray &data, sSecsData &secsData)
 		return true;
 	bool ret = ParseValue(data, iOffset, secsData.secsdata);
 	if (!ret)
-		qCritical() << QString::fromUtf8("·¢ÉúÑÏÖØ½âÎö´íÎó, Î»ÖÃ: %1.").arg(iOffset);
+		qCritical() << QString::fromUtf8("å‘ç”Ÿä¸¥é‡è§£æé”™è¯¯, ä½ç½®: %1.").arg(iOffset);
 	
 	return ret;
 }
@@ -162,9 +162,6 @@ QByteArray CSecs::IntToByte(const int iNum, int iByteCount /*= 4*/)
 		i = i >> 8;
 	}
 	return ba;
-
-
-
 }
 
 int CSecs::ByteToInt(const QByteArray& ba)
@@ -188,9 +185,6 @@ QByteArray CSecs::GetByteArray(const QString &str, int len, char fill /*= ' '*/)
 	return ba;
 }
 
-
-
-
 bool CSecs::ParseValueHead(const QByteArray &data, 
 	int &iOffset, 
 	nSecsType &ntype,
@@ -208,10 +202,10 @@ bool CSecs::ParseValueHead(const QByteArray &data,
 	ntype = (nSecsType)(iBegin & 0b11111100);
 	iHeadSize = iBegin & 0b00000011;
 
-	if ((iOffset + iHeadSize) > iDataCount)//³¤¶ÈĞ£Ñé
+	if ((iOffset + iHeadSize) > iDataCount)//é•¿åº¦æ ¡éªŒ
 		return false;
 
-	//È¡³ö³¤¶È
+	//å–å‡ºé•¿åº¦
 	QByteArray bytesize = data.mid(iOffset + 1, iHeadSize);
 	iValueSize = ByteToInt(bytesize);
 

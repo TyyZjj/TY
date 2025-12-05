@@ -1,4 +1,4 @@
-#ifndef _TTEXTCODEC_H_
+ï»¿#ifndef _TTEXTCODEC_H_
 #define _TTEXTCODEC_H_
 
 #include <QTextCodec>
@@ -7,11 +7,11 @@ class TTextCodec : public QTextCodec
 {
 public:
 	//************************************
-	// ²ÎÊı: 	const QByteArray & ba: ×Ö·ûÁ÷
-	// ²ÎÊı: 	QByteArray & defaultCodec: ÊäÈëÊä³ö, Ä¬ÈÏ±àÂë¸ñÊ½, ·µ»ØÆ¥ÅäµÄ±àÂë¸ñÊ½
-	// ·µ»Ø:	QT_NAMESPACE::QString
-	// ¹¦ÄÜ:	·µ»ØÎÄ±¾ÕıÈ·µÄ×Ö·û´®
-	//			(»ùÓÚNotePadµÄ»ù´¡±àÂë, ¶ÔÖĞ/ÈÕ/¶í/°¢À­²®Óï½øĞĞÁË²âÊÔ, ¶àÓïÖÖÊÊÅäÊ±, »¹ĞèÒª²âÊÔÓë¸Ä½ø)
+	// å‚æ•°: 	const QByteArray & ba: å­—ç¬¦æµ
+	// å‚æ•°: 	QByteArray & defaultCodec: è¾“å…¥è¾“å‡º, é»˜è®¤ç¼–ç æ ¼å¼, è¿”å›åŒ¹é…çš„ç¼–ç æ ¼å¼
+	// è¿”å›:	QT_NAMESPACE::QString
+	// åŠŸèƒ½:	è¿”å›æ–‡æœ¬æ­£ç¡®çš„å­—ç¬¦ä¸²
+	//			(åŸºäºNotePadçš„åŸºç¡€ç¼–ç , å¯¹ä¸­/æ—¥/ä¿„/é˜¿æ‹‰ä¼¯è¯­è¿›è¡Œäº†æµ‹è¯•, å¤šè¯­ç§é€‚é…æ—¶, è¿˜éœ€è¦æµ‹è¯•ä¸æ”¹è¿›)
 	//************************************
 	static QString GetCorrectUnicode(const QByteArray& ba);
 	static QString GetCorrectUnicode(const QByteArray &ba, 

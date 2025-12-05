@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>CDockTitleClass</class>
- <widget class="QWidget" name="CDockTitleClass">
+ <class>TDockTitleClass</class>
+ <widget class="QWidget" name="TDockTitleClass">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>CDockTitle</string>
+   <string>TDockTitle</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
    <property name="leftMargin">
@@ -127,8 +127,8 @@
             <string/>
            </property>
            <property name="icon">
-            <iconset resource="../DdnnMain/TabShell.qrc">
-             <normaloff>:/TabShell/close.png</normaloff>:/TabShell/close.png</iconset>
+            <iconset resource="dock.qrc">
+             <normaloff>:/Dock/resource/close.png</normaloff>:/Dock/resource/close.png</iconset>
            </property>
           </widget>
          </item>
@@ -191,8 +191,7 @@
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources>
-  <include location="../DataExplorer/Resource.qrc"/>
-  <include location="../DdnnMain/TabShell.qrc"/>
+  <include location="dock.qrc"/>
  </resources>
  <connections/>
 </ui>

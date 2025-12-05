@@ -29,9 +29,6 @@
     <Filter Include="Header Files\TCommon">
       <UniqueIdentifier>{823c76d0-0eb1-4688-aa51-6c9fa003ed16}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\TCommon">
-      <UniqueIdentifier>{9c186434-545d-4d33-b802-c3daa3cdb8ff}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\TCommon\Algorithm">
       <UniqueIdentifier>{47a7a6f7-4c7e-4e20-b386-72383b9e5ea4}</UniqueIdentifier>
     </Filter>
@@ -40,15 +37,6 @@
     </Filter>
     <Filter Include="Header Files\TCommon\Gui">
       <UniqueIdentifier>{59c07f1a-b1c5-43b3-8bbc-0c59619f58d9}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\TCommon\Algorithm">
-      <UniqueIdentifier>{9c2b6060-6299-4e72-a52f-216bf647001b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\TCommon\DeviceApi">
-      <UniqueIdentifier>{8f0266b8-aa61-4bd2-b278-10a6f9db123b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\TCommon\Gui">
-      <UniqueIdentifier>{277cd986-cb14-401a-8c9c-166cc779cb4a}</UniqueIdentifier>
     </Filter>
     <Filter Include="Header Files\Extend">
       <UniqueIdentifier>{98374852-4ad1-4ee3-ba11-0fb9546799b3}</UniqueIdentifier>
@@ -83,14 +71,17 @@
     <Filter Include="Header Files\TCommon\Graph">
       <UniqueIdentifier>{3a4a58ff-c64c-47cb-a76e-a9821ed8732f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\TCommon\Graph">
-      <UniqueIdentifier>{22990939-2ba1-44c8-a9d9-42dda7d0e80a}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\TCommon\Gui\Dock">
       <UniqueIdentifier>{57f0104b-e0b4-45e1-a69a-05b33db578a4}</UniqueIdentifier>
     </Filter>
     <Filter Include="Header Files\Extend\协议">
       <UniqueIdentifier>{01c15823-63f1-4cb4-a318-39bb7ef1493d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Extend\Message">
+      <UniqueIdentifier>{a34874c7-a229-4470-b1fa-e58f4ff35921}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Extend\泛型">
+      <UniqueIdentifier>{0ff6a770-3dcc-4754-8f6b-29680d58dcc3}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -154,9 +145,6 @@
     <ClInclude Include="TCommon\DeviceApi\TSystem.h">
       <Filter>Header Files\TCommon\DeviceApi</Filter>
     </ClInclude>
-    <ClInclude Include="TCommon\DeviceApi\TTextCodec.h">
-      <Filter>Header Files\TCommon\DeviceApi</Filter>
-    </ClInclude>
     <ClInclude Include="TCommon\DeviceApi\TTextFile.h">
       <Filter>Header Files\TCommon\DeviceApi</Filter>
     </ClInclude>
@@ -217,44 +205,20 @@
     <ClInclude Include="Extend\Protocol\CSecs.h">
       <Filter>Header Files\Extend\协议</Filter>
     </ClInclude>
+    <ClInclude Include="TCommon\DeviceApi\TTextCodec.h">
+      <Filter>Header Files\TCommon\DeviceApi</Filter>
+    </ClInclude>
+    <ClInclude Include="Extend\Generic\TFuncTraits.h">
+      <Filter>Header Files\Extend\泛型</Filter>
+    </ClInclude>
+    <ClInclude Include="Extend\Generic\TGenericInvoker.h">
+      <Filter>Header Files\Extend\泛型</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="Memo.txt" />
-    <Text Include="TCommon\Algorithm\Algorithm.txt">
-      <Filter>Header Files\TCommon\Algorithm</Filter>
-    </Text>
-    <Text Include="TCommon\DeviceApi\DeviceApi.txt">
-      <Filter>Header Files\TCommon\DeviceApi</Filter>
-    </Text>
-    <Text Include="TCommon\Gui\Gui.txt">
-      <Filter>Header Files\TCommon\Gui</Filter>
-    </Text>
-    <Text Include="TCommon\TCommon.txt">
-      <Filter>Header Files\TCommon</Filter>
-    </Text>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="TCommon\TCommon.cpp">
-      <Filter>Source Files\TCommon</Filter>
-    </ClCompile>
-    <ClCompile Include="TCommon\DeviceApi\TDir.cpp">
-      <Filter>Source Files\TCommon\DeviceApi</Filter>
-    </ClCompile>
-    <ClCompile Include="TCommon\DeviceApi\TDrive.cpp">
-      <Filter>Source Files\TCommon\DeviceApi</Filter>
-    </ClCompile>
-    <ClCompile Include="TCommon\DeviceApi\TFile.cpp">
-      <Filter>Source Files\TCommon\DeviceApi</Filter>
-    </ClCompile>
-    <ClCompile Include="TCommon\DeviceApi\TTextCodec.cpp">
-      <Filter>Source Files\TCommon\DeviceApi</Filter>
-    </ClCompile>
-    <ClCompile Include="TCommon\DeviceApi\TTextFile.cpp">
-      <Filter>Source Files\TCommon\DeviceApi</Filter>
-    </ClCompile>
-    <ClCompile Include="TCommon\DeviceApi\TSystem.cpp">
-      <Filter>Source Files\TCommon\DeviceApi</Filter>
-    </ClCompile>
     <ClCompile Include="Extend\MultiProc\CMultiProcManager.cpp">
       <Filter>Header Files\Extend\多进程画面</Filter>
     </ClCompile>
@@ -285,20 +249,47 @@
     <ClCompile Include="Extend\HotKey\TGlobalHotKey.cpp">
       <Filter>Header Files\Extend\热键</Filter>
     </ClCompile>
-    <ClCompile Include="TCommon\Graph\TGraph.cpp">
-      <Filter>Source Files\TCommon\Graph</Filter>
-    </ClCompile>
-    <ClCompile Include="TCommon\Gui\Dock\CDockTitle.cpp">
+    <ClCompile Include="TCommon\Gui\Dock\TDockTitle.cpp">
       <Filter>Header Files\TCommon\Gui\Dock</Filter>
     </ClCompile>
-    <ClCompile Include="TCommon\Gui\Dock\CDockWidget.cpp">
+    <ClCompile Include="TCommon\Gui\Dock\TDockWidget.cpp">
       <Filter>Header Files\TCommon\Gui\Dock</Filter>
     </ClCompile>
-    <ClCompile Include="TCommon\Gui\Dock\CDockWidgetFoldWidget.cpp">
+    <ClCompile Include="TCommon\Gui\Dock\TDockWidgetFoldWidget.cpp">
       <Filter>Header Files\TCommon\Gui\Dock</Filter>
     </ClCompile>
     <ClCompile Include="Extend\Protocol\CSecs.cpp">
       <Filter>Header Files\Extend\协议</Filter>
+    </ClCompile>
+    <ClCompile Include="TCommon\DeviceApi\TDir.cpp">
+      <Filter>Header Files\TCommon\DeviceApi</Filter>
+    </ClCompile>
+    <ClCompile Include="TCommon\DeviceApi\TDrive.cpp">
+      <Filter>Header Files\TCommon\DeviceApi</Filter>
+    </ClCompile>
+    <ClCompile Include="TCommon\DeviceApi\TFile.cpp">
+      <Filter>Header Files\TCommon\DeviceApi</Filter>
+    </ClCompile>
+    <ClCompile Include="TCommon\DeviceApi\TSystem.cpp">
+      <Filter>Header Files\TCommon\DeviceApi</Filter>
+    </ClCompile>
+    <ClCompile Include="TCommon\DeviceApi\TTextCodec.cpp">
+      <Filter>Header Files\TCommon\DeviceApi</Filter>
+    </ClCompile>
+    <ClCompile Include="TCommon\DeviceApi\TTextFile.cpp">
+      <Filter>Header Files\TCommon\DeviceApi</Filter>
+    </ClCompile>
+    <ClCompile Include="TCommon\Graph\TGraph.cpp">
+      <Filter>Header Files\TCommon\Graph</Filter>
+    </ClCompile>
+    <ClCompile Include="Extend\Message\CGlobalMessage.cpp">
+      <Filter>Header Files\Extend\Message</Filter>
+    </ClCompile>
+    <ClCompile Include="TCommon\TCommon.cpp">
+      <Filter>Header Files\TCommon</Filter>
+    </ClCompile>
+    <ClCompile Include="TCommon\Gui\TRoundProgressBar.cpp">
+      <Filter>Header Files\TCommon\Gui</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -323,14 +314,20 @@
     <QtMoc Include="Extend\HotKey\TGlobalHotKey.h">
       <Filter>Header Files\Extend\热键</Filter>
     </QtMoc>
-    <QtMoc Include="TCommon\Gui\Dock\CDockTitle.h">
+    <QtMoc Include="TCommon\Gui\Dock\TDockTitle.h">
       <Filter>Header Files\TCommon\Gui\Dock</Filter>
     </QtMoc>
-    <QtMoc Include="TCommon\Gui\Dock\CDockWidget.h">
+    <QtMoc Include="TCommon\Gui\Dock\TDockWidget.h">
       <Filter>Header Files\TCommon\Gui\Dock</Filter>
     </QtMoc>
-    <QtMoc Include="TCommon\Gui\Dock\CDockWidgetFoldWidget.h">
+    <QtMoc Include="TCommon\Gui\Dock\TDockWidgetFoldWidget.h">
       <Filter>Header Files\TCommon\Gui\Dock</Filter>
+    </QtMoc>
+    <QtMoc Include="Extend\Message\CGlobalMessage.h">
+      <Filter>Header Files\Extend\Message</Filter>
+    </QtMoc>
+    <QtMoc Include="TCommon\Gui\TRoundProgressBar.h">
+      <Filter>Header Files\TCommon\Gui</Filter>
     </QtMoc>
   </ItemGroup>
   <ItemGroup>
@@ -340,8 +337,13 @@
     <QtUic Include="Extend\PointArrangement\TPointArrangementUi.ui">
       <Filter>Header Files\Extend\点位排布</Filter>
     </QtUic>
-    <QtUic Include="TCommon\Gui\Dock\CDockTitle.ui">
+    <QtUic Include="TCommon\Gui\Dock\TDockTitle.ui">
       <Filter>Header Files\TCommon\Gui\Dock</Filter>
     </QtUic>
+  </ItemGroup>
+  <ItemGroup>
+    <QtRcc Include="TCommon\Gui\Dock\dock.qrc">
+      <Filter>Header Files\TCommon\Gui\Dock</Filter>
+    </QtRcc>
   </ItemGroup>
 </Project>

@@ -36,13 +36,15 @@
     <Import Project="$(QtMsBuild)\Qt.props" />
     <Import Project="..\3rdParty\7-Zip\7-Zip\7z.props" />
     <Import Project="..\3rdParty\Log4Qt\Log4Qt.props" />
+    <Import Project="TCommon.props" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>$(ProjectDir)Study\;$(ProjectDir)Study\Qt\;$(ProjectDir)Study\WinApi\;$(ProjectDir)TCommon\;$(ProjectDir)TCommon\Algorithm\;$(ProjectDir)TCommon\DeviceApi\;$(ProjectDir)TCommon\Gui\;$(ProjectDir)TCommon\Graph\;$(ProjectDir)Extend\;$(ProjectDir)Extend\DesignPattern\;$(ProjectDir)Extend\Excel\;$(ProjectDir)Extend\Login\;$(ProjectDir)Extend\MultiProc\;$(ProjectDir)Extend\PointArrangement\;$(ProjectDir)Extend\VirtualDisk\;$(ProjectDir)Extend\LOG\;$(ProjectDir)Extend\HotKey\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'" Label="Configuration">
@@ -67,11 +69,14 @@
     <ClInclude Include="Extend\DesignPattern\TThreadSafeQueueCache.h" />
     <ClInclude Include="Extend\Excel\cexcelbase.h" />
     <QtMoc Include="Extend\HotKey\TGlobalHotKey.h" />
+    <ClInclude Include="Extend\Generic\TFuncTraits.h" />
+    <ClInclude Include="Extend\Generic\TGenericInvoker.h" />
     <ClInclude Include="Extend\Login\CLogin.h" />
     <QtMoc Include="Extend\Login\CLoginManager.h" />
     <QtMoc Include="Extend\Login\CLoginUI.h" />
     <QtMoc Include="Extend\LOG\TLog.h" />
     <ClInclude Include="Extend\LOG\TLog4Qt.h" />
+    <QtMoc Include="Extend\Message\CGlobalMessage.h" />
     <ClInclude Include="Extend\MultiProc\CWindowPasteWidget.h" />
     <QtMoc Include="Extend\PointArrangement\TPointArrangementUi.h" />
     <ClInclude Include="Extend\Protocol\CSecs.h" />
@@ -101,9 +106,10 @@
     <ClInclude Include="TCommon\DeviceApi\TTextCodec.h" />
     <ClInclude Include="TCommon\DeviceApi\TTextFile.h" />
     <ClInclude Include="TCommon\Graph\TGraph.h" />
-    <QtMoc Include="TCommon\Gui\Dock\CDockTitle.h" />
-    <QtMoc Include="TCommon\Gui\Dock\CDockWidget.h" />
-    <QtMoc Include="TCommon\Gui\Dock\CDockWidgetFoldWidget.h" />
+    <QtMoc Include="TCommon\Gui\Dock\TDockTitle.h" />
+    <QtMoc Include="TCommon\Gui\Dock\TDockWidget.h" />
+    <QtMoc Include="TCommon\Gui\Dock\TDockWidgetFoldWidget.h" />
+    <QtMoc Include="TCommon\Gui\TRoundProgressBar.h" />
     <ClInclude Include="TCommon\Gui\TQtGui.h" />
     <ClInclude Include="TCommon\TCommon.h" />
     <ClInclude Include="TCommon\TCommonDefine.h" />
@@ -114,10 +120,6 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="Memo.txt" />
-    <Text Include="TCommon\Algorithm\Algorithm.txt" />
-    <Text Include="TCommon\DeviceApi\DeviceApi.txt" />
-    <Text Include="TCommon\Gui\Gui.txt" />
-    <Text Include="TCommon\TCommon.txt" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Extend\Excel\cexcelbase.cpp" />
@@ -126,6 +128,7 @@
     <ClCompile Include="Extend\Login\CLoginManager.cpp" />
     <ClCompile Include="Extend\Login\CLoginUI.cpp" />
     <ClCompile Include="Extend\LOG\TLog.cpp" />
+    <ClCompile Include="Extend\Message\CGlobalMessage.cpp" />
     <ClCompile Include="Extend\MultiProc\CMultiProcManager.cpp" />
     <ClCompile Include="Extend\MultiProc\CWindowPasteWidget.cpp" />
     <ClCompile Include="Extend\PointArrangement\TPointArrangementUi.cpp" />
@@ -138,15 +141,19 @@
     <ClCompile Include="TCommon\DeviceApi\TTextCodec.cpp" />
     <ClCompile Include="TCommon\DeviceApi\TTextFile.cpp" />
     <ClCompile Include="TCommon\Graph\TGraph.cpp" />
-    <ClCompile Include="TCommon\Gui\Dock\CDockTitle.cpp" />
-    <ClCompile Include="TCommon\Gui\Dock\CDockWidget.cpp" />
-    <ClCompile Include="TCommon\Gui\Dock\CDockWidgetFoldWidget.cpp" />
+    <ClCompile Include="TCommon\Gui\Dock\TDockTitle.cpp" />
+    <ClCompile Include="TCommon\Gui\Dock\TDockWidget.cpp" />
+    <ClCompile Include="TCommon\Gui\Dock\TDockWidgetFoldWidget.cpp" />
+    <ClCompile Include="TCommon\Gui\TRoundProgressBar.cpp" />
     <ClCompile Include="TCommon\TCommon.cpp" />
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="Extend\Login\CLoginUI.ui" />
     <QtUic Include="Extend\PointArrangement\TPointArrangementUi.ui" />
-    <QtUic Include="TCommon\Gui\Dock\CDockTitle.ui" />
+    <QtUic Include="TCommon\Gui\Dock\TDockTitle.ui" />
+  </ItemGroup>
+  <ItemGroup>
+    <QtRcc Include="TCommon\Gui\Dock\dock.qrc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">

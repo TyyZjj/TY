@@ -1,9 +1,9 @@
-﻿#include "CDockTitle.h"
-#include "ui_CDockTitle.h"
+﻿#include "TDockTitle.h"
+#include "ui_TDockTitle.h"
 
-CDockTitle::CDockTitle(QString strTitle, QWidget* pChild, bool bCanClose /*= true*/, QWidget *parent)
+TDockTitle::TDockTitle(QString strTitle, QWidget* pChild, bool bCanClose /*= true*/, QWidget *parent)
 	: QWidget(parent)
-	, ui(new Ui::CDockTitleClass())
+	, ui(new Ui::TDockTitleClass())
 {
 	ui->setupUi(this);
 
@@ -21,12 +21,12 @@ CDockTitle::CDockTitle(QString strTitle, QWidget* pChild, bool bCanClose /*= tru
 	initWidget();
 }
 
-CDockTitle::~CDockTitle()
+TDockTitle::~TDockTitle()
 {
 	delete ui;
 }
 
-void CDockTitle::hideContent(bool isHide /*= true*/)
+void TDockTitle::hideContent(bool isHide /*= true*/)
 {
 	if (isHide &&
 		ui->btnExpand->arrowType() == Qt::ArrowType::DownArrow)
@@ -38,12 +38,12 @@ void CDockTitle::hideContent(bool isHide /*= true*/)
 	
 }
 
-void CDockTitle::setTitle(QString strTitle)
+void TDockTitle::setTitle(QString strTitle)
 {
 	ui->lblTitle->setText(strTitle);
 }
 
-void CDockTitle::initWidget()
+void TDockTitle::initWidget()
 {
 	connect(ui->btnExpand, &QPushButton::clicked, this, [&]() {
 		if (ui->btnExpand->arrowType() == Qt::LeftArrow)

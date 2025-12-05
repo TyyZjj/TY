@@ -1,343 +1,469 @@
-#ifndef _TQTGUI_H_
+ï»¿#ifndef _TQTGUI_H_
 #define _TQTGUI_H_
-
+#include <QFile>
+#include <QDebug>
 #include <QString>
+#include <QPainter>
 #include <QTranslator>
+
+/*
+* 1.æ”¹å˜æ ·å¼
+* 2.è®¾ç½®ç¿»è¯‘
+* 
+* å­—ç¬¦ä¸²åœ¨ç•Œé¢ä¸­çš„å®é™…å¤§å°
+* 1.(éœ€è¦åœ¨GUIçº¿ç¨‹ä¸­è°ƒç”¨)ç»™å®šä¸€ä¸ªå­—ç¬¦ä¸²(æ— æ¢è¡Œ)ã€èƒ½æ˜¾ç¤ºå®½åº¦ã€font, å¾—åˆ°è¿™ä¹ˆå®½çš„åŒºåŸŸå®é™…è¾“å‡ºæ—¶, èƒ½æ˜¾ç¤ºçš„å­—ç¬¦
+* 2.(éœ€è¦åœ¨GUIçº¿ç¨‹ä¸­è°ƒç”¨)ç»™å®šé«˜åº¦ã€å­—ä½“ã€å­—ä½“å®½åº¦, è‡ªé€‚åº”è·å–é€‚åˆçš„æ–‡å­—å¤§å°
+* 3.(éœ€è¦åœ¨GUIçº¿ç¨‹ä¸­è°ƒç”¨)ç»™å®šå­—ç¬¦ä¸²ã€å®½åº¦ã€å­—ä½“ã€å­—ä½“å®½åº¦, è‡ªé€‚åº”è·å–é€‚åˆçš„æ–‡å­—å¤§å°
+* 4.(éœ€è¦åœ¨GUIçº¿ç¨‹ä¸­è°ƒç”¨)ç»™å®šå­—ç¬¦ä¸²ã€åŒºåŸŸã€å­—ä½“ã€å­—ä½“å®½åº¦, è‡ªé€‚åº”è·å–é€‚åˆçš„æ–‡å­—å¤§å°
+* 5.(éœ€è¦åœ¨GUIçº¿ç¨‹ä¸­è°ƒç”¨)åœ¨å›¾ç‰‡çš„æŒ‡å®šçŸ©å½¢åŒºåŸŸå†…å±…ä¸­ç»˜åˆ¶æ–‡å­—
+* 6.(éœ€è¦åœ¨GUIçº¿ç¨‹ä¸­è°ƒç”¨)åœ¨å›¾ç‰‡çš„æŒ‡å®šçŸ©å½¢åŒºåŸŸå·¦ä¸Šè§’æ’å…¥ QStringListï¼Œæ¯è¡Œä¸€ä¸ªå­—ç¬¦ä¸²
+* æ”¹å˜æ ·å¼
+*/
 
 class TQtGui
 {
 public:
+	//æ”¹å˜æ ·å¼
+	template<typename T>
+	static bool InstallStyle(T* window, QString styleFile)
+	{
+		QFile file(styleFile);
+		QString strStyleSheet;
+		if (!file.open(QFile::ReadOnly | QFile::Text))
+			strStyleSheet = "";
+		else
+			strStyleSheet = file.readAll();
+		file.close();
+		if (strStyleSheet.isEmpty())
+			return false;
+		window->setStyleSheet(strStyleSheet);
+		return true;
+	}
+
+	//è®¾ç½®ç¿»è¯‘
+	static void SetTranslator(const QString& filename)
+	{
+		static QTranslator* ptranslator = nullptr;
+		if (ptranslator)
+		{
+			bool succ = qApp->removeTranslator(ptranslator);
+			if (!succ)
+				qDebug() << QString("removeTranslator failed! translator filename:%1").arg(filename);
+			delete ptranslator;
+			ptranslator = nullptr;
+		}
+		ptranslator->load(filename);
+		qApp->installTranslator(ptranslator);
+	};
+
+#pragma region å­—ç¬¦ä¸²åœ¨ç•Œé¢ä¸­çš„å®é™…å¤§å°
+#include <QFontMetrics>
+
+	//******Taoyuyu******2024/05/24**********
+	// åŠŸèƒ½: (éœ€è¦åœ¨GUIçº¿ç¨‹ä¸­è°ƒç”¨)ç»™å®šä¸€ä¸ªå­—ç¬¦ä¸²(æ— æ¢è¡Œ)ã€èƒ½æ˜¾ç¤ºå®½åº¦ã€font, å¾—åˆ°è¿™ä¹ˆå®½çš„åŒºåŸŸå®é™…è¾“å‡ºæ—¶, èƒ½æ˜¾ç¤ºçš„å­—ç¬¦
+	// è¿”å›: bool: æ˜¯å¦è£åˆ‡/æˆªæ–­
+	// å‚æ•°: QFont font: ç»™å®šçš„å­—ä½“
+	// å‚æ•°: QString str: ç»™å®šçš„å­—ç¬¦ä¸²
+	// å‚æ•°: int iMaxWidth: èƒ½æ˜¾ç¤ºçš„å®½åº¦
+	// å‚æ•°: int iMode: è£åˆ‡çš„æ¨¡å¼
+	// å‚æ•°: QString & strElidedText: è¿”å›, è£åˆ‡åçš„å­—ç¬¦ä¸²
+	//************************************
+	static bool GetElidedText(QFont font, QString str, int iMaxWidth, int iMode, QString& strElidedText)
+	{
+		bool ret = false;
+		QFontMetrics fontWidth(font);
+		int iWidth = fontWidth.width(str);  //è®¡ç®—å­—ç¬¦ä¸²å®½åº¦
+		if (iWidth >= iMaxWidth)  //å½“å­—ç¬¦ä¸²å®½åº¦å¤§äºæœ€å¤§å®½åº¦æ—¶è¿›è¡Œè½¬æ¢
+		{
+			strElidedText = fontWidth.elidedText(str, (Qt::TextElideMode)iMode, iMaxWidth);  //å³éƒ¨æ˜¾ç¤ºçœç•¥å·
+			ret = true;
+		}
+		return ret;   //è¿”å›æ˜¯å¦è£å‰ª
+	}
+
+	//******Taoyuyu******2024/05/24**********
+	// åŠŸèƒ½: (éœ€è¦åœ¨GUIçº¿ç¨‹ä¸­è°ƒç”¨)ç»™å®šé«˜åº¦ã€å­—ä½“ã€å­—ä½“å®½åº¦, è‡ªé€‚åº”è·å–é€‚åˆçš„æ–‡å­—å¤§å°
+	// è¿”å›: bool: æ˜¯å¦æˆåŠŸ
+	// å‚æ•°: const int iMaxHeight: ç»™å®šçš„æœ€å¤§é«˜åº¦
+	// å‚æ•°: QFont & font: è¿”å›å€¼
+	// å‚æ•°: const QString & family: ç»™å®šçš„å­—ä½“
+	// å‚æ•°: const int weight: ç»™å®šçš„å­—ä½“å®½åº¦
+	// å‚æ•°: const QString str: ç»™å®šå­—ç¬¦ä¸², å½“è·å–é«˜åº¦ä¿¡æ¯æ—¶, å¯ä»¥çœç•¥
+	//************************************
+	static bool GetHeightAdaptiveFont(const int iMaxHeight, QFont& font,
+		const QString& family, const int weight = -1, const QString str = "")
+	{
+		font = QFont(family);
+		font.setWeight(weight);
+		int iCount(0);
+		do
+		{
+			iCount++;
+			int iPointSize = font.pointSize();
+			if (iPointSize <= 0)
+				return false;
+			QFontMetrics metrics(font);
+			int iTextHeight = metrics.height();
+			if (!str.isEmpty())
+				iTextHeight = metrics.boundingRect(str).height();
+			int iPointSizeNext(iPointSize);
+			if (iTextHeight <= iMaxHeight)
+				iPointSizeNext = iPointSize * 2;
+			else
+				iPointSizeNext = iPointSize / 2;
+			font.setPointSize(iPointSizeNext);
+			QFontMetrics metricsNext(font);
+			int iTextHeightNext = metricsNext.height();
+			if (!str.isEmpty())
+				iTextHeightNext = metricsNext.boundingRect(str).height();
+			if (iTextHeight <= iMaxHeight)
+			{
+				if (iTextHeightNext > iMaxHeight)
+				{
+					int iPointSize3rd = (iPointSizeNext + iPointSize) / 2;
+					if (iPointSize3rd == iPointSize ||
+						iPointSize3rd == iPointSizeNext)
+					{
+						font.setPointSize(iPointSize);
+						return (iPointSize > 0);
+					}
+					else
+					{
+						font.setPointSize(iPointSize3rd);
+						continue;
+					}
+				}
+				else
+				{
+					int iPointSize3rd = iPointSizeNext * 2;
+					font.setPointSize(iPointSize3rd);
+					continue;
+				}
+			}
+			else
+			{
+				if (iTextHeightNext <= iMaxHeight)
+				{
+					int iPointSize3rd = (iPointSizeNext + iPointSize) / 2;
+					if (iPointSize3rd == iPointSize ||
+						iPointSize3rd == iPointSizeNext)
+					{
+						font.setPointSize(iPointSizeNext);
+						return (iPointSizeNext > 0);
+					}
+					else
+					{
+						font.setPointSize(iPointSize3rd);
+						continue;
+					}
+				}
+				else
+				{
+					int iPointSize3rd = iPointSizeNext / 2;
+					font.setPointSize(iPointSize3rd);
+					continue;
+				}
+			}
+		} while (iCount < 20);
+		return false;
+	}
 
 
+	//******Taoyuyu******2024/05/24**********
+	// åŠŸèƒ½: (éœ€è¦åœ¨GUIçº¿ç¨‹ä¸­è°ƒç”¨)ç»™å®šå­—ç¬¦ä¸²ã€å®½åº¦ã€å­—ä½“ã€å­—ä½“å®½åº¦, è‡ªé€‚åº”è·å–é€‚åˆçš„æ–‡å­—å¤§å°
+	// è¿”å›: bool æ˜¯å¦æˆåŠŸ
+	// å‚æ•°: const QString str: ç»™å®šå­—ç¬¦ä¸²
+	// å‚æ•°: const int iMaxWidth: ç»™å®šçš„æœ€å¤§å®½åº¦
+	// å‚æ•°: QFont & font: è¿”å›å€¼
+	// å‚æ•°: const QString & family: ç»™å®šçš„å­—ä½“
+	// å‚æ•°: const int weight: ç»™å®šçš„å­—ä½“å®½åº¦
+	//************************************
+	static bool GetWidthAdaptiveFont(const QString str,
+		const int iMaxWidth, QFont& font,
+		const QString& family, const int weight = -1)
+	{
+		if (str.isEmpty())
+			return false;
+		font = QFont(family);
+		font.setWeight(weight);
+		int iCount(0);
+		do
+		{
+			iCount++;
+			int iPointSize = font.pointSize();
+			if (iPointSize <= 0)
+				return false;
+			QFontMetrics metrics(font);
+			int iTextWidth = metrics.boundingRect(str).width();
+			int iPointSizeNext(iPointSize);
+			if (iTextWidth <= iMaxWidth)
+				iPointSizeNext = iPointSize * 2;
+			else
+				iPointSizeNext = iPointSize / 2;
+			font.setPointSize(iPointSizeNext);
+			QFontMetrics metricsNext(font);
+			int iTextWidthNext = metricsNext.boundingRect(str).width();
+			if (iTextWidth <= iMaxWidth)
+			{
+				if (iTextWidthNext > iMaxWidth)
+				{
+					int iPointSize3rd = (iPointSizeNext + iPointSize) / 2;
+					if (iPointSize3rd == iPointSize ||
+						iPointSize3rd == iPointSizeNext)
+					{
+						font.setPointSize(iPointSize);
+						return (iPointSize > 0);
+					}
+					else
+					{
+						font.setPointSize(iPointSize3rd);
+						continue;
+					}
+				}
+				else
+				{
+					int iPointSize3rd = iPointSizeNext * 2;
+					font.setPointSize(iPointSize3rd);
+					continue;
+				}
+			}
+			else
+			{
+				if (iTextWidthNext <= iMaxWidth)
+				{
+					int iPointSize3rd = (iPointSizeNext + iPointSize) / 2;
+					if (iPointSize3rd == iPointSize ||
+						iPointSize3rd == iPointSizeNext)
+					{
+						font.setPointSize(iPointSizeNext);
+						return (iPointSizeNext > 0);
+					}
+					else
+					{
+						font.setPointSize(iPointSize3rd);
+						continue;
+					}
+				}
+				else
+				{
+					int iPointSize3rd = iPointSizeNext / 2;
+					font.setPointSize(iPointSize3rd);
+					continue;
+				}
+			}
+		} while (iCount < 20);
+		return false;
+	}
+
+
+	//******Taoyuyu******2024/05/24**********
+	// åŠŸèƒ½: (éœ€è¦åœ¨GUIçº¿ç¨‹ä¸­è°ƒç”¨)ç»™å®šå­—ç¬¦ä¸²ã€åŒºåŸŸã€å­—ä½“ã€å­—ä½“å®½åº¦, è‡ªé€‚åº”è·å–é€‚åˆçš„æ–‡å­—å¤§å°
+	// è¿”å›: bool æ˜¯å¦æˆåŠŸ
+	// å‚æ•°: const QRect maxRect: ç»™å®šçš„æœ€å¤§åŒºåŸŸ
+	// å‚æ•°: const QString str: ç»™å®šå­—ç¬¦ä¸²
+	// å‚æ•°: QFont & font: è¿”å›å€¼
+	// å‚æ•°: const QString & family: ç»™å®šçš„å­—ä½“
+	// å‚æ•°: const int weight: ç»™å®šçš„å­—ä½“å®½åº¦
+	//************************************
+	static bool GetAdaptiveFont(const QRect maxRect,
+		const QString str, QFont& font,
+		const QString& family, const int weight = -1)
+	{
+		if (str.isEmpty())
+			return false;
+		font = QFont(family);
+		font.setWeight(weight);
+		int iCount(0);
+		do
+		{
+			iCount++;
+			int iPointSize = font.pointSize();
+			if (iPointSize <= 0)
+				return false;
+			QFontMetrics metrics(font);
+			QRect rect = metrics.boundingRect(str);
+			int iPointSizeNext(iPointSize);
+			if (rect.width() <= maxRect.width() &&
+				rect.height() <= maxRect.height())
+				iPointSizeNext = iPointSize * 2;
+			else
+				iPointSizeNext = iPointSize / 2;
+			font.setPointSize(iPointSizeNext);
+			QFontMetrics metricsNext(font);
+			QRect rectNext = metricsNext.boundingRect(str);
+			if (rect.width() <= maxRect.width() &&
+				rect.height() <= maxRect.height())
+			{
+				if (rectNext.width() > maxRect.width() ||
+					rectNext.height() > maxRect.height())
+				{
+					int iPointSize3rd = (iPointSizeNext + iPointSize) / 2;
+					if (iPointSize3rd == iPointSize ||
+						iPointSize3rd == iPointSizeNext)
+					{
+						font.setPointSize(iPointSize);
+						return (iPointSize > 0);
+					}
+					else
+					{
+						font.setPointSize(iPointSize3rd);
+						continue;
+					}
+				}
+				else
+				{
+					int iPointSize3rd = iPointSizeNext * 2;
+					font.setPointSize(iPointSize3rd);
+					continue;
+				}
+			}
+			else
+			{
+				if (rectNext.width() <= maxRect.width() &&
+					rectNext.height() <= maxRect.height())
+				{
+					int iPointSize3rd = (iPointSizeNext + iPointSize) / 2;
+					if (iPointSize3rd == iPointSize ||
+						iPointSize3rd == iPointSizeNext)
+					{
+						font.setPointSize(iPointSizeNext);
+						return (iPointSizeNext > 0);
+					}
+					else
+					{
+						font.setPointSize(iPointSize3rd);
+						continue;
+					}
+				}
+				else
+				{
+					int iPointSize3rd = iPointSizeNext / 2;
+					font.setPointSize(iPointSize3rd);
+					continue;
+				}
+			}
+		} while (iCount < 20);
+		return false;
+	}
+
+	/**
+	* @brief åœ¨å›¾ç‰‡çš„æŒ‡å®šçŸ©å½¢åŒºåŸŸå†…å±…ä¸­ç»˜åˆ¶æ–‡å­—
+	* @param image ç›®æ ‡å›¾ç‰‡
+	* @param rect æ–‡å­—ç»˜åˆ¶çš„çŸ©å½¢åŒºåŸŸ
+	* @param text è¦ç»˜åˆ¶çš„æ–‡å­—
+	* @param font æ–‡å­—å­—ä½“ï¼ˆå¯é€‰ï¼Œé»˜è®¤ç³»ç»Ÿå­—ä½“ï¼‰
+	* @param color æ–‡å­—é¢œè‰²ï¼ˆå¯é€‰ï¼Œé»˜è®¤é»‘è‰²ï¼‰
+	*/
+	static void drawCenteredTextOnImage(QImage& image, const QRect& rect, const QString& text,
+		const QFont& font = QFont(), const QColor& color = ::Qt::black)
+	{
+		QPainter painter(&image);
+
+		// è®¾ç½®å­—ä½“å’Œé¢œè‰²
+		painter.setFont(font);
+		painter.setPen(color);
+
+		// è®¡ç®—æ–‡å­—çš„å®é™…å ç”¨å¤§å°
+		QFontMetrics metrics(font);
+		int height = metrics.height();          // æ€»é«˜åº¦ï¼ˆåƒç´ ï¼‰
+		int ascent = metrics.ascent();          // åŸºçº¿ä»¥ä¸Šé«˜åº¦
+		int descent = metrics.descent();        // åŸºçº¿ä»¥ä¸‹é«˜åº¦
+		int capHeight = metrics.capHeight();    // å¤§å†™å­—æ¯é«˜åº¦
+		QRect textRect = metrics.boundingRect(text);
+
+		// è®¡ç®—å±…ä¸­åæ ‡ï¼ˆç›¸å¯¹äºrectçš„ä¸­å¿ƒï¼‰
+		int x = rect.x() + (rect.width() - textRect.width()) / 2;
+		int y = rect.y() + (rect.height() + metrics.ascent() - metrics.descent()) / 2;
+
+		// ç»˜åˆ¶æ–‡å­—
+		painter.drawText(x, y, text);
+	}
+
+	/**
+	* @brief åœ¨å›¾ç‰‡çš„æŒ‡å®šçŸ©å½¢åŒºåŸŸå·¦ä¸Šè§’æ’å…¥ QStringListï¼Œæ¯è¡Œä¸€ä¸ªå­—ç¬¦ä¸²
+	* @param image ç›®æ ‡å›¾ç‰‡ï¼ˆä¼šè¢«ä¿®æ”¹ï¼‰
+	* @param rect æ–‡æœ¬ç»˜åˆ¶åŒºåŸŸ
+	* @param stringList è¦ç»˜åˆ¶çš„å­—ç¬¦ä¸²åˆ—è¡¨
+	* @param font å­—ä½“ï¼ˆå¯é€‰ï¼‰
+	* @param color æ–‡å­—é¢œè‰²ï¼ˆå¯é€‰ï¼‰
+	* @param lineSpacing è¡Œé—´è·ï¼ˆå¯é€‰ï¼Œé»˜è®¤2åƒç´ ï¼‰
+	*/
+	static void drawStringListOnImage(QImage& image, const QRect& rect,
+		const QStringList& stringList,
+		const QFont& font = QFont(),
+		const QColor& color = ::Qt::black,
+		int startSpacing = 2,
+		int lineSpacing = 2) 
+	{
+		if (image.isNull() || stringList.isEmpty()) return;
+
+		QPainter painter(&image);
+		painter.setRenderHint(QPainter::Antialiasing);
+		painter.setFont(font);
+		painter.setPen(color);
+
+		// è·å–å­—ä½“åº¦é‡ä¿¡æ¯
+		QFontMetrics metrics(font);
+		int lineHeight = metrics.height() + lineSpacing;  // å•è¡Œé«˜åº¦ï¼ˆå«é—´è·ï¼‰
+
+		// åˆå§‹ç»˜åˆ¶ä½ç½®ï¼ˆå·¦ä¸Šè§’ï¼‰
+		int x = rect.x() + startSpacing;
+		int y = rect.y() + metrics.ascent() + startSpacing;  // è¡¥å¿åŸºçº¿åç§»
+
+		// éå†æ‰€æœ‰å­—ç¬¦ä¸²é€è¡Œç»˜åˆ¶
+		for (const QString& str : stringList) {
+			// æ£€æŸ¥æ˜¯å¦è¶…å‡ºåŒºåŸŸåº•éƒ¨
+			if (y + metrics.descent() > rect.bottom()) break;
+
+			painter.drawText(x, y, str);
+			y += lineHeight;  // ç§»åŠ¨åˆ°ä¸‹ä¸€è¡Œ
+		}
+	}
+
+#pragma endregion
+
+#if 0
+	//ç”ŸæˆäºŒç»´ç å›¾ç‰‡
+#include "ZXing/Barcode.h"
+#include "ZXing/MultiFormatWriter.h"
+#include "ZXing/BitMatrix.h"
+	static QImage generateQRCodeImage(const QString& text, int width, int height)
+	{
+		ZXing::MultiFormatWriter writer(ZXing::BarcodeFormat::QRCode);
+		//ZXing::WriterOptions options;
+		//options.margin = 2;
+		//options.errorCorrectionLevel = ZXing::ErrorCorrectionLevel::High;
+
+		try {
+			ZXing::BitMatrix bitMatrix = writer.encode(text.toUtf8().toStdString(), width, height);
+			QImage qrImage(width, height, QImage::Format_RGB32);
+			qrImage.fill(::Qt::white);
+
+			for (int y = 0; y < bitMatrix.height(); ++y) {
+				for (int x = 0; x < bitMatrix.width(); ++x) {
+					if (bitMatrix.get(x, y)) {
+						qrImage.setPixel(x, y, ::Qt::black);
+					}
+				}
+			}
+			return qrImage;
+		}
+		catch (const std::exception& e) {
+			qDebug() << "Error generating QR Code:" << e.what();
+			return QImage();
+		}
+	}
+#endif // 0
 
 private:
 
 };
 
 
-//¸Ä±äÑùÊ½
-template<typename T>
-static bool InstallStyle(T* window, QString styleFile)
-{
-	QFile file(styleFile);
-	QString strStyleSheet;
-	if (!file.open(QFile::ReadOnly | QFile::Text))
-		strStyleSheet = "";
-	else
-		strStyleSheet = file.readAll();
-	file.close();
-	if (strStyleSheet.isEmpty())
-		return false;
-	window->setStyleSheet(strStyleSheet);
-	return true;
-}
 
 
-//ÉèÖÃ·­Òë
-static void SetTranslator(const QString& fliename)
-{
-	static QTranslator* ptranslator = nullptr;
-	if (ptranslator)
-	{
-		qApp->removeTranslator(ptranslator);
-		delete ptranslator;
-		ptranslator = nullptr;
-	}
-	ptranslator->load(fliename);
-	qApp->installTranslator(ptranslator);
-};
-
-#pragma region ×Ö·û´®ÔÚ½çÃæÖĞµÄÊµ¼Ê´óĞ¡
-#include <QFontMetrics>
-
-//******Taoyuyu******2024/05/24**********
-// ¹¦ÄÜ: (ĞèÒªÔÚGUIÏß³ÌÖĞµ÷ÓÃ)¸ø¶¨Ò»¸ö×Ö·û´®(ÎŞ»»ĞĞ)¡¢ÄÜÏÔÊ¾¿í¶È¡¢font, µÃµ½ÕâÃ´¿íµÄÇøÓòÊµ¼ÊÊä³öÊ±, ÄÜÏÔÊ¾µÄ×Ö·û
-// ·µ»Ø: bool: ÊÇ·ñ²ÃÇĞ/½Ø¶Ï
-// ²ÎÊı: QFont font: ¸ø¶¨µÄ×ÖÌå
-// ²ÎÊı: QString str: ¸ø¶¨µÄ×Ö·û´®
-// ²ÎÊı: int iMaxWidth: ÄÜÏÔÊ¾µÄ¿í¶È
-// ²ÎÊı: int iMode: ²ÃÇĞµÄÄ£Ê½
-// ²ÎÊı: QString & strElidedText: ·µ»Ø, ²ÃÇĞºóµÄ×Ö·û´®
-//************************************
-static bool GetElidedText(QFont font, QString str, int iMaxWidth, int iMode, QString& strElidedText)
-{
-	bool ret = false;
-	QFontMetrics fontWidth(font);
-	int iWidth = fontWidth.width(str);  //¼ÆËã×Ö·û´®¿í¶È
-	if (iWidth >= iMaxWidth)  //µ±×Ö·û´®¿í¶È´óÓÚ×î´ó¿í¶ÈÊ±½øĞĞ×ª»»
-	{
-		strElidedText = fontWidth.elidedText(str, (Qt::TextElideMode)iMode, iMaxWidth);  //ÓÒ²¿ÏÔÊ¾Ê¡ÂÔºÅ
-		ret = true;
-	}
-	return ret;   //·µ»ØÊÇ·ñ²Ã¼ô
-}
-
-//******Taoyuyu******2024/05/24**********
-// ¹¦ÄÜ: (ĞèÒªÔÚGUIÏß³ÌÖĞµ÷ÓÃ)¸ø¶¨¸ß¶È¡¢×ÖÌå¡¢×ÖÌå¿í¶È, ×ÔÊÊÓ¦»ñÈ¡ÊÊºÏµÄÎÄ×Ö´óĞ¡
-// ·µ»Ø: bool: ÊÇ·ñ³É¹¦
-// ²ÎÊı: const int iMaxHeight: ¸ø¶¨µÄ×î´ó¸ß¶È
-// ²ÎÊı: QFont & font: ·µ»ØÖµ
-// ²ÎÊı: const QString & family: ¸ø¶¨µÄ×ÖÌå
-// ²ÎÊı: const int weight: ¸ø¶¨µÄ×ÖÌå¿í¶È
-// ²ÎÊı: const QString str: ¸ø¶¨×Ö·û´®, µ±»ñÈ¡¸ß¶ÈĞÅÏ¢Ê±, ¿ÉÒÔÊ¡ÂÔ
-//************************************
-static bool GetHeightAdaptiveFont(const int iMaxHeight, QFont &font,
-	const QString &family, const int weight = -1, const QString str = "")
-{
-	font = QFont(family);
-	font.setWeight(weight);
-	int iCount(0);
-	do 
-	{
-		iCount++;
-		int iPointSize = font.pointSize();
-		if (iPointSize <= 0)
-			return false;
-		QFontMetrics metrics(font);
-		int iTextHeight = metrics.height();
-		if (!str.isEmpty())
-			iTextHeight = metrics.boundingRect(str).height();
-		int iPointSizeNext(iPointSize);
-		if (iTextHeight <= iMaxHeight)
-			iPointSizeNext = iPointSize * 2;
-		else
-			iPointSizeNext = iPointSize / 2;
-		font.setPointSize(iPointSizeNext);
-		QFontMetrics metricsNext(font);
-		int iTextHeightNext = metricsNext.height();
-		if (!str.isEmpty())
-			iTextHeightNext = metricsNext.boundingRect(str).height();
-		if (iTextHeight <= iMaxHeight)
-		{
-			if (iTextHeightNext > iMaxHeight)
-			{
-				int iPointSize3rd = (iPointSizeNext + iPointSize) / 2;
-				if (iPointSize3rd == iPointSize ||
-					iPointSize3rd == iPointSizeNext)
-				{
-					font.setPointSize(iPointSize);
-					return (iPointSize > 0);
-				}
-				else
-				{
-					font.setPointSize(iPointSize3rd);
-					continue;
-				}
-			}
-			else
-			{
-				int iPointSize3rd = iPointSizeNext * 2;
-				font.setPointSize(iPointSize3rd);
-				continue;
-			}
-		}
-		else
-		{
-			if (iTextHeightNext <= iMaxHeight)
-			{
-				int iPointSize3rd = (iPointSizeNext + iPointSize) / 2;
-				if (iPointSize3rd == iPointSize ||
-					iPointSize3rd == iPointSizeNext)
-				{
-					font.setPointSize(iPointSizeNext);
-					return (iPointSizeNext > 0);
-				}
-				else
-				{
-					font.setPointSize(iPointSize3rd);
-					continue;
-				}
-			}
-			else
-			{
-				int iPointSize3rd = iPointSizeNext / 2;
-				font.setPointSize(iPointSize3rd);
-				continue;
-			}
-		}
-	} while (iCount<20);
-	return false;
-}
 
 
-//******Taoyuyu******2024/05/24**********
-// ¹¦ÄÜ: (ĞèÒªÔÚGUIÏß³ÌÖĞµ÷ÓÃ)¸ø¶¨×Ö·û´®¡¢¿í¶È¡¢×ÖÌå¡¢×ÖÌå¿í¶È, ×ÔÊÊÓ¦»ñÈ¡ÊÊºÏµÄÎÄ×Ö´óĞ¡
-// ·µ»Ø: bool ÊÇ·ñ³É¹¦
-// ²ÎÊı: const QString str: ¸ø¶¨×Ö·û´®
-// ²ÎÊı: const int iMaxWidth: ¸ø¶¨µÄ×î´ó¿í¶È
-// ²ÎÊı: QFont & font: ·µ»ØÖµ
-// ²ÎÊı: const QString & family: ¸ø¶¨µÄ×ÖÌå
-// ²ÎÊı: const int weight: ¸ø¶¨µÄ×ÖÌå¿í¶È
-//************************************
-static bool GetWidthAdaptiveFont(const QString str, 
-	const int iMaxWidth, QFont &font,
-	const QString &family, const int weight = -1)
-{
-	if (str.isEmpty())
-		return false;
-	font = QFont(family);
-	font.setWeight(weight);
-	int iCount(0);
-	do
-	{
-		iCount++;
-		int iPointSize = font.pointSize();
-		if (iPointSize <= 0)
-			return false;
-		QFontMetrics metrics(font);
-		int iTextWidth = metrics.boundingRect(str).width();
-		int iPointSizeNext(iPointSize);
-		if (iTextWidth <= iMaxWidth)
-			iPointSizeNext = iPointSize * 2;
-		else
-			iPointSizeNext = iPointSize / 2;
-		font.setPointSize(iPointSizeNext);
-		QFontMetrics metricsNext(font);
-		int iTextWidthNext = metricsNext.boundingRect(str).width();
-		if (iTextWidth <= iMaxWidth)
-		{
-			if (iTextWidthNext > iMaxWidth)
-			{
-				int iPointSize3rd = (iPointSizeNext + iPointSize) / 2;
-				if (iPointSize3rd == iPointSize ||
-					iPointSize3rd == iPointSizeNext)
-				{
-					font.setPointSize(iPointSize);
-					return (iPointSize > 0);
-				}
-				else
-				{
-					font.setPointSize(iPointSize3rd);
-					continue;
-				}
-			}
-			else
-			{
-				int iPointSize3rd = iPointSizeNext * 2;
-				font.setPointSize(iPointSize3rd);
-				continue;
-			}
-		}
-		else
-		{
-			if (iTextWidthNext <= iMaxWidth)
-			{
-				int iPointSize3rd = (iPointSizeNext + iPointSize) / 2;
-				if (iPointSize3rd == iPointSize ||
-					iPointSize3rd == iPointSizeNext)
-				{
-					font.setPointSize(iPointSizeNext);
-					return (iPointSizeNext > 0);
-				}
-				else
-				{
-					font.setPointSize(iPointSize3rd);
-					continue;
-				}
-			}
-			else
-			{
-				int iPointSize3rd = iPointSizeNext / 2;
-				font.setPointSize(iPointSize3rd);
-				continue;
-			}
-		}
-	} while (iCount < 20);
-	return false;
-}
-
-
-//******Taoyuyu******2024/05/24**********
-// ¹¦ÄÜ: (ĞèÒªÔÚGUIÏß³ÌÖĞµ÷ÓÃ)¸ø¶¨×Ö·û´®¡¢ÇøÓò¡¢×ÖÌå¡¢×ÖÌå¿í¶È, ×ÔÊÊÓ¦»ñÈ¡ÊÊºÏµÄÎÄ×Ö´óĞ¡
-// ·µ»Ø: bool ÊÇ·ñ³É¹¦
-// ²ÎÊı: const QRect maxRect: ¸ø¶¨µÄ×î´óÇøÓò
-// ²ÎÊı: const QString str: ¸ø¶¨×Ö·û´®
-// ²ÎÊı: QFont & font: ·µ»ØÖµ
-// ²ÎÊı: const QString & family: ¸ø¶¨µÄ×ÖÌå
-// ²ÎÊı: const int weight: ¸ø¶¨µÄ×ÖÌå¿í¶È
-//************************************
-static bool GetAdaptiveFont(const QRect maxRect,
-	const QString str, QFont &font,
-	const QString &family, const int weight = -1)
-{
-	if (str.isEmpty())
-		return false;
-	font = QFont(family);
-	font.setWeight(weight);
-	int iCount(0);
-	do 
-	{
-		iCount++;
-		int iPointSize = font.pointSize();
-		if (iPointSize <= 0)
-			return false;
-		QFontMetrics metrics(font);
-		QRect rect = metrics.boundingRect(str);
-		int iPointSizeNext(iPointSize);
-		if (rect.width() <= maxRect.width() &&
-			rect.height() <= maxRect.height())
-			iPointSizeNext = iPointSize * 2;
-		else
-			iPointSizeNext = iPointSize / 2;
-		font.setPointSize(iPointSizeNext);
-		QFontMetrics metricsNext(font);
-		QRect rectNext = metricsNext.boundingRect(str);
-		if (rect.width() <= maxRect.width() &&
-			rect.height() <= maxRect.height())
-		{
-			if (rectNext.width() > maxRect.width() ||
-				rectNext.height() > maxRect.height())
-			{
-				int iPointSize3rd = (iPointSizeNext + iPointSize) / 2;
-				if (iPointSize3rd == iPointSize ||
-					iPointSize3rd == iPointSizeNext)
-				{
-					font.setPointSize(iPointSize);
-					return (iPointSize > 0);
-				}
-				else
-				{
-					font.setPointSize(iPointSize3rd);
-					continue;
-				}
-			}
-			else
-			{
-				int iPointSize3rd = iPointSizeNext * 2;
-				font.setPointSize(iPointSize3rd);
-				continue;
-			}
-		}
-		else
-		{
-			if (rectNext.width() <= maxRect.width() &&
-				rectNext.height() <= maxRect.height())
-			{
-				int iPointSize3rd = (iPointSizeNext + iPointSize) / 2;
-				if (iPointSize3rd == iPointSize ||
-					iPointSize3rd == iPointSizeNext)
-				{
-					font.setPointSize(iPointSizeNext);
-					return (iPointSizeNext > 0);
-				}
-				else
-				{
-					font.setPointSize(iPointSize3rd);
-					continue;
-				}
-			}
-			else
-			{
-				int iPointSize3rd = iPointSizeNext / 2;
-				font.setPointSize(iPointSize3rd);
-				continue;
-			}
-		}
-	} while (iCount < 20);
-	return false;
-}
-
-#pragma endregion
 
 
 #endif // !_TQTGUI_H_

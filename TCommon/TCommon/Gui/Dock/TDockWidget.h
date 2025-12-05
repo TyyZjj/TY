@@ -3,19 +3,28 @@
 #include <QPushButton>
 #include <QDockWidget>
 #include <QMainWindow>
-#include "CDockWidgetFoldWidget.h"
+#include "TDockWidgetFoldWidget.h"
 
-class CDockWidget : public QDockWidget
+/*
+QWidget *pWidget = new QWidget;
+m_pDockQRCodeUi = new TDockWidget(this,
+	pWidget, nFoldDirection::nFoldLeft, "QRCode");
+m_pDockQRCodeUi->setAllowedAreas(::Qt::DockWidgetArea::LeftDockWidgetArea | ::Qt::DockWidgetArea::RightDockWidgetArea);
+m_pDockQRCodeUi->setFeatures(QDockWidget::AllDockWidgetFeatures);
+this->addDockWidget(::Qt::DockWidgetArea::LeftDockWidgetArea, m_pDockQRCodeUi);
+*/
+
+class TDockWidget : public QDockWidget
 {
 	Q_OBJECT
 public:
-	explicit CDockWidget(QMainWindow* parent, 
+	explicit TDockWidget(QMainWindow* parent, 
 		QWidget * pWidget,
 		nFoldDirection direction = nFoldLeft, 
 		const QString& title = "", 
 		bool bCanClose = false, //能关闭
 		Qt::WindowFlags flags = Qt::WindowFlags());
-	~CDockWidget();
+	~TDockWidget();
 	void setTitleBarStyleSheet(const QString& styleSheet);
 	void hideDock();
 	void minimizeDock();
@@ -42,7 +51,7 @@ private:
 private:
 	//包含 成员变量 foldContentWidget 的那个dockwidget
 	QDockWidget* m_pFoldDockWidget = nullptr;
-	CDockWidgetFoldWidget* m_pFoldWidget = nullptr;
+	TDockWidgetFoldWidget* m_pFoldWidget = nullptr;
 
 	//该dockwidget是靠左还是靠右
 	nFoldDirection	m_iDirection;

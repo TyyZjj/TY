@@ -1,4 +1,4 @@
-#include <QDir>
+ï»¿#include <QDir>
 #include <QProcess>
 #include <QFileInfo>
 #ifdef WIN32
@@ -49,7 +49,7 @@ bool TFile::CopyFile(const QString &fileName,
 	else
 	{
 		QString strPath(newName);
-		if (!newFileInfo.suffix().isEmpty())//°üº¬¸ñÊ½ºó×ºÊ±, ÈÏ¶¨newNameÊÇÎÄ¼şÂ·¾¶, ·ñÔòÊÇÎÄ¼ş¼ĞÂ·¾¶
+		if (!newFileInfo.suffix().isEmpty())//åŒ…å«æ ¼å¼åç¼€æ—¶, è®¤å®šnewNameæ˜¯æ–‡ä»¶è·¯å¾„, å¦åˆ™æ˜¯æ–‡ä»¶å¤¹è·¯å¾„
 			strPath = newFileInfo.absolutePath();
 		QDir dir;
 		if (!dir.exists(strPath) &&
@@ -69,8 +69,8 @@ bool TFile::CopyFileWithWidget(const QString &fileName,
 	{
 		if (pInformation != nullptr)
 		{
-			pInformation(parent, QString::fromUtf8("´íÎó:"),
-				QString::fromUtf8("Ô´ÎÄ¼ş²»´æÔÚ."),
+			pInformation(parent, QString::fromUtf8("é”™è¯¯:"),
+				QString::fromUtf8("æºæ–‡ä»¶ä¸å­˜åœ¨."),
 				QMessageBox::StandardButton::Ok,
 				QMessageBox::StandardButton::Ok);
 		}
@@ -81,8 +81,8 @@ bool TFile::CopyFileWithWidget(const QString &fileName,
 	{
 		if (pInformation != nullptr)
 		{
-			pInformation(parent, QString::fromUtf8("´íÎó:"),
-				QString::fromUtf8("Ô´ÎÄ¼ş²»ÊÇÎÄ¼ş."),
+			pInformation(parent, QString::fromUtf8("é”™è¯¯:"),
+				QString::fromUtf8("æºæ–‡ä»¶ä¸æ˜¯æ–‡ä»¶."),
 				QMessageBox::StandardButton::Ok,
 				QMessageBox::StandardButton::Ok);
 		}
@@ -97,8 +97,8 @@ bool TFile::CopyFileWithWidget(const QString &fileName,
 		{
 			if (pQuestion != nullptr)
 			{
-				QMessageBox::StandardButton btn = pQuestion(parent, QString::fromUtf8("ÌáÊ¾:"),
-					QString::fromUtf8("ÎÄ¼şÒÑ´æÔÚ, ÊÇ·ñÌæ»»?"),
+				QMessageBox::StandardButton btn = pQuestion(parent, QString::fromUtf8("æç¤º:"),
+					QString::fromUtf8("æ–‡ä»¶å·²å­˜åœ¨, æ˜¯å¦æ›¿æ¢?"),
 					QMessageBox::StandardButtons(QMessageBox::StandardButton::Yes |
 						QMessageBox::StandardButton::No),
 					QMessageBox::StandardButton::Yes);
@@ -126,8 +126,8 @@ bool TFile::CopyFileWithWidget(const QString &fileName,
 			if (!fileInfo.suffix().isEmpty() &&
 				pQuestion != nullptr)
 			{
-				QMessageBox::StandardButton btn = pQuestion(parent, QString::fromUtf8("ÌáÊ¾:"),
-					QString::fromUtf8("Ä¿±êÂ·¾¶²»Ã÷È·,Ä¿±êÂ·¾¶Ãû³ÆÊÇ·ñ¼´Ä¿±êÎÄ¼şÃû³Æ?"),
+				QMessageBox::StandardButton btn = pQuestion(parent, QString::fromUtf8("æç¤º:"),
+					QString::fromUtf8("ç›®æ ‡è·¯å¾„ä¸æ˜ç¡®,ç›®æ ‡è·¯å¾„åç§°æ˜¯å¦å³ç›®æ ‡æ–‡ä»¶åç§°?"),
 					QMessageBox::StandardButtons(QMessageBox::StandardButton::Yes |
 						QMessageBox::StandardButton::No),
 					QMessageBox::StandardButton::Yes);
@@ -143,8 +143,8 @@ bool TFile::CopyFileWithWidget(const QString &fileName,
 		{
 			if (pInformation != nullptr)
 			{
-				pInformation(parent, QString::fromUtf8("´íÎó:"),
-					QString::fromUtf8("´´½¨Ä¿±êÎÄ¼ş¼ĞÊ§°Ü."),
+				pInformation(parent, QString::fromUtf8("é”™è¯¯:"),
+					QString::fromUtf8("åˆ›å»ºç›®æ ‡æ–‡ä»¶å¤¹å¤±è´¥."),
 					QMessageBox::StandardButton::Ok,
 					QMessageBox::StandardButton::Ok);
 			}
@@ -190,46 +190,46 @@ bool TFile::DeleteFileToCrash(const QString &strFilePath)
 	/*
 typedef struct _SHFILEOPSTRUCTA
 {
-	HWND            hwnd;	:¶Ô»°¿òµÄ´°¿Ú¾ä±ú, ÒÔÏÔÊ¾ÓĞ¹ØÎÄ¼ş²Ù×÷×´Ì¬µÄĞÅÏ¢
-	UINT            wFunc;	:Ö¸Ê¾ÒªÖ´ĞĞµÄ²Ù×÷µÄÖµ.ÏÂÁĞÖµÖ®Ò»:
-								FO_COPY:½«pFrom³ÉÔ±ÖĞÖ¸¶¨µÄÎÄ¼ş¸´ÖÆµ½pTo³ÉÔ±ÖĞÖ¸¶¨µÄÎ»ÖÃ
-								FO_DELETE: É¾³ıpFromÖĞÖ¸¶¨µÄÎÄ¼ş
-								FO_MOVE: ½«pFromÖĞÖ¸¶¨µÄÎÄ¼şÒÆ¶¯µ½pToÖĞÖ¸¶¨µÄÎ»ÖÃ
-								FO_RENAME: ÖØÃüÃûpFromÖĞÖ¸¶¨µÄÎÄ¼ş. ²»ÄÜÊ¹ÓÃ´Ë±êÖ¾Í¨¹ıµ¥¸öº¯Êıµ÷ÓÃÖØÃüÃû¶à¸öÎÄ¼ş. ¸ÄÓÃFOU_MOVE
-	PCZZSTR         pFrom;	:Ö¸ÏòÒ»¸ö»ò¶à¸öÔ´ÎÄ¼şµÄÖ¸Õë, Ãû³ÆÓ¦ÊÇÈ«Â·¾¶, ÒÔ·ÀÒâÍâµÄ½á¹û
-	PCZZSTR         pTo;	:Ö¸ÏòÄ¿±êÎÄ¼ş»òÄ¿Â¼ÃûµÄÖ¸Õë. ÈçÎ´Ê¹ÓÃ´Ë²ÎÊı, ÔòĞë½«ÆäÉèÖÃÎªNULL. ²»ÔÊĞíÊ¹ÓÃÍ¨Åä·û.
-								¸´ÖÆºÍÒÆ¶¯²Ù×÷¿ÉÒÔÖ¸¶¨²»´æÔÚµÄÄ¿±êÄ¿Â¼. ÔÚÕâĞ©Çé¿öÏÂ, ÏµÍ³»á³¢ÊÔ´´½¨ËüÃÇ, Í¨³£»áÏÔÊ¾Ò»¸ö¶Ô»°¿ò, Ñ¯ÎÊÓÃ»§ÊÇ·ñÒª´´½¨ĞÂÄ¿Â¼. Èô²»Òª¶Ô»°¿ò²¢ÒÔ¾²Ä¬·½Ê½´´½¨Ä¿Â¼, ÇëÔÚfFlagsÖĞÉèÖÃFOF_NOCONFIRMMKDIR±êÖ¾.
-								¸´ÖÆºÍÒÆ¶¯²Ù×÷, Èç¹ûfFlags³ÉÔ±Ö¸¶¨FOF_MULTIDESTFILES, Ôò¿ÉÒÔ°üº¬¶à¸öÄ¿±êÎÄ¼şÃû.
-								Ê¹ÓÃÈ«Â·¾¶, ²»½ûÖ¹Ê¹ÓÃÏà¶ÔÂ·¾¶, µ«¿ÉÄÜ²úÉú²»¿ÉÔ¤²âµÄ½á¹û.
-	FILEOP_FLAGS    fFlags;	:¿ØÖÆÎÄ¼ş²Ù×÷µÄ±êÖ¾¡£´Ë³ÉÔ±¿ÉÒÔÍ¬Ê±Ê¹ÓÃÒÔÏÂ±êÖ¾:
-								FOF_ALLOWUNDO: Èç¹û¿ÉÄÜ, Çë±£Áô³·ÏûĞÅÏ¢. (Èç¹ûÂ·¾¶²»ÊÇÈ«Â·¾¶, Ôò´ËÏî»á±»ºöÂÔ)
-								FOF_CONFIRMMOUSE: ²»Ê¹ÓÃ
-								FOF_FILESONLY: ½öÊÊÓÃÓÚÎÄ¼ş(ÎÄ¼ş¼Ğ²»ÊÊÓÃ)
-								FOF_MULTIDESTFILES: pTo³ÉÔ±Ö¸¶¨¶à¸öÄ¿±êÎÄ¼ş(pFromÖĞµÄÃ¿¸öÔ´ÎÄ¼şÒ»¸ö), ¶ø²»ÊÇ´æ·ÅËùÓĞÔ´ÎÄ¼şµÄÒ»¸öÄ¿Â¼
-								FOF_NOCONFIRMATION: ¶ÔÓÚÏÔÊ¾µÄÈÎºÎ¶Ô»°¿ò, ÓÃYes to All»Ø¸´
-								FOF_NOCONFIRMMKDIR: Èç¹û²Ù×÷ĞèÒª´´½¨ĞÂÄ¿Â¼, ²»ĞèÒªÓÃ»§È·ÈÏ.
-								FOF_NO_CONNECTED_ELEMENTS: ²»ÒªÒ»´ÎĞÔÁ¬½Ó¶à¸öÎÄ¼ş, Ö»ÒÆ¶¯Ö¸¶¨ÎÄ¼ş¡¢
-								FOF_NOCOPYSECURITYATTRIBS: ²»¸´ÖÆÎÄ¼şµÄ°²È«ÊôĞÔ. Ä¿±êÎÄ¼ş½ÓÊÕÆäĞÂÎÄ¼ş¼ĞµÄ°²È«ÊôĞÔ.
-								FOF_NOERRORUI: Èç¹û·¢Éú´íÎó, ²»ÏÔÊ¾¶Ô»°¿ò.
-								FOF_NORECURSEREPARSE: ²»Ê¹ÓÃ.
-								FOF_NORECURSION: ½öÔÚµ±Ç°Ä¿Â¼ÖĞÖ´ĞĞ¸Ã²Ù×÷, ²»Òªµİ¹é×ÓÄ¿Â¼, ÕâÊÇÄ¬ÈÏĞĞÎª.
-								FOF_NO_UI: ¾²Ä¬·½Ê½Ö´ĞĞ²Ù×÷, ²»ÏÔÊ¾UI.  == FOF_SILENT | FOF_NOCONFIRMATION | FOF_NOERRORUI | FOF_NOCONFIRMMKDIR
-								FOF_RENAMEONCOLLISION: Èç¹ûÄ¿±êÒÑ´æÔÚ, ÇëÔÚÒÆ¶¯¡¢¸´ÖÆ»òÖØÃüÃû²Ù×÷ÖĞÖ¸¶¨Ò»¸ö.
-								FOF_SILENT: ²»ÏÔÊ¾½ø¶È¶Ô»°¿ò.
-								FOF_SIMPLEPROGRESS: ÏÔÊ¾½ø¶È¶Ô»°¿ò, µ«²»ÏÔÊ¾²Ù×÷Ê±µÄµ¥¸öÎÄ¼şÃû
-								FOF_WANTMAPPINGHANDLE: Èç¹ûÖ¸¶¨ÁËFOF_RENAMEONCOLLISION, ²¢ÖØÃüÃûÁËÈÎºÎÎÄ¼ş, Çë½«°üº¬Æä¾ÉÃû³ÆºÍĞÂÃû³ÆµÄÃû³ÆÓ³Éä¶ÔÏó´«µİ¸øhNameMappings³ÉÔ±. 
-										µ±²»ÔÙĞèÒª¸Ã¶ÔÏóÊ±£¬±ØĞëÊ¹ÓÃSHFreeNameMappingsÊÍ·Å¸Ã¶ÔÏó
-								FOF_WANTNUKEWARNING: Èç¹ûÎÄ¼şÔÚÉ¾³ı²Ù×÷ÆÚ¼ä±»ÓÀ¾ÃÏú»Ù, ¶ø·Ç±»»ØÊÕ, Çë·¢ËÍ¾¯¸æ. ´Ë±êÖ¾²¿·Ö¸²¸ÇFOF_NOCONFIRMATION
-	BOOL            fAnyOperationsAborted; µ±º¯Êı·µ»ØÊ±, Èç¹ûÈÎºÎÎÄ¼ş²Ù×÷ÔÚÍê³ÉÖ®Ç°±»ÖĞÖ¹, Ôò·µ»ØTRUE; ·ñÔò·µ»ØFALSE.
-										ÓÃ»§¿ÉÍ¨¹ıUIÊÖ¶¯ÖĞÖ¹²Ù×÷, Èç¹ûÉèÖÃÁËFOF_NOERRORUI»òFOF_NOCONFIRMATION±êÖ¾, ÔòÏµÍ³¿ÉÒÔ×Ô¶¯ÖĞÖ¹²Ù×÷
-	LPVOID          hNameMappings; µ±º¯Êı·µ»ØÊ±, ¸Ã³ÉÔ±ÎªÃû³ÆÓ³Éä¶ÔÏóµÄ¾ä±ú, ¸Ã¶ÔÏó°üº¬ÖØÃüÃûÎÄ¼şµÄĞÂ¾ÉÃû³Æ.
-										½öµ±fFlags³ÉÔ±°üº¬FOF_WANTMAPPINGHANDLE±êÖ¾Ê±, ²ÅÊ¹ÓÃ´Ë³ÉÔ±
-	PCSTR           lpszProgressTitle; Ö¸Ïò½ø¶È¶Ô»°¿ò±êÌâµÄÖ¸Õë. ÕâÊÇÒ»¸öÒÔnull½áÎ²µÄ×Ö·û´®. ½öµ±fFlags°üº¬FOF_SIMPLEPROGRESS±êÖ¾Ê±, ²ÅÊ¹ÓÃ´Ë³ÉÔ±
+	HWND            hwnd;	:å¯¹è¯æ¡†çš„çª—å£å¥æŸ„, ä»¥æ˜¾ç¤ºæœ‰å…³æ–‡ä»¶æ“ä½œçŠ¶æ€çš„ä¿¡æ¯
+	UINT            wFunc;	:æŒ‡ç¤ºè¦æ‰§è¡Œçš„æ“ä½œçš„å€¼.ä¸‹åˆ—å€¼ä¹‹ä¸€:
+								FO_COPY:å°†pFromæˆå‘˜ä¸­æŒ‡å®šçš„æ–‡ä»¶å¤åˆ¶åˆ°pToæˆå‘˜ä¸­æŒ‡å®šçš„ä½ç½®
+								FO_DELETE: åˆ é™¤pFromä¸­æŒ‡å®šçš„æ–‡ä»¶
+								FO_MOVE: å°†pFromä¸­æŒ‡å®šçš„æ–‡ä»¶ç§»åŠ¨åˆ°pToä¸­æŒ‡å®šçš„ä½ç½®
+								FO_RENAME: é‡å‘½åpFromä¸­æŒ‡å®šçš„æ–‡ä»¶. ä¸èƒ½ä½¿ç”¨æ­¤æ ‡å¿—é€šè¿‡å•ä¸ªå‡½æ•°è°ƒç”¨é‡å‘½åå¤šä¸ªæ–‡ä»¶. æ”¹ç”¨FOU_MOVE
+	PCZZSTR         pFrom;	:æŒ‡å‘ä¸€ä¸ªæˆ–å¤šä¸ªæºæ–‡ä»¶çš„æŒ‡é’ˆ, åç§°åº”æ˜¯å…¨è·¯å¾„, ä»¥é˜²æ„å¤–çš„ç»“æœ
+	PCZZSTR         pTo;	:æŒ‡å‘ç›®æ ‡æ–‡ä»¶æˆ–ç›®å½•åçš„æŒ‡é’ˆ. å¦‚æœªä½¿ç”¨æ­¤å‚æ•°, åˆ™é¡»å°†å…¶è®¾ç½®ä¸ºNULL. ä¸å…è®¸ä½¿ç”¨é€šé…ç¬¦.
+								å¤åˆ¶å’Œç§»åŠ¨æ“ä½œå¯ä»¥æŒ‡å®šä¸å­˜åœ¨çš„ç›®æ ‡ç›®å½•. åœ¨è¿™äº›æƒ…å†µä¸‹, ç³»ç»Ÿä¼šå°è¯•åˆ›å»ºå®ƒä»¬, é€šå¸¸ä¼šæ˜¾ç¤ºä¸€ä¸ªå¯¹è¯æ¡†, è¯¢é—®ç”¨æˆ·æ˜¯å¦è¦åˆ›å»ºæ–°ç›®å½•. è‹¥ä¸è¦å¯¹è¯æ¡†å¹¶ä»¥é™é»˜æ–¹å¼åˆ›å»ºç›®å½•, è¯·åœ¨fFlagsä¸­è®¾ç½®FOF_NOCONFIRMMKDIRæ ‡å¿—.
+								å¤åˆ¶å’Œç§»åŠ¨æ“ä½œ, å¦‚æœfFlagsæˆå‘˜æŒ‡å®šFOF_MULTIDESTFILES, åˆ™å¯ä»¥åŒ…å«å¤šä¸ªç›®æ ‡æ–‡ä»¶å.
+								ä½¿ç”¨å…¨è·¯å¾„, ä¸ç¦æ­¢ä½¿ç”¨ç›¸å¯¹è·¯å¾„, ä½†å¯èƒ½äº§ç”Ÿä¸å¯é¢„æµ‹çš„ç»“æœ.
+	FILEOP_FLAGS    fFlags;	:æ§åˆ¶æ–‡ä»¶æ“ä½œçš„æ ‡å¿—ã€‚æ­¤æˆå‘˜å¯ä»¥åŒæ—¶ä½¿ç”¨ä»¥ä¸‹æ ‡å¿—:
+								FOF_ALLOWUNDO: å¦‚æœå¯èƒ½, è¯·ä¿ç•™æ’¤æ¶ˆä¿¡æ¯. (å¦‚æœè·¯å¾„ä¸æ˜¯å…¨è·¯å¾„, åˆ™æ­¤é¡¹ä¼šè¢«å¿½ç•¥)
+								FOF_CONFIRMMOUSE: ä¸ä½¿ç”¨
+								FOF_FILESONLY: ä»…é€‚ç”¨äºæ–‡ä»¶(æ–‡ä»¶å¤¹ä¸é€‚ç”¨)
+								FOF_MULTIDESTFILES: pToæˆå‘˜æŒ‡å®šå¤šä¸ªç›®æ ‡æ–‡ä»¶(pFromä¸­çš„æ¯ä¸ªæºæ–‡ä»¶ä¸€ä¸ª), è€Œä¸æ˜¯å­˜æ”¾æ‰€æœ‰æºæ–‡ä»¶çš„ä¸€ä¸ªç›®å½•
+								FOF_NOCONFIRMATION: å¯¹äºæ˜¾ç¤ºçš„ä»»ä½•å¯¹è¯æ¡†, ç”¨Yes to Allå›å¤
+								FOF_NOCONFIRMMKDIR: å¦‚æœæ“ä½œéœ€è¦åˆ›å»ºæ–°ç›®å½•, ä¸éœ€è¦ç”¨æˆ·ç¡®è®¤.
+								FOF_NO_CONNECTED_ELEMENTS: ä¸è¦ä¸€æ¬¡æ€§è¿æ¥å¤šä¸ªæ–‡ä»¶, åªç§»åŠ¨æŒ‡å®šæ–‡ä»¶ã€
+								FOF_NOCOPYSECURITYATTRIBS: ä¸å¤åˆ¶æ–‡ä»¶çš„å®‰å…¨å±æ€§. ç›®æ ‡æ–‡ä»¶æ¥æ”¶å…¶æ–°æ–‡ä»¶å¤¹çš„å®‰å…¨å±æ€§.
+								FOF_NOERRORUI: å¦‚æœå‘ç”Ÿé”™è¯¯, ä¸æ˜¾ç¤ºå¯¹è¯æ¡†.
+								FOF_NORECURSEREPARSE: ä¸ä½¿ç”¨.
+								FOF_NORECURSION: ä»…åœ¨å½“å‰ç›®å½•ä¸­æ‰§è¡Œè¯¥æ“ä½œ, ä¸è¦é€’å½’å­ç›®å½•, è¿™æ˜¯é»˜è®¤è¡Œä¸º.
+								FOF_NO_UI: é™é»˜æ–¹å¼æ‰§è¡Œæ“ä½œ, ä¸æ˜¾ç¤ºUI.  == FOF_SILENT | FOF_NOCONFIRMATION | FOF_NOERRORUI | FOF_NOCONFIRMMKDIR
+								FOF_RENAMEONCOLLISION: å¦‚æœç›®æ ‡å·²å­˜åœ¨, è¯·åœ¨ç§»åŠ¨ã€å¤åˆ¶æˆ–é‡å‘½åæ“ä½œä¸­æŒ‡å®šä¸€ä¸ª.
+								FOF_SILENT: ä¸æ˜¾ç¤ºè¿›åº¦å¯¹è¯æ¡†.
+								FOF_SIMPLEPROGRESS: æ˜¾ç¤ºè¿›åº¦å¯¹è¯æ¡†, ä½†ä¸æ˜¾ç¤ºæ“ä½œæ—¶çš„å•ä¸ªæ–‡ä»¶å
+								FOF_WANTMAPPINGHANDLE: å¦‚æœæŒ‡å®šäº†FOF_RENAMEONCOLLISION, å¹¶é‡å‘½åäº†ä»»ä½•æ–‡ä»¶, è¯·å°†åŒ…å«å…¶æ—§åç§°å’Œæ–°åç§°çš„åç§°æ˜ å°„å¯¹è±¡ä¼ é€’ç»™hNameMappingsæˆå‘˜. 
+										å½“ä¸å†éœ€è¦è¯¥å¯¹è±¡æ—¶ï¼Œå¿…é¡»ä½¿ç”¨SHFreeNameMappingsé‡Šæ”¾è¯¥å¯¹è±¡
+								FOF_WANTNUKEWARNING: å¦‚æœæ–‡ä»¶åœ¨åˆ é™¤æ“ä½œæœŸé—´è¢«æ°¸ä¹…é”€æ¯, è€Œéè¢«å›æ”¶, è¯·å‘é€è­¦å‘Š. æ­¤æ ‡å¿—éƒ¨åˆ†è¦†ç›–FOF_NOCONFIRMATION
+	BOOL            fAnyOperationsAborted; å½“å‡½æ•°è¿”å›æ—¶, å¦‚æœä»»ä½•æ–‡ä»¶æ“ä½œåœ¨å®Œæˆä¹‹å‰è¢«ä¸­æ­¢, åˆ™è¿”å›TRUE; å¦åˆ™è¿”å›FALSE.
+										ç”¨æˆ·å¯é€šè¿‡UIæ‰‹åŠ¨ä¸­æ­¢æ“ä½œ, å¦‚æœè®¾ç½®äº†FOF_NOERRORUIæˆ–FOF_NOCONFIRMATIONæ ‡å¿—, åˆ™ç³»ç»Ÿå¯ä»¥è‡ªåŠ¨ä¸­æ­¢æ“ä½œ
+	LPVOID          hNameMappings; å½“å‡½æ•°è¿”å›æ—¶, è¯¥æˆå‘˜ä¸ºåç§°æ˜ å°„å¯¹è±¡çš„å¥æŸ„, è¯¥å¯¹è±¡åŒ…å«é‡å‘½åæ–‡ä»¶çš„æ–°æ—§åç§°.
+										ä»…å½“fFlagsæˆå‘˜åŒ…å«FOF_WANTMAPPINGHANDLEæ ‡å¿—æ—¶, æ‰ä½¿ç”¨æ­¤æˆå‘˜
+	PCSTR           lpszProgressTitle; æŒ‡å‘è¿›åº¦å¯¹è¯æ¡†æ ‡é¢˜çš„æŒ‡é’ˆ. è¿™æ˜¯ä¸€ä¸ªä»¥nullç»“å°¾çš„å­—ç¬¦ä¸². ä»…å½“fFlagsåŒ…å«FOF_SIMPLEPROGRESSæ ‡å¿—æ—¶, æ‰ä½¿ç”¨æ­¤æˆå‘˜
 } SHFILEOPSTRUCTA
 
-	×¢:±ØĞëÈ·±£Ô´Â·¾¶ºÍÄ¿±êÂ·¾¶ÒÔË«¿ÕÖÕÖ¹.
-		ÆÕÍ¨×Ö·û´®½öÒÔÒ»¸ö¿Õ×Ö·û½áÎ².
-		Èç¹ûÔÚpFrom»òpToÖĞ´«µİ¸ÃÖµ, º¯Êı½«ÎŞ·¨ÕÒµ½×Ö·û´®Ä©Î²,²¢½«¼ÌĞøÔÚÄÚ´æÖĞ¶ÁÈ¡,Ö±µ½Ëæ»úµÄË«¿ÕÖµ. Õâ»áµ¼ÖÂ»º³åÇøÒç³ö, ²¢¿ÉÄÜµ¼ÖÂ²»Ïà¹ØÊı¾İµÄÒâÍâÉ¾³ı.
+	æ³¨:å¿…é¡»ç¡®ä¿æºè·¯å¾„å’Œç›®æ ‡è·¯å¾„ä»¥åŒç©ºç»ˆæ­¢.
+		æ™®é€šå­—ç¬¦ä¸²ä»…ä»¥ä¸€ä¸ªç©ºå­—ç¬¦ç»“å°¾.
+		å¦‚æœåœ¨pFromæˆ–pToä¸­ä¼ é€’è¯¥å€¼, å‡½æ•°å°†æ— æ³•æ‰¾åˆ°å­—ç¬¦ä¸²æœ«å°¾,å¹¶å°†ç»§ç»­åœ¨å†…å­˜ä¸­è¯»å–,ç›´åˆ°éšæœºçš„åŒç©ºå€¼. è¿™ä¼šå¯¼è‡´ç¼“å†²åŒºæº¢å‡º, å¹¶å¯èƒ½å¯¼è‡´ä¸ç›¸å…³æ•°æ®çš„æ„å¤–åˆ é™¤.
 	*/
 	SHFILEOPSTRUCTA opRecycle;
 	ZeroMemory(&opRecycle, sizeof(opRecycle));
@@ -253,12 +253,12 @@ long TFile::EmptyRecycleBin(const QString &strPath /*= QString()*/)
 #ifdef WIN32
 	QString strTempPath = QDir::toNativeSeparators(strPath);
 	/*
-	hwnd: ¸¸´°¿Ú¾ä±ú
-	pszRootPath: Çı¶¯Æ÷¡¢ÎÄ¼ş¼ĞºÍ×ÓÎÄ¼ş¼ĞÃû³Æ, ÀıÈçc:\\windows\\system. Èç¹ûÎªNULL£¬ÔòËùÓĞÇı¶¯Æ÷ÉÏµÄËùÓĞ»ØÊÕÕ¾¶¼½«Çå¿Õ
+	hwnd: çˆ¶çª—å£å¥æŸ„
+	pszRootPath: é©±åŠ¨å™¨ã€æ–‡ä»¶å¤¹å’Œå­æ–‡ä»¶å¤¹åç§°, ä¾‹å¦‚c:\\windows\\system. å¦‚æœä¸ºNULLï¼Œåˆ™æ‰€æœ‰é©±åŠ¨å™¨ä¸Šçš„æ‰€æœ‰å›æ”¶ç«™éƒ½å°†æ¸…ç©º
 	dwFlags: 
-		SHERB_NOCONFIRMATION: ²»ÏÔÊ¾È·ÈÏÉ¾³ı¶ÔÏóµÄ¶Ô»°¿ò
-		SHERB_NOPROGRESSUI: ²»ÏÔÊ¾½ø¶È¶Ô»°¿ò
-		SHERB_NOSOUND:	²Ù×÷Íê³Éºó½«²»²¥·ÅÉùÒô
+		SHERB_NOCONFIRMATION: ä¸æ˜¾ç¤ºç¡®è®¤åˆ é™¤å¯¹è±¡çš„å¯¹è¯æ¡†
+		SHERB_NOPROGRESSUI: ä¸æ˜¾ç¤ºè¿›åº¦å¯¹è¯æ¡†
+		SHERB_NOSOUND:	æ“ä½œå®Œæˆåå°†ä¸æ’­æ”¾å£°éŸ³
 	*/
 	HRESULT ret = SHEmptyRecycleBinA(NULL, strTempPath.toLocal8Bit().data(), SHERB_NOCONFIRMATION | SHERB_NOPROGRESSUI | SHERB_NOSOUND);
 	if (ret == S_OK)
@@ -295,7 +295,7 @@ bool TFile::MoveFile(const QString &strFrom, const QString &strTo, bool replace 
 					return false;
 			}
 		}
-		//ÎÄ¼ş¼ĞÔòÄ¬ÈÏÄ¿±êÎÄ¼ş¼ĞÃû³Æ¼´ÊÇÄ¿±êÃû³Æ
+		//æ–‡ä»¶å¤¹åˆ™é»˜è®¤ç›®æ ‡æ–‡ä»¶å¤¹åç§°å³æ˜¯ç›®æ ‡åç§°
 	}
 	
 	CHAR FromBuf[MAX_PATH];
@@ -309,8 +309,8 @@ bool TFile::MoveFile(const QString &strFrom, const QString &strTo, bool replace 
 	ZeroMemory(&opMove, sizeof(opMove));
 	opMove.hwnd = NULL;
 	opMove.wFunc = FO_MOVE;
-	opMove.pFrom = FromBuf;    // ÎÄ¼şÃûÇëÒÔ\0\0½áÎ²
-	opMove.pTo = ToBuf;        // ÎÄ¼şÃûÇëÒÔ\0\0½áÎ²
+	opMove.pFrom = FromBuf;    // æ–‡ä»¶åè¯·ä»¥\0\0ç»“å°¾
+	opMove.pTo = ToBuf;        // æ–‡ä»¶åè¯·ä»¥\0\0ç»“å°¾
 	opMove.fFlags = FOF_NOCONFIRMATION | FOF_SILENT | FOF_NOCONFIRMMKDIR;
 	opMove.hNameMappings = NULL;
 	opMove.lpszProgressTitle = NULL;
@@ -326,22 +326,25 @@ bool TFile::Compress(const QString& strTargetPath,
 {
 	if (lstSourcePath.isEmpty())
 		return false;
-	bool isExists = TListFind::Find(lstSourcePath, [](const QString strSourceFile)->bool {
-		return QFile::exists(strSourceFile);});
+	bool isExists(false);
+#ifdef _TFIND_H_//TAlgorithm.h
+	isExists = TListFind::Find(lstSourcePath, [](const QString strSourceFile)->bool {
+		return QFile::exists(strSourceFile); });
+#endif // _TFIND_H_
 	if (!isExists)
 		return false;
 
 	QString strTarget = strTargetPath;
 	QFileInfo targetFileInfo(strTarget);
 
-	if (!QFile::exists(strTarget))//Ä¿±ê²»´æÔÚ
+	if (!QFile::exists(strTarget))//ç›®æ ‡ä¸å­˜åœ¨
 	{
-		if (targetFileInfo.suffix().isNull())//ÇÒÄ¿±êºó×ºÃûÎª¿Õ, ÔòÈÏ¶¨Ä¿±êÊÇÎÄ¼ş¼Ğ
+		if (targetFileInfo.suffix().isNull())//ä¸”ç›®æ ‡åç¼€åä¸ºç©º, åˆ™è®¤å®šç›®æ ‡æ˜¯æ–‡ä»¶å¤¹
 		{
 			if (!QDir().mkpath(strTarget))
 				return false;
 		}
-		else//ÈÏ¶¨Ä¿±êÊÇÎÄ¼ş
+		else//è®¤å®šç›®æ ‡æ˜¯æ–‡ä»¶
 		{
 			if (!QFile::exists(targetFileInfo.absolutePath()) &&
 				!QDir().mkpath(targetFileInfo.absoluteFilePath()))
@@ -352,7 +355,7 @@ bool TFile::Compress(const QString& strTargetPath,
 	targetFileInfo.setFile(strTarget);
 	if (QFile::exists(strTarget))
 	{
-		if (targetFileInfo.isDir())//Ä¿±êÂ·¾¶ÊÇÎÄ¼ş¼Ğ
+		if (targetFileInfo.isDir())//ç›®æ ‡è·¯å¾„æ˜¯æ–‡ä»¶å¤¹
 		{
 			QFileInfo firstSourceFileInfo(lstSourcePath.first());
 			if (!strTarget.endsWith(QDir::separator()))
@@ -361,7 +364,7 @@ bool TFile::Compress(const QString& strTargetPath,
 				strTarget += firstSourceFileInfo.baseName() + ".zip";
 			else
 				strTarget += firstSourceFileInfo.absoluteDir().dirName() + ".zip";
-			if (QFile::exists(strTarget))//²é¿´ÎÄ¼şÊÇ·ñ´æÔÚ
+			if (QFile::exists(strTarget))//æŸ¥çœ‹æ–‡ä»¶æ˜¯å¦å­˜åœ¨
 			{
 				if (replace)
 					QFile::remove(strTarget);
