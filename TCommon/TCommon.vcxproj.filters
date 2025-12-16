@@ -214,6 +214,9 @@
     <ClInclude Include="Extend\Generic\TGenericInvoker.h">
       <Filter>Header Files\Extend\泛型</Filter>
     </ClInclude>
+    <ClInclude Include="Extend\Generic\TFastRPC.h">
+      <Filter>Header Files\Extend\泛型</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="Memo.txt" />

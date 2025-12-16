@@ -1,10 +1,12 @@
 ﻿#include "TestApp.h"
 #include "CGlobalMessage.h"
 #include "TGenericInvoker.h"
+#include "TFastRPC.h"
 
-int Add(int a, int b)
+int &Add(int &a, int &b)
 {
-    return a + b;
+    b++;
+    return b;
 }
 
 TestApp::TestApp(QWidget *parent)
@@ -24,6 +26,9 @@ TestApp::TestApp(QWidget *parent)
     //TGenericInvoker::GetKernel()->Register("newTestApp", &TestApp::newTestApp);
     //TGenericInvoker::GetKernel()->RegisterExact("Add", &Add);
     //TGenericInvoker::GetKernel()->RegisterExact("newTestApp", &TestApp::newTestApp);
+    TFastRPC::Instance().Register<&Add>("Add");
+    TFastRPC::Instance().Register<&TestApp::refTestApp>("refTestApp");
+    TFastRPC::Instance().Register<&TestApp::newTestApp>("newTestApp");
 }
 
 TestApp::~TestApp()
@@ -34,7 +39,8 @@ TestApp::~TestApp()
 void TestApp::on_pushButton_clicked()
 {
 	//CGlobalMessage::GetKernel()->notify("TestMessage");
-	//std::any result = TGenericInvoker::GetKernel()->Invoke("Add", 3, 5);
+    int b = 5;
+	//std::any result = TGenericInvoker::GetKernel()->Invoke("Add", 3, b);
     //TGenericInvoker::GetKernel()->InvokeAny(this, this);
     //TGenericInvoker::GetKernel()->InvokeAny(3, 5);
     //TGenericInvoker::GetKernel()->InvokeAny();
@@ -44,7 +50,9 @@ void TestApp::on_pushButton_clicked()
     //TGenericInvoker::GetKernel()->Invoke("newTestApp", this, this);
     //TGenericInvoker::GetKernel()->InvokeExact<int, void>("Add", 3,5);
     //TGenericInvoker::GetKernel()->InvokeExact<TestApp*, TestApp>("newTestApp", this, this);
-    
+    TFastRPC::Instance().Invoke<int&>("Add", b, b);
+    TestApp& app_ref = TFastRPC::Instance().Invoke<TestApp&>("refTestApp", this, *this);
+    TestApp* app_ptr = TFastRPC::Instance().Invoke<TestApp*>("newTestApp", this, this);
 }
 
 void TestApp::on_pushButton2_clicked()

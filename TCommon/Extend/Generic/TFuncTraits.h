@@ -52,7 +52,11 @@ struct SignatureInfo {
 
 // 定义基础模板（未定义实现，强制匹配失败）
 template <typename T>
-struct FuncTraits;
+struct FuncTraits
+{
+	using return_type = void;
+    return_type* ret = nullptr;
+};
 
 // 针对【普通函数指针】进行偏特化匹配
 // R 是返回值，Args... 是参数包
@@ -82,6 +86,7 @@ struct FuncTraits<R(*)(Args...)> {
             std::type_index(typeid(void*))
         };
     }
+    return_type* ret = nullptr;
 };
 
 // ======================= 针对【非 const 成员 函数指针】进行偏特化匹配 Taoyuyu 20251204补充=======================
@@ -110,6 +115,7 @@ struct FuncTraits<R(C::*)(Args...)>
             std::type_index(typeid(C*))
         };
     }
+    return_type* ret = nullptr;
 };
 
 // ======================= 针对【const 成员函数指针】进行偏特化匹配 Taoyuyu 20251204补充=======================
@@ -134,4 +140,113 @@ struct FuncTraits<R(C::*)(Args...) const> {
             std::type_index(typeid(C*))
         };
     }
+    return_type* ret = nullptr;
 };
+
+
+#pragma region next
+
+// --- 1. 基础模板：处理普通值类型 T (如 int, MyType) ---
+template <typename R>
+struct ReturnWrapper {
+    // 存储类型：存储 R 的值拷贝
+    using storage_type = R;
+
+    // 包装函数：将原始返回值 r 复制到 storage_type 中
+    static storage_type wrap(R r) {
+        // 
+        return r; // 执行值拷贝
+    }
+};
+
+// --- 2. 偏特化：处理引用类型 T& (如 int&, const MyType&) ---
+template <typename R>
+struct ReturnWrapper<R&> {
+    // 存储类型：使用 std::reference_wrapper<R> 保持引用语义
+    using storage_type = std::reference_wrapper<R>;
+
+    // 包装函数：将引用 r 包装起来
+    static storage_type wrap(R& r) {
+        // 
+        return std::ref(r); // 返回 std::reference_wrapper 对象
+    }
+};
+
+// --- 3. 偏特化：处理右值引用类型 T&& (如 int&&) ---
+template <typename R>
+struct ReturnWrapper<R&&> {
+    // 通常右值引用返回用于移动语义，但为了统一，我们在此也存储引用包装器
+    // 另一种选择是使用 std::decay_t<R> 并直接移动语义，但在此选择存储引用包装器
+    using storage_type = std::reference_wrapper<R>;
+
+    static storage_type wrap(R&& r) {
+        // 对于右值引用，通常我们不希望长期持有，但如果必须，std::ref 也能工作
+        return std::ref(r);
+    }
+};
+
+// --- 4. 偏特化：处理指针类型 T* (如 int*, MyType*) ---
+template <typename R>
+struct ReturnWrapper<R*> {
+    // 存储类型：直接存储原始指针 R*
+    using storage_type = R*;
+
+    // 包装函数：直接返回指针 p
+    static storage_type wrap(R* p) {
+        return p;
+    }
+};
+
+template <typename T>
+struct TFuncTraits;
+
+// 针对【普通函数指针】进行偏特化匹配
+// R 是返回值，Args... 是参数包
+template <typename R, typename... Args>
+struct TFuncTraits<R(*)(Args...)> {
+    using class_type = void;
+    // 获取参数个数
+    static constexpr size_t nArgs = sizeof...(Args);
+    // 获取返回值类型
+    using return_type = R;
+    // 将参数类型存入 std::tuple 以便后续提取
+    using args_tuple = std::tuple<Args...>;
+    // 辅助工具：获取第 N 个参数的类型
+    template <size_t N>
+    using arg_type = std::tuple_element_t<N, args_tuple>;
+};
+
+// ======================= 针对【非 const 成员 函数指针】进行偏特化匹配 Taoyuyu 20251204补充=======================
+// T 为 R(C::*)(Args...)，其中 C 是类名
+template <typename C, typename R, typename... Args>
+struct TFuncTraits<R(C::*)(Args...)>
+{
+    // 成员函数需要知道所属的类类型
+    using class_type = C;
+    // 获取参数个数
+    static constexpr size_t nArgs = sizeof...(Args);
+    // 获取返回值类型
+    using return_type = R;
+    // 将参数类型存入 std::tuple
+    using args_tuple = std::tuple<Args...>;
+
+    template <size_t N>
+    using arg_type = std::tuple_element_t<N, args_tuple>;
+};
+
+// ======================= 针对【const 成员函数指针】进行偏特化匹配 Taoyuyu 20251204补充=======================
+// T 为 R(C::*)(Args...) const
+template <typename C, typename R, typename... Args>
+struct TFuncTraits<R(C::*)(Args...) const> {
+    using class_type = C;
+    // 获取参数个数
+    static constexpr size_t nArgs = sizeof...(Args);
+    // 获取返回值类型
+    using return_type = R;
+    // 将参数类型存入 std::tuple
+    using args_tuple = std::tuple<Args...>;
+
+    template <size_t N>
+    using arg_type = std::tuple_element_t<N, args_tuple>;
+};
+#pragma endregion

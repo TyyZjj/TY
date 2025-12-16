@@ -69,6 +69,7 @@
     <ClInclude Include="Extend\DesignPattern\TThreadSafeQueueCache.h" />
     <ClInclude Include="Extend\Excel\cexcelbase.h" />
     <QtMoc Include="Extend\HotKey\TGlobalHotKey.h" />
+    <ClInclude Include="Extend\Generic\TFastRPC.h" />
     <ClInclude Include="Extend\Generic\TFuncTraits.h" />
     <ClInclude Include="Extend\Generic\TGenericInvoker.h" />
     <ClInclude Include="Extend\Login\CLogin.h" />

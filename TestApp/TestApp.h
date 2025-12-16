@@ -14,7 +14,14 @@ class TestApp : public QMainWindow
 public:
     TestApp(QWidget *parent = nullptr);
     ~TestApp();
-    TestApp* newTestApp(TestApp* p) { return p; };
+    TestApp* newTestApp(TestApp* p) 
+    { 
+        return p; 
+    };
+    TestApp& refTestApp(TestApp &app) 
+    { 
+        return app; 
+    };
     static int GetTestIndex() { return 1; }
 
 public Q_SLOTS:
