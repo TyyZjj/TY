@@ -18,6 +18,7 @@
 * 一个简易的RPC调用器, 能够自动根据函数签名进行调用
 * 适用于低频、粗粒度的控制逻辑
 * 不适用需要返回入参值的情况
+* FBI WARNING: 该实现不支持引用参数或者返回引用
 */
 
 #ifdef DEBUG_MODE
@@ -584,14 +585,14 @@ private:
 	bool isSignatureMatch(const SignatureInfo& info, const std::vector<std::any>& args) const
 	{
 		//判定info.class_type是否为void
-		if (info.class_type == typeid(void))
+		if (info.class_type_info.type == typeid(void))
 		{
-			if (info.param_types.size() != args.size())
+			if (info.param_types_info.size() != args.size())
 				return false;
 			for (size_t i = 0; i < args.size(); ++i)
 			{
 				// 注意：args[i].type() 返回的是实际持有值的类型
-				if (args[i].type() != info.param_types[i])
+				if (args[i].type() != info.param_types_info[i].type)
 				{
 					return false;
 				}
@@ -599,15 +600,15 @@ private:
 		}
 		else
 		{
-			if (info.param_types.size() + 1 != args.size())
+			if (info.param_types_info.size() + 1 != args.size())
 				return false;
 			// 检查第一个参数是否为类类型 一个是类型对应的type_index, 一个是类型指针对应的type_index
-			if (args[0].type() != info.class_type_pointer)
+			if (args[0].type() != info.class_type_pointer_info.type)
 				return false;
-			for (size_t i = 0; i < info.param_types.size(); ++i)
+			for (size_t i = 0; i < info.param_types_info.size(); ++i)
 			{
 				// 注意：args[i].type() 返回的是实际持有值的类型
-				if (args[i + 1].type() != info.param_types[i])
+				if (args[i + 1].type() != info.param_types_info[i].type)
 				{
 					return false;
 				}
@@ -622,10 +623,10 @@ private:
 		const std::vector<std::any>& args) const
 	{
 		// 1. 检查返回值类型
-		if (info.return_type != reqRet)
+		if (info.return_type_info.type != reqRet)
 			return false;
 		// 2. 检查所属类类型
-		if (info.class_type != reqClass)
+		if (info.class_type_info.type != reqClass)
 			return false;
 		// 3. 检查参数
 		return isSignatureMatch(info, args);

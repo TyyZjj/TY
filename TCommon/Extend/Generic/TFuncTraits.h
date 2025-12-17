@@ -11,6 +11,195 @@
 // 针对普通函数指针和成员函数指针进行提取函数的签名信息, 包括返回值类型和参数类型列表
 // ==========================================================
 
+enum class nRefType {
+    Value = 0,  // T
+    LValueRef,  // T&
+    RValueRef   // T&&
+};
+
+struct TypeInfo {
+    std::type_index type = typeid(void);
+    nRefType ref_category = nRefType::Value;
+    bool is_const = false;
+
+    // 辅助对比
+    bool operator==(const TypeInfo& other) const {
+        return type == other.type && ref_category == other.ref_category && is_const == other.is_const;
+    }
+};
+
+template <typename T>
+struct TypeExtractor {
+    static TypeInfo get() {
+        TypeInfo info;
+        // 1. 提取基础类型（去掉引用和 const）
+        using BaseType = std::remove_cv_t<std::remove_reference_t<T>>;
+        info.type = typeid(BaseType);
+
+        // 2. 识别引用类型
+        if (std::is_lvalue_reference_v<T>) {
+            info.ref_category = nRefType::LValueRef;
+        }
+        else if (std::is_rvalue_reference_v<T>) {
+            info.ref_category = nRefType::RValueRef;
+        }
+        else {
+            info.ref_category = nRefType::Value;
+        }
+
+        // 3. 识别是否为 const (注意：需要针对引用和非引用分别判断)
+        // 对于引用类型，我们需要看它指向的类型是否为 const
+        using NonRefT = std::remove_reference_t<T>;
+        if (std::is_const_v<NonRefT>) {
+            info.is_const = true;
+        }
+
+        return info;
+    }
+};
+
+
+// 用于存储函数签名信息的结构体 todo Taoyuyu 是否要添加所处的类型, 以便于区分普通函数和成员函数???
+struct SignatureInfo {
+    //std::type_index class_type = typeid(void);// 所属类类型, 普通函数为 void 20251204 Taoyuyu
+    //std::type_index return_type = typeid(void);
+    //std::vector<std::type_index> param_types;
+    //std::type_index class_type_pointer = typeid(void*);
+
+	TypeInfo class_type_info;
+    TypeInfo return_type_info;
+    std::vector<TypeInfo> param_types_info;
+    TypeInfo class_type_pointer_info;
+
+    // 为了方便，定义一个简单的比较运算符
+    bool operator==(const SignatureInfo& other) const
+    {
+        //return class_type == other.class_type &&
+        //    return_type == other.return_type &&
+        //    param_types == other.param_types;
+        return class_type_info == other.class_type_info &&
+            return_type_info == other.return_type_info &&
+			param_types_info == other.param_types_info;
+    }
+
+    bool operator!=(const SignatureInfo& other) const
+    {
+        //return class_type != other.class_type ||
+        //    return_type != other.return_type ||
+        //    param_types != other.param_types;
+		return class_type_info != other.class_type_info ||
+			return_type_info != other.return_type_info ||
+			param_types_info != other.param_types_info;
+    }
+
+    // 用于比较两个 SignatureInfo 是否相等，不考虑所属类类型 r:return_type p:param_types
+    bool rpEquals(const SignatureInfo& other) const
+    {
+        //return return_type == other.return_type &&
+        //    param_types == other.param_types;
+        return return_type_info == other.return_type_info &&
+			param_types_info == other.param_types_info;
+    }
+
+    // 辅助调试打印
+    std::string toString() const {
+        std::string s = "Class: " + std::string(class_type_info.type.name()) +
+            " | Ret: " + std::string(return_type_info.type.name()) + " | Args: [";
+        for (auto& t : param_types_info) s += std::string(t.type.name()) + " ";
+        s += "]";
+        return s;
+    }
+};
+
+// 基础模板
+template <typename T>
+struct FuncTraits {
+    using return_type = void;
+};
+
+// =========================================================
+// 宏定义：用于快速生成 普通函数 / noexcept / 成员函数 的特化
+// =========================================================
+
+// 1. 普通函数指针 & 静态成员函数
+#define SPECIALIZE_FREE_FUNC(IS_NOEXCEPT) \
+template <typename R, typename... Args> \
+struct FuncTraits<R(*)(Args...) IS_NOEXCEPT> { \
+    using class_type = void; \
+    static constexpr size_t nArgs = sizeof...(Args); \
+    using return_type = R; \
+    using args_tuple = std::tuple<Args...>;\
+	template <size_t N>\
+    using arg_type = std::tuple_element_t<N, args_tuple>;\
+    static SignatureInfo get_signature_info() { \
+        return SignatureInfo{ \
+            /*std::type_index(typeid(void)),*/ \
+            /*std::type_index(typeid(R)),*/ \
+            /*{ std::type_index(typeid(std::decay_t<Args>))... },*/ \
+            /*std::type_index(typeid(void*)),*/ \
+            TypeExtractor<void>::get(),\
+			TypeExtractor<R>::get(),\
+			{ TypeExtractor<Args>::get()... },\
+			TypeExtractor<void*>::get() \
+        }; \
+    } \
+};
+
+// 2. 成员函数指针 (Const / Non-Const)
+#define SPECIALIZE_MEM_FUNC(CV_QUALIFIER, IS_NOEXCEPT) \
+template <typename C, typename R, typename... Args> \
+struct FuncTraits<R(C::*)(Args...) CV_QUALIFIER IS_NOEXCEPT> { \
+    using class_type = C; \
+    static constexpr size_t nArgs = sizeof...(Args); \
+    using return_type = R; \
+    using args_tuple = std::tuple<Args...>;\
+    template <size_t N>\
+    using arg_type = std::tuple_element_t<N, args_tuple>;\
+    static SignatureInfo get_signature_info() { \
+        return SignatureInfo{ \
+            /*std::type_index(typeid(C)),*/ \
+            /*std::type_index(typeid(R)),*/ \
+            /*{ std::type_index(typeid(std::decay_t<Args>))... },*/ \
+            /*std::type_index(typeid(C*)),*/ \
+			TypeExtractor<C>::get(),\
+			TypeExtractor<R>::get(),\
+			{ TypeExtractor<Args>::get()... },\
+			TypeExtractor<C*>::get() \
+        }; \
+    } \
+};
+
+// C++17 noexcept 支持
+#if __cplusplus >= 201703L
+#define NOEXCEPT_SPEC noexcept
+#else
+#define NOEXCEPT_SPEC
+#endif
+
+// 1. 普通函数 / 静态成员函数
+SPECIALIZE_FREE_FUNC()              // R(*)(Args...)
+#if __cplusplus >= 201703L
+SPECIALIZE_FREE_FUNC(noexcept)       // R(*)(Args...) noexcept
+#endif
+
+// 2. 成员函数 (非 const)
+SPECIALIZE_MEM_FUNC(, )             // R(C::*)(Args...)
+#if __cplusplus >= 201703L
+SPECIALIZE_MEM_FUNC(, noexcept)     // R(C::*)(Args...) noexcept
+#endif
+
+// 3. 成员函数 (const)
+SPECIALIZE_MEM_FUNC(const, )         // R(C::*)(Args...) const
+#if __cplusplus >= 201703L
+SPECIALIZE_MEM_FUNC(const, noexcept) // R(C::*)(Args...) const noexcept
+#endif
+
+// 清理宏
+#undef SPECIALIZE_FREE_FUNC
+#undef SPECIALIZE_MEM_FUNC
+#undef NOEXCEPT_SPEC
+
+#if 0 //20251217之前的版本
 // 用于存储函数签名信息的结构体 todo Taoyuyu 是否要添加所处的类型, 以便于区分普通函数和成员函数???
 struct SignatureInfo {
 	std::type_index class_type = typeid(void);// 所属类类型, 普通函数为 void 20251204 Taoyuyu
@@ -142,7 +331,7 @@ struct FuncTraits<R(C::*)(Args...) const> {
     }
     return_type* ret = nullptr;
 };
-
+#endif
 
 #pragma region next
 

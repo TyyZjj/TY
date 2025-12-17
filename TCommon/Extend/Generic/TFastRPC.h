@@ -9,6 +9,7 @@
 #include <unordered_map>
 #include <type_traits>
 #include <utility> // for std::forward, std::addressof
+#include "TFuncTraits.h"
 
 // ==========================================
 // 1. 编译期字符串哈希 (FNV-1a 算法)
@@ -40,6 +41,7 @@ public:
     struct ThunkInfo {
         std::string name;
         ThunkFunc thunk;
+        SignatureInfo signature;
     };
 
     static TFastRPC& Instance() {
