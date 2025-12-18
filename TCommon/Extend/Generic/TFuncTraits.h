@@ -11,6 +11,15 @@
 // 针对普通函数指针和成员函数指针进行提取函数的签名信息, 包括返回值类型和参数类型列表
 // ==========================================================
 
+#pragma region 函数签名
+// 哈希组合函数：参考 Boost 实现
+template <class T>
+inline void hash_combine(std::size_t& seed, const T& v) {
+    std::hash<T> hasher;
+    // 0x9e3779b9 是黄金分割比，防止哈希碰撞聚集
+    seed ^= hasher(v) + 0x9e3779b9 + (seed << 6) + (seed >> 2);
+}
+
 enum class nRefType {
     Value = 0,  // T
     LValueRef,  // T&
@@ -25,6 +34,17 @@ struct TypeInfo {
     // 辅助对比
     bool operator==(const TypeInfo& other) const {
         return type == other.type && ref_category == other.ref_category && is_const == other.is_const;
+    }
+};
+
+// 针对 TypeInfo 的哈希器
+struct TypeInfoHasher {
+    std::size_t operator()(const TypeInfo& info) const {
+        std::size_t seed = 0;
+        hash_combine(seed, info.type);
+        hash_combine(seed, static_cast<int>(info.ref_category));
+        hash_combine(seed, info.is_const);
+        return seed;
     }
 };
 
@@ -110,6 +130,111 @@ struct SignatureInfo {
         return s;
     }
 };
+
+struct SignatureHasher {
+    std::size_t operator()(const SignatureInfo& info) const {
+        std::size_t seed = 0;
+        TypeInfoHasher typeHasher;
+
+        // 1. 哈希所属类
+        hash_combine(seed, typeHasher(info.class_type_info));
+
+        // 2. 哈希返回值
+        hash_combine(seed, typeHasher(info.return_type_info));
+
+        // 3. 哈希参数列表 (Order Matters!)
+        for (const auto& param : info.param_types_info) {
+            hash_combine(seed, typeHasher(param));
+        }
+
+        return seed;
+    }
+};
+
+namespace std {
+    template <>
+    struct hash<SignatureInfo> {
+        size_t operator()(const SignatureInfo& info) const {
+            SignatureHasher hasher;
+            return hasher(info);
+        }
+    };
+}
+
+
+// ============================================================
+// 签名匹配器
+// ============================================================
+class SignatureMatcher {
+public:
+    template <typename R, typename... Args>
+    static bool Match(const SignatureInfo& info) {
+        // 1. 检查返回值类型 (如果 InvokeOverload 指定了 R 且不是 void)
+        if constexpr (!std::is_void_v<R>) {
+            TypeInfo current_ret = TypeExtractor<R>::get();
+            if (current_ret != info.return_type_info) {
+                return false; // 返回值类型不匹配
+            }
+        }
+
+        // 2. 准备实参的类型列表
+        std::vector<TypeInfo> args_info = { TypeExtractor<Args>::get()... };
+
+        // 3. 判断 info 是否指向成员函数
+        bool is_target_member_func = (info.class_type_info.type != typeid(void));
+
+        if (is_target_member_func) {
+            // === 情况 A: 目标是成员函数 ===
+            // 要求：
+            // 1. Args 总数 = 参数表长度 + 1 (因为 Args[0] 是对象指针)
+            // 2. Args[0] 必须是指向 class_type 的指针
+            // 3. Args[1...] 必须与 param_types 匹配
+
+            if (args_info.size() != info.param_types_info.size() + 1) {
+                return false; // 参数数量不对
+            }
+
+            // 检查 Args[0] 是否为合法的对象指针
+            // 注意：args_info[0].type 应该是 ClassType*，而 info.class_type_info.type 是 ClassType
+            // 这里我们需要比较 typeid(Args[0]) 是否等于 info.class_type_pointer_info (结构体里存了这个)
+            // 或者比较 remove_pointer 后是否一致。
+
+            // 假设 SignatureInfo 中有 class_type_pointer (typeid(C*))
+            if (args_info[0].type != info.class_type_pointer_info.type) {
+                // 严格匹配：实参必须是精确的类指针。
+                // 如果需要支持派生类指针调用基类函数，这里需要改为 dynamic_cast 逻辑或 is_base_of 逻辑，
+                // 但 typeid 只能做精确匹配。
+                return false;
+            }
+
+            // 检查剩余参数
+            for (size_t i = 0; i < info.param_types_info.size(); ++i) {
+                // args_info 从索引 1 开始，info.param_types_info 从索引 0 开始
+                if (args_info[i + 1] != info.param_types_info[i]) {
+                    return false;
+                }
+            }
+
+        }
+        else {
+            // === 情况 B: 目标是普通函数 / 静态函数 ===
+            // 要求：Args 总数 = 参数表长度，且一一对应
+
+            if (args_info.size() != info.param_types_info.size()) {
+                return false;
+            }
+
+            for (size_t i = 0; i < info.param_types_info.size(); ++i) {
+                if (args_info[i] != info.param_types_info[i]) {
+                    return false;
+                }
+            }
+        }
+
+        return true;
+    }
+};
+#pragma endregion
 
 // 基础模板
 template <typename T>
@@ -199,7 +324,9 @@ SPECIALIZE_MEM_FUNC(const, noexcept) // R(C::*)(Args...) const noexcept
 #undef SPECIALIZE_MEM_FUNC
 #undef NOEXCEPT_SPEC
 
-#if 0 //20251217之前的版本
+//以下是20251218之前的代码
+
+#if 0 
 // 用于存储函数签名信息的结构体 todo Taoyuyu 是否要添加所处的类型, 以便于区分普通函数和成员函数???
 struct SignatureInfo {
 	std::type_index class_type = typeid(void);// 所属类类型, 普通函数为 void 20251204 Taoyuyu
@@ -333,7 +460,7 @@ struct FuncTraits<R(C::*)(Args...) const> {
 };
 #endif
 
-#pragma region next
+#pragma region 返回值偏特化
 
 // --- 1. 基础模板：处理普通值类型 T (如 int, MyType) ---
 template <typename R>
