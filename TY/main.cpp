@@ -268,7 +268,7 @@ typedef void(*SetThreadContextFunPoint)();
 //};	
 
 
-#include "E:\Code\Github\TY\TCommon\TGenericInvoker.h"
+#include "TGenericInvoker.h"
 
 
 int Add(int a, int b) {
